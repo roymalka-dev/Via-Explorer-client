@@ -13,7 +13,7 @@
       "home": {
         "sections": {
           "favourites": "Favoritos",
-          "recentlyViewed": "Vistos Recientemente"
+          "recentlyViewed": "Vistos recientemente"
         }
       },
       "apps": {
@@ -28,17 +28,17 @@
           "buttons": {
             "ios": "App Store",
             "android": "Play Store",
-            "share": "compartir",
-            "addFavourites": "Añadir a Favoritos",
-            "removeFavourites": "Eliminar de Favoritos"
+            "share": "Compartir",
+            "addFavourites": "Agregar a favoritos",
+            "removeFavourites": "Eliminar de favoritos"
           },
           "screenshots": {
-            "title": "Screenshots",
-            "ios": "iOS Screenshots",
-            "android": "Android Screenshots"
+            "title": "Capturas de pantalla",
+            "ios": "Capturas de pantalla de iOS",
+            "android": "Capturas de pantalla de Android"
           },
           "buildManager": {
-            "title": "Build Manager"
+            "title": "Administrador de compilación"
           }
         }
       },
@@ -54,7 +54,7 @@
                 "name": "Nombre",
                 "id": "ID",
                 "status": "Estado",
-                "launchDate": "Fecha de Lanzamiento"
+                "launchDate": "Fecha de lanzamiento"
               }
             }
           }
@@ -70,13 +70,19 @@
         "requests": "Solicitudes",
         "users": "Usuarios",
         "configurations": "Configuraciones",
-        "returnToSite": "Volver al Sitio"
+        "returnToSite": "Volver al sitio"
       }
     },
     "pages": {
       "dashboard": {
         "sections": {
-          "title": "Tablero"
+          "title": "Tablero",
+          "kanban": {
+            "title": "Tablero Kanban"
+          },
+          "backlog": {
+            "title": "Pendientes"
+          }
         }
       },
       "apps": {
@@ -90,16 +96,16 @@
             "region": "Región",
             "city": "Ciudad",
             "country": "País",
-            "iosVersion": "Versión de IOS",
-            "iosRelease": "Lanzamiento de IOS",
-            "iosFolder": "Carpeta de IOS",
-            "androidVersion": "Versión de Android",
-            "androidRelease": "Lanzamiento de Android",
-            "androidFolder": "Carpeta de Android",
+            "iosVersion": "Versión iOS",
+            "iosRelease": "Lanzamiento iOS",
+            "iosFolder": "Carpeta iOS",
+            "androidVersion": "Versión Android",
+            "androidRelease": "Lanzamiento Android",
+            "androidFolder": "Carpeta Android",
             "languages": "Idiomas",
-            "colorSpecs": "Especificaciones de Color",
-            "figmaAppName": "Nombre de la App en Figma",
-            "webAppFigmaLink": "Enlace de la App Web en Figma"
+            "colorSpecs": "Especificaciones de color",
+            "figmaAppName": "Nombre de la aplicación Figma",
+            "webAppFigmaLink": "Enlace de la aplicación web Figma"
           }
         },
         "sections": {
@@ -109,7 +115,7 @@
       "users": {
         "table": {
           "cols": {
-            "email": "Correo Electrónico",
+            "email": "Correo electrónico",
             "role": "Rol"
           }
         },
@@ -123,7 +129,7 @@
             "name": "Nombre",
             "id": "ID",
             "status": "Estado",
-            "launchDate": "Fecha de Lanzamiento",
+            "launchDate": "Fecha de lanzamiento",
             "user": "Usuario"
           }
         },
@@ -163,7 +169,7 @@
     },
     "messages": {
       "error": {
-        "default": "Se ha producido un error"
+        "default": "Ha ocurrido un error"
       }
     }
   }

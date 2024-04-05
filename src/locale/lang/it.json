@@ -5,7 +5,7 @@
         "home": "Home",
         "apps": "Applicazioni",
         "profile": "Profilo",
-        "search": "Cerca",
+        "search": "Ricerca",
         "settings": "Impostazioni"
       }
     },
@@ -13,13 +13,13 @@
       "home": {
         "sections": {
           "favourites": "Preferiti",
-          "recentlyViewed": "Visti di recente"
+          "recentlyViewed": "Visualizzati di recente"
         }
       },
       "apps": {
         "sections": {
           "appsheader": {
-            "search": "Cerca"
+            "search": "Ricerca"
           }
         }
       },
@@ -33,12 +33,12 @@
             "removeFavourites": "Rimuovi dai preferiti"
           },
           "screenshots": {
-            "title": "Screenshots",
-            "ios": "iOS Screenshots",
-            "android": "Android Screenshots"
+            "title": "Screenshot",
+            "ios": "Screenshot iOS",
+            "android": "Screenshot Android"
           },
           "buildManager": {
-            "title": "Build Manager"
+            "title": "Gestore di compilazione"
           }
         }
       },
@@ -70,13 +70,19 @@
         "requests": "Richieste",
         "users": "Utenti",
         "configurations": "Configurazioni",
-        "returnToSite": "Ritorna al sito"
+        "returnToSite": "Torna al sito"
       }
     },
     "pages": {
       "dashboard": {
         "sections": {
-          "title": "Dashboard"
+          "title": "Dashboard",
+          "kanban": {
+            "title": "Bacheca"
+          },
+          "backlog": {
+            "title": "In attesa"
+          }
         }
       },
       "apps": {
@@ -97,9 +103,9 @@
             "androidRelease": "Rilascio Android",
             "androidFolder": "Cartella Android",
             "languages": "Lingue",
-            "colorSpecs": "Specifiche Colore",
-            "figmaAppName": "Nome App Figma",
-            "webAppFigmaLink": "Link App Web Figma"
+            "colorSpecs": "Specifiche di colore",
+            "figmaAppName": "Nome app Figma",
+            "webAppFigmaLink": "Link app Web Figma"
           }
         },
         "sections": {
@@ -135,7 +141,7 @@
         "table": {
           "cols": {
             "name": "Nome",
-            "location": "Località",
+            "location": "Posizione",
             "type": "Tipo",
             "value": "Valore"
           }
@@ -155,7 +161,7 @@
       "common": {
         "table": {
           "toolbar": {
-            "search": "Cerca"
+            "search": "Ricerca"
           }
         }
       },

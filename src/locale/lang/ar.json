@@ -5,7 +5,7 @@
         "home": "الرئيسية",
         "apps": "التطبيقات",
         "profile": "الملف الشخصي",
-        "search": "بحث",
+        "search": "البحث",
         "settings": "الإعدادات"
       }
     },
@@ -13,13 +13,13 @@
       "home": {
         "sections": {
           "favourites": "المفضلة",
-          "recentlyViewed": "شوهدت مؤخراً"
+          "recentlyViewed": "المشاهدة الأخيرة"
         }
       },
       "apps": {
         "sections": {
           "appsheader": {
-            "search": "بحث"
+            "search": "البحث"
           }
         }
       },
@@ -33,12 +33,12 @@
             "removeFavourites": "إزالة من المفضلة"
           },
           "screenshots": {
-            "title": "Screenshots",
-            "ios": "iOS Screenshots",
-            "android": "Android Screenshots"
+            "title": "لقطات الشاشة",
+            "ios": "لقطات شاشة iOS",
+            "android": "لقطات شاشة Android"
           },
           "buildManager": {
-            "title": "Build Manager"
+            "title": "مدير البناء"
           }
         }
       },
@@ -52,7 +52,7 @@
             "table": {
               "cols": {
                 "name": "الاسم",
-                "id": "الهوية",
+                "id": "المعرف",
                 "status": "الحالة",
                 "launchDate": "تاريخ الإطلاق"
               }
@@ -65,31 +65,37 @@
   "controlPanel": {
     "components": {
       "navbar": {
-        "dashboard": "لوحة التحكم",
+        "dashboard": "لوحة القيادة",
         "apps": "التطبيقات",
         "requests": "الطلبات",
-        "users": "المستخدمون",
-        "configurations": "التهيئات",
+        "users": "المستخدمين",
+        "configurations": "الإعدادات",
         "returnToSite": "العودة إلى الموقع"
       }
     },
     "pages": {
       "dashboard": {
         "sections": {
-          "title": "لوحة التحكم"
+          "title": "لوحة القيادة",
+          "kanban": {
+            "title": "الكانبان"
+          },
+          "backlog": {
+            "title": "سجل الانتظار"
+          }
         }
       },
       "apps": {
         "table": {
           "cols": {
             "image": "",
-            "id": "الهوية",
+            "id": "المعرف",
             "name": "الاسم",
             "env": "البيئة",
             "tenant": "المستأجر",
             "region": "المنطقة",
             "city": "المدينة",
-            "country": "الدولة",
+            "country": "البلد",
             "iosVersion": "إصدار iOS",
             "iosRelease": "إصدار iOS",
             "iosFolder": "مجلد iOS",
@@ -98,7 +104,7 @@
             "androidFolder": "مجلد Android",
             "languages": "اللغات",
             "colorSpecs": "مواصفات الألوان",
-            "figmaAppName": "اسم التطبيق في Figma",
+            "figmaAppName": "اسم التطبيق Figma",
             "webAppFigmaLink": "رابط تطبيق الويب Figma"
           }
         },
@@ -114,14 +120,14 @@
           }
         },
         "sections": {
-          "title": "المستخدمون"
+          "title": "المستخدمين"
         }
       },
       "requests": {
         "table": {
           "cols": {
             "name": "الاسم",
-            "id": "الهوية",
+            "id": "المعرف",
             "status": "الحالة",
             "launchDate": "تاريخ الإطلاق",
             "user": "المستخدم"
@@ -141,7 +147,7 @@
           }
         },
         "sections": {
-          "title": "التهيئات"
+          "title": "الإعدادات"
         }
       }
     }

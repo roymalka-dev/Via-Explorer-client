@@ -38,7 +38,7 @@
             "android": "Android Screenshots"
           },
           "buildManager": {
-            "title": "Build Manager"
+            "title": "Build-Manager"
           }
         }
       },
@@ -76,7 +76,13 @@
     "pages": {
       "dashboard": {
         "sections": {
-          "title": "Dashboard"
+          "title": "Dashboard",
+          "kanban": {
+            "title": "Kanban"
+          },
+          "backlog": {
+            "title": "Rückstand"
+          }
         }
       },
       "apps": {
@@ -85,21 +91,21 @@
             "image": "",
             "id": "ID",
             "name": "Name",
-            "env": "Umwelt",
+            "env": "Umgebung",
             "tenant": "Mieter",
             "region": "Region",
             "city": "Stadt",
             "country": "Land",
             "iosVersion": "iOS-Version",
-            "iosRelease": "iOS-Release",
+            "iosRelease": "iOS-Veröffentlichung",
             "iosFolder": "iOS-Ordner",
             "androidVersion": "Android-Version",
-            "androidRelease": "Android-Release",
+            "androidRelease": "Android-Veröffentlichung",
             "androidFolder": "Android-Ordner",
             "languages": "Sprachen",
             "colorSpecs": "Farbspezifikationen",
-            "figmaAppName": "Figma-App-Name",
-            "webAppFigmaLink": "Web-App-Figma-Link"
+            "figmaAppName": "Figma App Name",
+            "webAppFigmaLink": "Web App Figma Link"
           }
         },
         "sections": {
@@ -135,7 +141,7 @@
         "table": {
           "cols": {
             "name": "Name",
-            "location": "Standort",
+            "location": "Ort",
             "type": "Typ",
             "value": "Wert"
           }

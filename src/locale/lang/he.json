@@ -13,7 +13,7 @@
       "home": {
         "sections": {
           "favourites": "מועדפים",
-          "recentlyViewed": "נצפו לאחרונה"
+          "recentlyViewed": "נצפה לאחרונה"
         }
       },
       "apps": {
@@ -26,19 +26,19 @@
       "app": {
         "sections": {
           "buttons": {
-            "ios": "חנות אפל",
-            "android": "חנות פליי",
-            "share": "שתף",
+            "ios": "חנות האפליקציות",
+            "android": "חנות Play",
+            "share": "שיתוף",
             "addFavourites": "הוסף למועדפים",
             "removeFavourites": "הסר מהמועדפים"
           },
           "screenshots": {
-            "title": "Screenshots",
-            "ios": "iOS Screenshots",
-            "android": "Android Screenshots"
+            "title": "צילומי מסך",
+            "ios": "צילומי מסך של iOS",
+            "android": "צילומי מסך של אנדרואיד"
           },
           "buildManager": {
-            "title": "Build Manager"
+            "title": "מנהל בנייה"
           }
         }
       },
@@ -69,14 +69,20 @@
         "apps": "אפליקציות",
         "requests": "בקשות",
         "users": "משתמשים",
-        "configurations": "תצורות",
+        "configurations": "הגדרות",
         "returnToSite": "חזור לאתר"
       }
     },
     "pages": {
       "dashboard": {
         "sections": {
-          "title": "לוח בקרה"
+          "title": "לוח בקרה",
+          "kanban": {
+            "title": "לוח"
+          },
+          "backlog": {
+            "title": "רשימת המתנה"
+          }
         }
       },
       "apps": {
@@ -86,20 +92,20 @@
             "id": "מזהה",
             "name": "שם",
             "env": "סביבה",
-            "tenant": "דייר",
+            "tenant": "שוכר",
             "region": "אזור",
             "city": "עיר",
             "country": "מדינה",
-            "iosVersion": "גרסת IOS",
-            "iosRelease": "שחרור IOS",
+            "iosVersion": "גרסת iOS",
+            "iosRelease": "גרסת IOS",
             "iosFolder": "תיקיית IOS",
             "androidVersion": "גרסת אנדרואיד",
-            "androidRelease": "שחרור אנדרואיד",
+            "androidRelease": "גרסת אנדרואיד",
             "androidFolder": "תיקיית אנדרואיד",
             "languages": "שפות",
             "colorSpecs": "מפרטי צבע",
-            "figmaAppName": "שם אפליקציית Figma",
-            "webAppFigmaLink": "קישור לאפליקציית האינטרנט Figma"
+            "figmaAppName": "שם האפליקציה בפיגמה",
+            "webAppFigmaLink": "קישור אפליקציה אינטרנטית בפיגמה"
           }
         },
         "sections": {
@@ -141,7 +147,7 @@
           }
         },
         "sections": {
-          "title": "תצורות"
+          "title": "הגדרות"
         }
       }
     }
