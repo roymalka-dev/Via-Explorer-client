@@ -25,12 +25,20 @@
       },
       "app": {
         "sections": {
-          "buttons": {"screenshots": {'title': 'Screenshots', 'ios': 'iOS Screenshots', 'android': 'Android Screenshots'}, "buildManager": {'title': 'Build Manager'}, "buttons": {
+          "buttons": {
             "ios": "App Store",
             "android": "Play Store",
             "share": "Condividi",
             "addFavourites": "Aggiungi ai preferiti",
             "removeFavourites": "Rimuovi dai preferiti"
+          },
+          "screenshots": {
+            "title": "Screenshots",
+            "ios": "iOS Screenshots",
+            "android": "Android Screenshots"
+          },
+          "buildManager": {
+            "title": "Build Manager"
           }
         }
       },

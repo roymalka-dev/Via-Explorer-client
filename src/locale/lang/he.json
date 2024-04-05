@@ -25,12 +25,20 @@
       },
       "app": {
         "sections": {
-          "buttons": {"screenshots": {'title': 'Screenshots', 'ios': 'iOS Screenshots', 'android': 'Android Screenshots'}, "buildManager": {'title': 'Build Manager'}, "buttons": {
+          "buttons": {
             "ios": "חנות אפל",
             "android": "חנות פליי",
             "share": "שתף",
             "addFavourites": "הוסף למועדפים",
             "removeFavourites": "הסר מהמועדפים"
+          },
+          "screenshots": {
+            "title": "Screenshots",
+            "ios": "iOS Screenshots",
+            "android": "Android Screenshots"
+          },
+          "buildManager": {
+            "title": "Build Manager"
           }
         }
       },
