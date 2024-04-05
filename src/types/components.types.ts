@@ -22,6 +22,7 @@ export type TableColsType = {
 export type TableDataType = {
   cols: TableColsType[];
   rows: tableRowsType[];
+  toolbar?: React.ReactNode;
 };
 
 // Kanban

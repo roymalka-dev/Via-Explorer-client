@@ -25,7 +25,7 @@
       },
       "app": {
         "sections": {
-          "buttons": {
+          "buttons": {"screenshots": {'title': 'Screenshots', 'ios': 'iOS Screenshots', 'android': 'Android Screenshots'}, "buildManager": {'title': 'Build Manager'}, "buttons": {
             "ios": "App Store",
             "android": "Play Store",
             "share": "Condividi",

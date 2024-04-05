@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { KanbanColumnType } from "@/types/components.types";
 import { Box, Paper, Typography } from "@mui/material";
 import { useState } from "react";
@@ -9,7 +10,7 @@ interface KanbanBoardProps {
 }
 
 export const KanbanBoard: React.FC<KanbanBoardProps> = ({ cols }) => {
-  const [columns, setColumns] = useState<KanbanColumnType[]>(cols);
+  const [columns] = useState<KanbanColumnType[]>(cols);
 
   const onDragEnd = (result: any) => {
     console.log(result);
