@@ -8,4 +8,14 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }],
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://www.via-explorer-api.roymalka.dev",
+        changeOrigin: true,
+        secure: false, // Set to true if your target endpoint is HTTPS
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
+  },
 });
