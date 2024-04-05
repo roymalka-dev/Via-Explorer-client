@@ -1,0 +1,176 @@
+{
+  "site": {
+    "components": {
+      "navbar": {
+        "home": "Home",
+        "apps": "Apps",
+        "profile": "Profile",
+        "search": "Search",
+        "settings": "Settings"
+      }
+    },
+    "pages": {
+      "home": {
+        "sections": {
+          "favourites": "Favourites",
+          "recentlyViewed": "Recently Viewed"
+        }
+      },
+      "apps": {
+        "sections": {
+          "appsheader": {
+            "search": "Search"
+          }
+        }
+      },
+      "app": {
+        "sections": {
+          "buttons": {
+            "ios": "App store",
+            "android": "Play store",
+            "share": "share",
+            "addFavourites": "Add to favourites",
+            "removeFavourites": "Remove from favourites"
+          },
+          "screenshots": {
+            "title": "Screenshots",
+            "ios": "iOS Screenshots",
+            "android": "Android Screenshots"
+          },
+          "buildManager": {
+            "title": "Build Manager"
+          }
+        }
+      },
+      "profile": {
+        "tabs": {
+          "general": "General",
+          "requests": "Requests"
+        },
+        "sections": {
+          "requests": {
+            "table": {
+              "cols": {
+                "name": "Name",
+                "id": "ID",
+                "status": "Status",
+                "launchDate": "Launch Date"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "controlPanel": {
+    "components": {
+      "navbar": {
+        "dashboard": "Dashboard",
+        "apps": "Apps",
+        "requests": "Requests",
+        "users": "Users",
+        "configurations": "Configurations",
+        "returnToSite": "Return to site"
+      }
+    },
+    "pages": {
+      "dashboard": {
+        "sections": {
+          "title": "Dashboard",
+          "kanban": {
+            "title": "Board"
+          },
+          "backlog": {
+            "title": "Backlog"
+          }
+        }
+      },
+      "apps": {
+        "table": {
+          "cols": {
+            "image": "",
+            "id": "ID",
+            "name": "Name",
+            "env": "Env",
+            "tenant": "Tenant",
+            "region": "Region",
+            "city": "City",
+            "country": "Country",
+            "iosVersion": "IOS Version",
+            "iosRelease": "Ios Release",
+            "iosFolder": "Ios Folder",
+            "androidVersion": "Android Version",
+            "androidRelease": "Android Release",
+            "androidFolder": "Android Folder",
+            "languages": "languages",
+            "colorSpecs": "Color Specs",
+            "figmaAppName": "Figma App Name",
+            "webAppFigmaLink": "Web App Figma Link"
+          }
+        },
+        "sections": {
+          "title": "Apps"
+        }
+      },
+      "users": {
+        "table": {
+          "cols": {
+            "email": "Email",
+            "role": "Role"
+          }
+        },
+        "sections": {
+          "title": "Users"
+        }
+      },
+      "requests": {
+        "table": {
+          "cols": {
+            "name": "Name",
+            "id": "ID",
+            "status": "Status",
+            "launchDate": "Launch Date",
+            "user": "User"
+          }
+        },
+        "sections": {
+          "title": "Requests"
+        }
+      },
+      "configurations": {
+        "table": {
+          "cols": {
+            "name": "Name",
+            "location": "Location",
+            "type": "Type",
+            "value": "Value"
+          }
+        },
+        "sections": {
+          "title": "Configurations"
+        }
+      }
+    }
+  },
+  "auth": {
+    "components": {},
+    "pages": {}
+  },
+  "shared": {
+    "components": {
+      "common": {
+        "table": {
+          "toolbar": {
+            "search": "Search"
+          }
+        }
+      },
+      "ui": {}
+    },
+    "messages": {
+      "error": {
+        "default": "An error occurred"
+      }
+    }
+  }
+}

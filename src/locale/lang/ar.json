@@ -1,0 +1,162 @@
+{
+  "site": {
+    "components": {
+      "navbar": {
+        "home": "الرئيسية",
+        "apps": "التطبيقات",
+        "profile": "الملف الشخصي",
+        "search": "بحث",
+        "settings": "الإعدادات"
+      }
+    },
+    "pages": {
+      "home": {
+        "sections": {
+          "favourites": "المفضلة",
+          "recentlyViewed": "شوهدت مؤخراً"
+        }
+      },
+      "apps": {
+        "sections": {
+          "appsheader": {
+            "search": "بحث"
+          }
+        }
+      },
+      "app": {
+        "sections": {
+          "buttons": {
+            "ios": "متجر التطبيقات",
+            "android": "متجر بلاي",
+            "share": "مشاركة",
+            "addFavourites": "إضافة إلى المفضلة",
+            "removeFavourites": "إزالة من المفضلة"
+          }
+        }
+      },
+      "profile": {
+        "tabs": {
+          "general": "عام",
+          "requests": "الطلبات"
+        },
+        "sections": {
+          "requests": {
+            "table": {
+              "cols": {
+                "name": "الاسم",
+                "id": "الهوية",
+                "status": "الحالة",
+                "launchDate": "تاريخ الإطلاق"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "controlPanel": {
+    "components": {
+      "navbar": {
+        "dashboard": "لوحة التحكم",
+        "apps": "التطبيقات",
+        "requests": "الطلبات",
+        "users": "المستخدمون",
+        "configurations": "التهيئات",
+        "returnToSite": "العودة إلى الموقع"
+      }
+    },
+    "pages": {
+      "dashboard": {
+        "sections": {
+          "title": "لوحة التحكم"
+        }
+      },
+      "apps": {
+        "table": {
+          "cols": {
+            "image": "",
+            "id": "الهوية",
+            "name": "الاسم",
+            "env": "البيئة",
+            "tenant": "المستأجر",
+            "region": "المنطقة",
+            "city": "المدينة",
+            "country": "الدولة",
+            "iosVersion": "إصدار iOS",
+            "iosRelease": "إصدار iOS",
+            "iosFolder": "مجلد iOS",
+            "androidVersion": "إصدار Android",
+            "androidRelease": "إصدار Android",
+            "androidFolder": "مجلد Android",
+            "languages": "اللغات",
+            "colorSpecs": "مواصفات الألوان",
+            "figmaAppName": "اسم التطبيق في Figma",
+            "webAppFigmaLink": "رابط تطبيق الويب Figma"
+          }
+        },
+        "sections": {
+          "title": "التطبيقات"
+        }
+      },
+      "users": {
+        "table": {
+          "cols": {
+            "email": "البريد الإلكتروني",
+            "role": "الدور"
+          }
+        },
+        "sections": {
+          "title": "المستخدمون"
+        }
+      },
+      "requests": {
+        "table": {
+          "cols": {
+            "name": "الاسم",
+            "id": "الهوية",
+            "status": "الحالة",
+            "launchDate": "تاريخ الإطلاق",
+            "user": "المستخدم"
+          }
+        },
+        "sections": {
+          "title": "الطلبات"
+        }
+      },
+      "configurations": {
+        "table": {
+          "cols": {
+            "name": "الاسم",
+            "location": "الموقع",
+            "type": "النوع",
+            "value": "القيمة"
+          }
+        },
+        "sections": {
+          "title": "التهيئات"
+        }
+      }
+    }
+  },
+  "auth": {
+    "components": {},
+    "pages": {}
+  },
+  "shared": {
+    "components": {
+      "common": {
+        "table": {
+          "toolbar": {
+            "search": "بحث"
+          }
+        }
+      },
+      "ui": {}
+    },
+    "messages": {
+      "error": {
+        "default": "حدث خطأ"
+      }
+    }
+  }
+}

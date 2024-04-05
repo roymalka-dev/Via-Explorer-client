@@ -1,0 +1,162 @@
+{
+  "site": {
+    "components": {
+      "navbar": {
+        "home": "בית",
+        "apps": "אפליקציות",
+        "profile": "פרופיל",
+        "search": "חיפוש",
+        "settings": "הגדרות"
+      }
+    },
+    "pages": {
+      "home": {
+        "sections": {
+          "favourites": "מועדפים",
+          "recentlyViewed": "נצפו לאחרונה"
+        }
+      },
+      "apps": {
+        "sections": {
+          "appsheader": {
+            "search": "חיפוש"
+          }
+        }
+      },
+      "app": {
+        "sections": {
+          "buttons": {
+            "ios": "חנות אפל",
+            "android": "חנות פליי",
+            "share": "שתף",
+            "addFavourites": "הוסף למועדפים",
+            "removeFavourites": "הסר מהמועדפים"
+          }
+        }
+      },
+      "profile": {
+        "tabs": {
+          "general": "כללי",
+          "requests": "בקשות"
+        },
+        "sections": {
+          "requests": {
+            "table": {
+              "cols": {
+                "name": "שם",
+                "id": "מזהה",
+                "status": "סטטוס",
+                "launchDate": "תאריך השקה"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "controlPanel": {
+    "components": {
+      "navbar": {
+        "dashboard": "לוח בקרה",
+        "apps": "אפליקציות",
+        "requests": "בקשות",
+        "users": "משתמשים",
+        "configurations": "תצורות",
+        "returnToSite": "חזור לאתר"
+      }
+    },
+    "pages": {
+      "dashboard": {
+        "sections": {
+          "title": "לוח בקרה"
+        }
+      },
+      "apps": {
+        "table": {
+          "cols": {
+            "image": "",
+            "id": "מזהה",
+            "name": "שם",
+            "env": "סביבה",
+            "tenant": "דייר",
+            "region": "אזור",
+            "city": "עיר",
+            "country": "מדינה",
+            "iosVersion": "גרסת IOS",
+            "iosRelease": "שחרור IOS",
+            "iosFolder": "תיקיית IOS",
+            "androidVersion": "גרסת אנדרואיד",
+            "androidRelease": "שחרור אנדרואיד",
+            "androidFolder": "תיקיית אנדרואיד",
+            "languages": "שפות",
+            "colorSpecs": "מפרטי צבע",
+            "figmaAppName": "שם אפליקציית Figma",
+            "webAppFigmaLink": "קישור לאפליקציית האינטרנט Figma"
+          }
+        },
+        "sections": {
+          "title": "אפליקציות"
+        }
+      },
+      "users": {
+        "table": {
+          "cols": {
+            "email": "אימייל",
+            "role": "תפקיד"
+          }
+        },
+        "sections": {
+          "title": "משתמשים"
+        }
+      },
+      "requests": {
+        "table": {
+          "cols": {
+            "name": "שם",
+            "id": "מזהה",
+            "status": "סטטוס",
+            "launchDate": "תאריך השקה",
+            "user": "משתמש"
+          }
+        },
+        "sections": {
+          "title": "בקשות"
+        }
+      },
+      "configurations": {
+        "table": {
+          "cols": {
+            "name": "שם",
+            "location": "מיקום",
+            "type": "סוג",
+            "value": "ערך"
+          }
+        },
+        "sections": {
+          "title": "תצורות"
+        }
+      }
+    }
+  },
+  "auth": {
+    "components": {},
+    "pages": {}
+  },
+  "shared": {
+    "components": {
+      "common": {
+        "table": {
+          "toolbar": {
+            "search": "חיפוש"
+          }
+        }
+      },
+      "ui": {}
+    },
+    "messages": {
+      "error": {
+        "default": "אירעה שגיאה"
+      }
+    }
+  }
+}

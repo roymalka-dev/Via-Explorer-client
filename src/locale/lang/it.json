@@ -1,0 +1,162 @@
+{
+  "site": {
+    "components": {
+      "navbar": {
+        "home": "Home",
+        "apps": "Applicazioni",
+        "profile": "Profilo",
+        "search": "Cerca",
+        "settings": "Impostazioni"
+      }
+    },
+    "pages": {
+      "home": {
+        "sections": {
+          "favourites": "Preferiti",
+          "recentlyViewed": "Visti di recente"
+        }
+      },
+      "apps": {
+        "sections": {
+          "appsheader": {
+            "search": "Cerca"
+          }
+        }
+      },
+      "app": {
+        "sections": {
+          "buttons": {
+            "ios": "App Store",
+            "android": "Play Store",
+            "share": "Condividi",
+            "addFavourites": "Aggiungi ai preferiti",
+            "removeFavourites": "Rimuovi dai preferiti"
+          }
+        }
+      },
+      "profile": {
+        "tabs": {
+          "general": "Generale",
+          "requests": "Richieste"
+        },
+        "sections": {
+          "requests": {
+            "table": {
+              "cols": {
+                "name": "Nome",
+                "id": "ID",
+                "status": "Stato",
+                "launchDate": "Data di lancio"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "controlPanel": {
+    "components": {
+      "navbar": {
+        "dashboard": "Dashboard",
+        "apps": "Applicazioni",
+        "requests": "Richieste",
+        "users": "Utenti",
+        "configurations": "Configurazioni",
+        "returnToSite": "Ritorna al sito"
+      }
+    },
+    "pages": {
+      "dashboard": {
+        "sections": {
+          "title": "Dashboard"
+        }
+      },
+      "apps": {
+        "table": {
+          "cols": {
+            "image": "",
+            "id": "ID",
+            "name": "Nome",
+            "env": "Ambiente",
+            "tenant": "Tenant",
+            "region": "Regione",
+            "city": "Città",
+            "country": "Paese",
+            "iosVersion": "Versione iOS",
+            "iosRelease": "Rilascio iOS",
+            "iosFolder": "Cartella iOS",
+            "androidVersion": "Versione Android",
+            "androidRelease": "Rilascio Android",
+            "androidFolder": "Cartella Android",
+            "languages": "Lingue",
+            "colorSpecs": "Specifiche Colore",
+            "figmaAppName": "Nome App Figma",
+            "webAppFigmaLink": "Link App Web Figma"
+          }
+        },
+        "sections": {
+          "title": "Applicazioni"
+        }
+      },
+      "users": {
+        "table": {
+          "cols": {
+            "email": "Email",
+            "role": "Ruolo"
+          }
+        },
+        "sections": {
+          "title": "Utenti"
+        }
+      },
+      "requests": {
+        "table": {
+          "cols": {
+            "name": "Nome",
+            "id": "ID",
+            "status": "Stato",
+            "launchDate": "Data di lancio",
+            "user": "Utente"
+          }
+        },
+        "sections": {
+          "title": "Richieste"
+        }
+      },
+      "configurations": {
+        "table": {
+          "cols": {
+            "name": "Nome",
+            "location": "Località",
+            "type": "Tipo",
+            "value": "Valore"
+          }
+        },
+        "sections": {
+          "title": "Configurazioni"
+        }
+      }
+    }
+  },
+  "auth": {
+    "components": {},
+    "pages": {}
+  },
+  "shared": {
+    "components": {
+      "common": {
+        "table": {
+          "toolbar": {
+            "search": "Cerca"
+          }
+        }
+      },
+      "ui": {}
+    },
+    "messages": {
+      "error": {
+        "default": "Si è verificato un errore"
+      }
+    }
+  }
+}
