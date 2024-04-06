@@ -30,6 +30,11 @@ const AppsDisplay: React.FC<{
       </Box>
 
       <AppCarousel apps={apps} />
+      {apps.length === 0 && (
+        <Typography variant="body2" gutterBottom sx={{ ml: 3 }}>
+          no items found
+        </Typography>
+      )}
     </Box>
   );
 };
