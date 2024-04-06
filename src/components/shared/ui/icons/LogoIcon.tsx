@@ -1,6 +1,6 @@
 import logoPng from "@/assets/images/Via_logo_cut.png"; // Update the path to your PNG image
 
-export const PngIcon = ({ size = 30 }) => (
+export const PngIcon = ({ size = 35 }) => (
   <img
     src={logoPng}
     alt="Custom Icon"

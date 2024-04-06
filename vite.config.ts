@@ -13,6 +13,7 @@ export default defineConfig({
         target: "https://www.via-explorer-api.roymalka.dev",
         changeOrigin: true,
         secure: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
