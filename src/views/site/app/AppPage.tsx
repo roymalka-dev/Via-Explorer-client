@@ -51,6 +51,11 @@ const AppPage: React.FC = () => {
 
   const appsTabs: CustomTabPanelType[] = [
     {
+      label: "build manager",
+      locale: "site.pages.app.sections.buildManager.title",
+      component: AppBuildManagerSection,
+    },
+    {
       label: "screenshots",
       locale: "site.pages.app.sections.screenshots.title",
       component: AppScreenshotsSection,
@@ -58,11 +63,6 @@ const AppPage: React.FC = () => {
         iosScreenshots: appData.data?.iosScreenshots,
         androidScreenshots: appData.data?.androidScreenshots,
       },
-    },
-    {
-      label: "build manager",
-      locale: "site.pages.app.sections.buildManager.title",
-      component: AppBuildManagerSection,
     },
   ];
 
