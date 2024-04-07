@@ -12,7 +12,9 @@ const RequestApp = () => {
     const response = await ApiService.post("requests/create-new-app-request", {
       request,
     });
-    navigate(`/profile/requests/${response.id}`);
+    //navigate(`/profile/requests/view/${response.id}`);
+    console.log(response);
+    navigate(`/profile/requests/`);
   };
 
   return (
