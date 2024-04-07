@@ -162,6 +162,9 @@
         "table": {
           "toolbar": {
             "search": "بحث"
+          },
+          "pagination": {
+            "rowsPerPage": "Rows per page"
           }
         }
       },

@@ -14,7 +14,7 @@ const RequestApp = () => {
     });
     //navigate(`/profile/requests/view/${response.id}`);
     console.log(response);
-    navigate(`/profile/requests/`);
+    navigate(`/profile`);
   };
 
   return (

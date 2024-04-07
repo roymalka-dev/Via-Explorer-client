@@ -20,6 +20,7 @@ import useTablePagination from "@/hooks/useTablePagination";
 import useTableSorter from "@/hooks/useTableSorter";
 import { TableDataType } from "@/types/components.types";
 import { getConfigValue } from "@/utils/configurations.utils";
+import { useTranslation } from "react-i18next";
 
 interface CustomTableProps {
   data: TableDataType;
@@ -40,6 +41,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
     "NUMBER_OF_ALLOWED_PAGAINATION",
     [10, 25, 100, 300, 1000]
   ) as number[];
+
+  const { t } = useTranslation();
 
   const defaultPagination = useTablePagination(25);
 
@@ -139,6 +142,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
           page={pagination.page}
           onPageChange={pagination.handleChangePage}
           onRowsPerPageChange={pagination.handleChangeRowsPerPage}
+          labelRowsPerPage={t(
+            "shared.components.common.table.pagination.rowsPerPage"
+          )}
         />
       </Box>
     </TableContainer>
