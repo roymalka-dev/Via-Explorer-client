@@ -5,45 +5,44 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { debounce } from "lodash";
 import AsyncTextFieldWithDropdown from "../shared/ui/inputs/AsyncTextFieldWithDropdown";
-import { useSelector, useDispatch } from "react-redux";
-import { updateQueries } from "@/store/slices/searchSlice"; // Adjust the import path as necessary
 import useApi from "@/hooks/useApi";
-import { RootState } from "@/store/store";
+import { appType } from "@/types/app.types";
+import { toast } from "react-toastify";
+import { toastConfig } from "@/configs/toast.config";
 
 const LiveSearch = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
-  const cachedQueries = useSelector((state: RootState) => state.search.queries);
-  const [presentedData, setPresentedData] = useState([]);
+  const [displayedApps, setDisplayedApps] = useState<appType[]>([]);
 
-  const { data, status, refetch } = useApi(`app/search-apps?q=${query}`, "GET");
-
-  const debouncedSetQuery = useCallback(
-    debounce((newQuery) => {
-      const cachedData = cachedQueries[newQuery];
-      if (cachedData) {
-        setPresentedData(cachedData as any);
-      } else {
-        setQuery(newQuery);
-      }
-    }, 500),
-    [cachedQueries]
+  const { data, status, error } = useApi<appType[]>(
+    `app/search-apps?q=${query}`,
+    "GET"
   );
 
-  useEffect(() => {
-    if (query && !cachedQueries[query] && status !== "loading") {
-      refetch();
-    }
-  }, [query, cachedQueries, refetch]);
+  const debouncedSetQuery = debounce(setQuery, 500);
 
   useEffect(() => {
-    if (status === "success" && data && !cachedQueries[query]) {
-      setPresentedData(data);
-      dispatch(updateQueries({ [query]: data }));
+    if (status === "success" && data) {
+      if (query.length === 0) {
+        setDisplayedApps([]);
+      } else {
+        setDisplayedApps(data);
+      }
     }
-  }, [data, status, query, cachedQueries, dispatch]);
+
+    if (error) {
+      toast.error(
+        error?.message || t("site.messages.error.default"),
+        toastConfig
+      );
+    }
+  }, [data, status, error, t]);
+
+  const handleSearch = (query: string) => {
+    debouncedSetQuery(query);
+  };
 
   const handleItem = useCallback(
     (value: string | number) => {
@@ -57,8 +56,8 @@ const LiveSearch = () => {
       id="search-navbar"
       width="100%"
       label={t("site.components.navbar.search")}
-      items={presentedData}
-      searchHandler={(newQuery) => debouncedSetQuery(newQuery)}
+      items={displayedApps}
+      searchHandler={(newQuery) => handleSearch(newQuery)}
       itemHandler={handleItem}
       loading={status === "loading"}
     />
