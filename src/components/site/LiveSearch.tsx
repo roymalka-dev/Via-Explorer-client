@@ -9,8 +9,13 @@ import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
 import { toast } from "react-toastify";
 import { toastConfig } from "@/configs/toast.config";
+import { getConfigValue } from "@/utils/configurations.utils";
 
 const LiveSearch = () => {
+  const DEBOUNCE_SEARCH_INPUT_TIME_IN_MS = Number(
+    getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 300)
+  );
+
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [query, setQuery] = useState("");
@@ -21,7 +26,10 @@ const LiveSearch = () => {
     "GET"
   );
 
-  const debouncedSetQuery = debounce(setQuery, 500);
+  const debouncedSetQuery = debounce(
+    setQuery,
+    DEBOUNCE_SEARCH_INPUT_TIME_IN_MS
+  );
 
   useEffect(() => {
     if (status === "success" && data) {

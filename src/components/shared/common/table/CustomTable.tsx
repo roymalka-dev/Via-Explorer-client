@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 import React, { useState, useMemo, useEffect } from "react";
@@ -42,6 +43,10 @@ const CustomTable: React.FC<CustomTableProps> = ({
     [10, 25, 100, 300, 1000]
   ) as number[];
 
+  const DEBOUNCE_SEARCH_INPUT_TIME_IN_MS = Number(
+    getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 300)
+  );
+
   const { t } = useTranslation();
 
   const defaultPagination = useTablePagination(25);
@@ -56,7 +61,10 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
-    const debouncedSearch = debounce(() => setSearchText(inputValue), 300);
+    const debouncedSearch = debounce(
+      () => setSearchText(inputValue),
+      DEBOUNCE_SEARCH_INPUT_TIME_IN_MS
+    );
     debouncedSearch();
     return () => debouncedSearch.cancel();
   }, [inputValue]);
