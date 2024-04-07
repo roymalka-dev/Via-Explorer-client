@@ -88,7 +88,10 @@ export const routes: RouteObject[] = [
     path: "/control-panel",
     element: ControlPanelLayout,
     loader: CircularProgress,
-    redirect: RedirectRoute({ path: "/control-panel/dashboard" }),
+    redirect: RedirectRoute({
+      from: "/control-panel",
+      to: "/control-panel/dashboard",
+    }),
     protect: ProtectedRoute,
     children: [
       {
@@ -133,7 +136,7 @@ export const routes: RouteObject[] = [
     path: "/auth",
     element: BlankLayout,
     loader: CircularProgress,
-    redirect: RedirectRoute({ path: "/auth/login" }),
+    redirect: RedirectRoute({ from: "/auth", to: "/auth/login" }),
     protect: PublicRoute,
     children: [
       {

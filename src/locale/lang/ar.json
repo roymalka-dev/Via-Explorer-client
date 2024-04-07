@@ -44,8 +44,15 @@
       },
       "profile": {
         "tabs": {
-          "general": "عام",
-          "requests": "الطلبات"
+          "general": {
+            "title": "عام",
+            "userDetails": "تفاصيل المستخدم",
+            "email": "البريد الإلكتروني",
+            "role": "الدور"
+          },
+          "requests": {
+            "title": "الطلبات"
+          }
         },
         "sections": {
           "requests": {

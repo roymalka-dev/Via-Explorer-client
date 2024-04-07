@@ -18,6 +18,7 @@ const CustomTableToolbar: React.FC<CustomTableToolbarProps> = ({
         justifyContent="space-between"
         alignItems="center"
         width="100%"
+        sx={{ mt: 1 }}
       >
         <Box flexGrow={1} maxWidth="100%" display={"flex"}>
           <TextField
@@ -33,7 +34,7 @@ const CustomTableToolbar: React.FC<CustomTableToolbarProps> = ({
           <Box sx={{ mt: 1, display: "flex" }}>
             {toolbar?.map((button: () => JSX.Element) => {
               return (
-                <Box sx={{ ml: 2 }} key={button.toString()}>
+                <Box sx={{ m: 1 }} key={button.toString()}>
                   {button()}
                 </Box>
               );

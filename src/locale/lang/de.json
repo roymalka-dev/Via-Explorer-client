@@ -44,8 +44,15 @@
       },
       "profile": {
         "tabs": {
-          "general": "Allgemein",
-          "requests": "Anfragen"
+          "general": {
+            "title": "Allgemein",
+            "userDetails": "Benutzerdetails",
+            "email": "E-Mail",
+            "role": "Rolle"
+          },
+          "requests": {
+            "title": "Anfragen"
+          }
         },
         "sections": {
           "requests": {

@@ -12,6 +12,7 @@ import {
   CircularProgress,
   TableCell,
   TableRow,
+  useTheme,
 } from "@mui/material";
 import { debounce } from "lodash";
 import CustomTableHead from "./CustomTableHead";
@@ -48,10 +49,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
   );
 
   const { t } = useTranslation();
-
+  const theme = useTheme();
   const defaultPagination = useTablePagination(25);
 
-  // Determine which pagination logic to use
   const pagination = paginationHandler
     ? paginationHandler(25)
     : defaultPagination;
@@ -103,6 +103,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
   return (
     <TableContainer
       component={Paper}
+      dir={theme.direction}
       sx={{ mx: "auto", maxWidth: "100%", overflowX: "auto" }}
     >
       <CustomTableToolbar

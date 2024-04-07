@@ -1,5 +1,4 @@
-import { Box, IconButton, styled } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { Box, styled, useTheme } from "@mui/material";
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { drawerWidth } from "./ControlPanelDrawer";
@@ -30,29 +29,14 @@ const AppBar = styled(MuiAppBar, {
 
 type ControlPanelAppBarProps = {
   open: boolean;
-  handleDrawerOpen: () => void;
 };
 
-const ControlPanelAppBar: React.FC<ControlPanelAppBarProps> = ({
-  open,
-  handleDrawerOpen,
-}) => {
-  return (
-    <AppBar position="fixed" open={open}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginRight: 5,
-            ...(open && { display: "none" }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+const ControlPanelAppBar: React.FC<ControlPanelAppBarProps> = ({ open }) => {
+  const theme = useTheme();
 
+  return (
+    <AppBar position="fixed" open={open} dir={theme.direction}>
+      <Toolbar>
         <Box
           sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
         >

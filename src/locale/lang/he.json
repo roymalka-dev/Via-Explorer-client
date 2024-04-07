@@ -44,8 +44,15 @@
       },
       "profile": {
         "tabs": {
-          "general": "כללי",
-          "requests": "בקשות"
+          "general": {
+            "title": "כללי",
+            "userDetails": "פרטי משתמש",
+            "email": "אימייל",
+            "role": "תפקיד"
+          },
+          "requests": {
+            "title": "בקשות"
+          }
         },
         "sections": {
           "requests": {
@@ -53,7 +60,7 @@
               "cols": {
                 "name": "שם",
                 "id": "מזהה",
-                "status": "סטטוס",
+                "status": "סטאטוס",
                 "launchDate": "תאריך השקה"
               }
             }

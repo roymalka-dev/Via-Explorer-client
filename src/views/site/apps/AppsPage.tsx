@@ -44,6 +44,7 @@ const AppsPage = () => {
 
   const handleSearch = (query: string) => {
     debouncedSetQuery(query);
+    setCurrentPage(1);
   };
 
   return (

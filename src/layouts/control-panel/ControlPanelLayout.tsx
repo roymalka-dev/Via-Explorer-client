@@ -1,4 +1,3 @@
-import * as React from "react";
 import { useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 
@@ -9,26 +8,29 @@ import { Paper } from "@mui/material";
 
 export default function ControlPanelLayout() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <ControlPanelAppBar open={open} handleDrawerOpen={handleDrawerOpen} />
-      <ControlPanelDrawer
-        open={open}
-        theme={theme}
-        handleDrawerClose={handleDrawerClose}
-      />
+    <Box
+      width="100%"
+      height="100%"
+      minWidth={"100%"}
+      minHeight={"100%"}
+      maxWidth={"100%"}
+      maxHeight={"100%"}
+      padding={{ xs: "1rem", sm: "2rem", md: "3rem", lg: "4rem" }}
+      dir={theme.direction}
+    >
+      <ControlPanelAppBar open={false} />
+      <ControlPanelDrawer />
 
-      <Paper component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Paper
+        component="main"
+        sx={(theme) => ({
+          flexGrow: 1,
+          p: 3,
+          ...(theme.direction === "rtl" && { mr: 2.5 }),
+        })}
+      >
         <Outlet />
       </Paper>
     </Box>

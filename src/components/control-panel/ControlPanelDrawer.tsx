@@ -1,5 +1,5 @@
-import * as React from "react";
-import { styled, Theme, CSSObject } from "@mui/material/styles";
+import React, { useState } from "react";
+import { styled, Theme, CSSObject, useTheme } from "@mui/material/styles";
 import MuiDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
@@ -10,10 +10,14 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/Menu";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
+// Import your navigation items and other necessary hooks
 import { controlPanelNavigationItems } from "@/configs/navigation.config";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Box } from "@mui/material";
 
 export const drawerWidth = 240;
 
@@ -41,9 +45,8 @@ const closedMixin = (theme: Theme): CSSObject => ({
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
-  justifyContent: "flex-end",
+  justifyContent: theme.direction === "rtl" ? "flex-start" : "flex-end",
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
 
@@ -64,61 +67,86 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-type ControlPanelDrawerProps = {
-  open: boolean;
-  theme: Theme;
-  handleDrawerClose: () => void;
-};
-
-const ControlPanelDrawer: React.FC<ControlPanelDrawerProps> = ({
-  open,
-  handleDrawerClose,
-  theme,
-}) => {
-  const naviate = useNavigate();
+const ControlPanelDrawer: React.FC = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
   const { t } = useTranslation();
+
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+  };
+
   return (
-    <Drawer variant="permanent" open={open}>
-      <DrawerHeader>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === "rtl" ? (
-            <ChevronRightIcon />
-          ) : (
-            <ChevronLeftIcon />
-          )}
+    <Box dir={theme.direction}>
+      {isMobile && (
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 2 }}
+        >
+          <MenuIcon />
         </IconButton>
-      </DrawerHeader>
-      <Divider />
-      <List>
-        {controlPanelNavigationItems.map((item) => (
-          <ListItem key={item.name} disablePadding sx={{ display: "block" }}>
-            <ListItemButton
-              onClick={() => naviate(item.path)}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? "initial" : "center",
-                px: 2.5,
-              }}
-            >
-              <ListItemIcon
+      )}
+      <Drawer
+        variant="permanent"
+        open={open}
+        onMouseEnter={() => !isMobile && setOpen(true)}
+        onMouseLeave={() => !isMobile && setOpen(false)}
+        anchor={theme.direction === "rtl" ? "right" : "left"}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerToggle}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {controlPanelNavigationItems.map((item) => (
+            <ListItem key={item.name} disablePadding sx={{ display: "block" }}>
+              <ListItemButton
+                onClick={() => navigate(item.path)}
                 sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : "auto",
-                  justifyContent: "center",
+                  minHeight: 48,
+                  justifyContent: open ? "initial" : "center",
+                  px: 2.5,
+                  ".MuiListItemIcon-root": {
+                    marginRight: theme.direction === "ltr" ? 2 : "auto",
+                    marginLeft: theme.direction === "rtl" ? 2 : "auto",
+                    justifyContent: "center",
+                  },
+                  ".MuiListItemText-root": {
+                    textAlign: theme.direction === "rtl" ? "right" : "left",
+                  },
                 }}
               >
-                <item.icon />
-              </ListItemIcon>
-              <ListItemText
-                primary={t(item.locale)}
-                sx={{ opacity: open ? 1 : 0 }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </Drawer>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : "auto",
+                    justifyContent: "center",
+                  }}
+                >
+                  <item.icon />
+                </ListItemIcon>
+                <ListItemText
+                  primary={t(item.locale)}
+                  sx={{ opacity: open ? 1 : 0 }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+      </Drawer>
+    </Box>
   );
 };
 

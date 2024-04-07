@@ -9,11 +9,12 @@ import { toastConfig } from "@/configs/toast.config";
 import { UserDataType } from "@/types/user.types";
 import { setAuthorization } from "@/store/slices/authSlice";
 import { useDispatch } from "react-redux";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, useTheme } from "@mui/material";
 
 const GeneralSection: React.FC = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const theme = useTheme();
   const { data, status, error } = useApi<UserDataType>(
     "user/get-user-details",
     "GET",
@@ -42,20 +43,26 @@ const GeneralSection: React.FC = () => {
   }, [data, dispatch]);
 
   return (
-    <>
+    <Box dir={theme.direction}>
       {status === "loading" && <CircularProgress />}
       {status === "success" && data ? (
         <Box>
-          <Typography variant="h4">User Details</Typography>
-          <Typography variant="body1">Email: {data.email}</Typography>
-          <Typography variant="body1">Role: {data.authorization}</Typography>
+          <Typography variant="h4">
+            {t("site.pages.profile.tabs.general.userDetails")}
+          </Typography>
+          <Typography variant="body1">
+            {t("site.pages.profile.tabs.general.email")}: {data.email}
+          </Typography>
+          <Typography variant="body1">
+            {t("site.pages.profile.tabs.general.role")}: {data.authorization}
+          </Typography>
         </Box>
       ) : (
         status !== "loading" && (
           <Typography variant="body1">User details not available.</Typography>
         )
       )}
-    </>
+    </Box>
   );
 };
 

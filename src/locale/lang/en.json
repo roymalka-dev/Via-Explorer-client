@@ -44,8 +44,15 @@
       },
       "profile": {
         "tabs": {
-          "general": "General",
-          "requests": "Requests"
+          "general": {
+            "title": "General",
+            "userDetails": "User Details",
+            "email": "Email",
+            "role": "Role"
+          },
+          "requests": {
+            "title": "Requests"
+          }
         },
         "sections": {
           "requests": {
@@ -62,6 +69,7 @@
       }
     }
   },
+
   "controlPanel": {
     "components": {
       "navbar": {

@@ -7,6 +7,7 @@ import {
   Box,
   TextField,
   CircularProgress,
+  useTheme,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -61,6 +62,7 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
   const [filters, setFilters] = useState<string[]>([]);
   const [sorter, setSorter] = useState<appSorterType>(appsSorters[0]);
   const { t } = useTranslation();
+  const theme = useTheme();
 
   useEffect(() => {
     applyFiltersAndSorters();
@@ -116,6 +118,7 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
       position="static"
       elevation={0}
       sx={{ backgroundColor: "transparent" }}
+      dir={theme.direction}
     >
       <Toolbar>
         <Grid
@@ -134,7 +137,11 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
                 InputProps={{
                   endAdornment:
                     status === "loading" ? (
-                      <CircularProgress color="inherit" size={20} />
+                      <CircularProgress
+                        color="inherit"
+                        size={20}
+                        sx={{ m: 1 }}
+                      />
                     ) : null,
                 }}
               />

@@ -2,7 +2,7 @@ import { toastConfig } from "@/configs/toast.config";
 import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
 import { comperators, tableDataGenerator } from "@/utils/components.utils";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -158,6 +158,7 @@ const cols = [
 
 const ControlPanelAppsPage = () => {
   const { t } = useTranslation();
+  const theme = useTheme();
   const dispatch = useDispatch();
   const appsFromStore = useSelector((state: RootState) => state.apps);
   const [rows, setRows] = useState<appType[]>([]);
@@ -221,7 +222,7 @@ const ControlPanelAppsPage = () => {
   const toolbar = [ExportCSV, refetchButton];
 
   return (
-    <Box sx={{ mt: 8 }}>
+    <Box sx={{ mt: 8 }} dir={theme.direction}>
       <Typography variant="h2" sx={{ mb: 2, ml: 3 }}>
         {t("controlPanel.pages.apps.sections.title")}
       </Typography>
