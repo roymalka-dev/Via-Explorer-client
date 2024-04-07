@@ -11,11 +11,11 @@ interface TabPanelProps {
   value: number;
 }
 
-function CustomTabPanel(props: TabPanelProps) {
+const CustomTabPanel = React.memo(function (props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Box
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -23,9 +23,9 @@ function CustomTabPanel(props: TabPanelProps) {
       {...other}
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
+    </Box>
   );
-}
+});
 
 function a11yProps(index: number) {
   return {
@@ -37,9 +37,13 @@ function a11yProps(index: number) {
 export default function CustomTabs({ tabs }: { tabs: CustomTabPanelType[] }) {
   const [value, setValue] = React.useState(0);
   const { t } = useTranslation();
-  const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
+
+  const handleChange = React.useCallback(
+    (_event: React.SyntheticEvent, newValue: number) => {
+      setValue(newValue);
+    },
+    [setValue]
+  );
 
   return (
     <Box sx={{ width: "100%" }}>

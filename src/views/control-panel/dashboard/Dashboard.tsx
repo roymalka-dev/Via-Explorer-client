@@ -2,15 +2,9 @@ import {} from "@/components/shared/common/kanban/KanbanBoard";
 import CustomTabs from "@/components/shared/common/tabs/CustomTabs";
 import { CustomTabPanelType } from "@/types/components.types";
 import { Box, Typography } from "@mui/material";
-import { lazy } from "react";
 import { useTranslation } from "react-i18next";
-
-const KanbanSection = lazy(
-  () => import("@/views/control-panel/dashboard/sections/KanbanSection")
-);
-const BacklogSection = lazy(
-  () => import("@/views/control-panel/dashboard/sections/BacklogSection")
-);
+import KanbanSection from "./sections/KanbanSection";
+import BacklogSection from "./sections/BacklogSection";
 
 const dashboardTabs: CustomTabPanelType[] = [
   {
