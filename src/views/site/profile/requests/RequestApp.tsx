@@ -1,19 +1,22 @@
 import { FormStepper } from "@/components/shared/common/form/FormStepper";
 import { requestAppTabs } from "@/configs/request.config";
+import { toastConfig } from "@/configs/toast.config";
 import ApiService from "@/services/ApiService";
 import { RequestType } from "@/types/request.types";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RequestApp = () => {
   const navigate = useNavigate();
 
   const submitRequest = async (request: RequestType) => {
-    const response = await ApiService.post("requests/create-new-app-request", {
-      request,
-    });
-    //navigate(`/profile/requests/view/${response.id}`);
-    console.log(response);
+    console.log(request);
+    const response = await ApiService.post(
+      "requests/create-new-app-request",
+      request
+    );
+    toast.success(response.message, toastConfig);
     navigate(`/profile`);
   };
 

@@ -103,7 +103,10 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Support Email",
         type: "email",
         initialValue: "",
-        validation: yup.string().email("Must be a valid email"),
+        validation: yup
+          .string()
+          .email("Must be a valid email")
+          .required("Support Email is required"),
       },
       {
         name: "languages",
@@ -163,7 +166,7 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Who Branded",
         type: "text",
         initialValue: "",
-        validation: yup.string(),
+        validation: yup.string().required("Who Branded is required"),
       },
       {
         name: "serviceLogoImage",
@@ -183,25 +186,25 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Powered By",
         type: "text",
         initialValue: "",
-        validation: yup.string(),
+        validation: yup.string().required("Powered By is required"),
       },
       {
-        name: "operetedBy",
+        name: "operatedBy",
         label: "Operated By",
         type: "conditional-select",
         initialValue: "",
         options: ["Option 1", "Option 2"],
-        validation: yup.string(),
+        validation: yup.string().required("Operated By is required"),
       },
       {
         name: "preferredTitle",
         label: "Preferred Title",
         type: "text",
         initialValue: "",
-        validation: yup.string(),
+        validation: yup.string().required("Preferred Title is required"),
       },
       {
-        name: "providingAppLauncer",
+        name: "providingAppLauncher",
         label: "Providing App Launcher",
         type: "checkbox",
         initialValue: false,
