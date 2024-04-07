@@ -1,15 +1,15 @@
-import ProtectedRoute from "@/routes/ProtectedRoute";
 import { RouteObject } from "@/types/routes.types";
 import { lazy } from "react";
 import { CircularProgress } from "@mui/material";
 
+import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
 import BlankLayout from "@/layouts/BlankLayout";
 import AuthRedirect from "@/views/auth/AuthRedirect";
 import RedirectRoute from "@/routes/RedirectRoute";
 import ControlPanelLayout from "@/layouts/control-panel/ControlPanelLayout";
+import MainLayout from "@/layouts/site/MainLayout";
 
-const MainLayout = lazy(() => import("@/layouts/site/MainLayout"));
 const HomePage = lazy(() => import("@/views/site/home/HomePage"));
 const AppsPage = lazy(() => import("@/views/site/apps/AppsPage"));
 const ProfilePage = lazy(() => import("@/views/site/profile/ProfilePage"));

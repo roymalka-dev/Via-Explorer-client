@@ -3,15 +3,12 @@ import {
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
-import { Suspense, lazy } from "react";
-
+import { Suspense } from "react";
 import { RouteObject } from "@/types/routes.types";
 import { routes } from "@/configs/routes.config";
-import DelayedFallback from "@/components/shared/common/DelayedFallback";
+import AuthorityGuard from "./AuthorityGuard";
 
 // Auth
-// eslint-disable-next-line react-refresh/only-export-components
-const AuthorityGuard = lazy(() => import("@/routes/AuthorityGuard"));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -55,14 +52,7 @@ export const router = createBrowserRouter(
                     key={child.key}
                     path={child.path}
                     element={
-                      <Suspense
-                        fallback={
-                          <DelayedFallback
-                            fallback={<child.loader />}
-                            delay={3000}
-                          />
-                        }
-                      >
+                      <Suspense fallback={<child.loader />}>
                         <child.element />
                       </Suspense>
                     }
