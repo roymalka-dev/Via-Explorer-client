@@ -40,7 +40,7 @@ const cols = [
   {
     name: "value",
     locale: "controlPanel.pages.configurations.table.cols.value",
-    render: (value: string | number[] | string, row: tableRowsType) => (
+    render: (value: string | number[] | string[], row: tableRowsType) => (
       <Button onClick={() => console.log(row.name)} variant="outlined">
         <Typography variant="body1">
           {Array.isArray(value) ? value.join(", ") : value}

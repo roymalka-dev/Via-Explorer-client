@@ -66,21 +66,27 @@ const AppPage: React.FC = () => {
     },
   ];
 
-  const userFavorites = useApi(`user/get-user-favorites`, "GET", {}, [], true);
+  const userFavorites = useApi(`user/get-user-favorites`, "GET");
 
   const toggleFavoriteHandler = async () => {
     await toggleFavorite.refetch();
     setIsFavorite(!isFavorite);
+    toast.success(
+      `${appData.data?.name} ${
+        !isFavorite ? "Added to favorites" : "Removed from favorites"
+      }`,
+      toastConfig
+    );
   };
 
   useEffect(() => {
-    userFavorites.refetch().then(() => {
+    if (userFavorites.status === "success" && userFavorites.data) {
       const isFav = userFavorites.data?.some(
         (fav: any) => fav.id === params.id
       );
       setIsFavorite(isFav);
-    });
-  }, []);
+    }
+  }, [userFavorites.data, params.id]);
 
   useEffect(() => {
     if ((appData.error as any)?.response?.status === 404) {
