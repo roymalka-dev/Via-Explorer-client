@@ -10,6 +10,17 @@ type Status = "idle" | "loading" | "success" | "error";
 type ApiResponse<T> = {
   data: T;
 };
+
+/**
+ * Custom React hook for making API requests.
+ *
+ * @param {string} endpoint - The URL endpoint to which the API request will be made.
+ * @param {string} [method="GET"] - The HTTP method for the request. Supported methods are GET, POST, PUT, PATCH, DELETE.
+ * @param {object} [body] - The request body to be sent with the API request. This parameter is required for POST, PUT, and PATCH requests.
+ * @param {Array} [dependencies] - An array of dependencies to watch for changes and trigger a refetch when any of them change.
+ * @param {boolean} [manual=false] - A flag indicating whether the API request should be triggered manually.
+ * @returns {object} An object containing data, status, error, and refetch function.
+ */
 const useApi = <T = any>(
   endpoint: string,
   method: string = "GET",
@@ -17,11 +28,17 @@ const useApi = <T = any>(
   dependencies: any[] = [],
   manual: boolean = false // Add a manual flag
 ) => {
+  /**
+   * State variables to manage API response data, status, and errors.
+   */
   const [data, setData] = useState<T | null>(null);
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<Error | null>(null);
   const dispatch = useDispatch();
 
+  /**
+   * Callback function to fetch data from the specified API endpoint.
+   */
   const fetchData = useCallback(async () => {
     setStatus("loading");
     setData(null);
@@ -61,13 +78,19 @@ const useApi = <T = any>(
     }
   }, [endpoint, method, body, ...dependencies]);
 
-  // Modify useEffect to respect the manual flag
+  /**
+   * Effect hook to trigger API request based on manual flag.
+   * If manual flag is false, the API request is triggered automatically.
+   */
   useEffect(() => {
     if (!manual) {
       fetchData();
     }
   }, [fetchData, manual]);
 
+  /**
+   * Return an object containing data, status, error, and refetch function.
+   */
   return { data, status, error, refetch: fetchData };
 };
 
