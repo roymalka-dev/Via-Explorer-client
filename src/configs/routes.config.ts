@@ -17,6 +17,9 @@ const AppPage = lazy(() => import("@/views/site/app/AppPage"));
 const RequestApp = lazy(
   () => import("@/views/site/profile/requests/RequestApp")
 );
+const viewAppRequest = lazy(
+  () => import("@/views/site/profile/requests/ViewAppRequest")
+);
 const AuthPage = lazy(() => import("@/views/auth/AuthPage"));
 const NotFound = lazy(() => import("@/views/auth/NotFound"));
 
@@ -79,6 +82,13 @@ export const routes: RouteObject[] = [
         path: "/requests/request-app",
         authority: "USER",
         element: RequestApp,
+        loader: CircularProgress,
+      },
+      {
+        key: "view-app-request",
+        path: "/requests/view/:id",
+        authority: "USER",
+        element: viewAppRequest,
         loader: CircularProgress,
       },
     ],
