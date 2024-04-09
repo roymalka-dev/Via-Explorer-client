@@ -171,7 +171,8 @@
             "search": "Buscar"
           },
           "pagination": {
-            "rowsPerPage": "Rows per page"
+            "rowsPerPage": "Filas por página",
+            "of": "de"
           }
         }
       },

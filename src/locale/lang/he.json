@@ -171,7 +171,8 @@
             "search": "חיפוש"
           },
           "pagination": {
-            "rowsPerPage": "שורות לעמוד"
+            "rowsPerPage": "שורות לעמוד",
+            "of": "מתוך"
           }
         }
       },

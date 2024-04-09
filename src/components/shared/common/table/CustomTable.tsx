@@ -154,6 +154,11 @@ const CustomTable: React.FC<CustomTableProps> = ({
           labelRowsPerPage={t(
             "shared.components.common.table.pagination.rowsPerPage"
           )}
+          labelDisplayedRows={({ from, to, count }) =>
+            `${from}-${to} ${t(
+              "shared.components.common.table.pagination.of"
+            )} ${count}`
+          }
         />
       </Box>
     </TableContainer>

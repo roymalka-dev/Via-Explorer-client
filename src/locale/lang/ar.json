@@ -171,7 +171,8 @@
             "search": "بحث"
           },
           "pagination": {
-            "rowsPerPage": "Rows per page"
+            "rowsPerPage": "الصفوف لكل صفحة",
+            "of": "من"
           }
         }
       },

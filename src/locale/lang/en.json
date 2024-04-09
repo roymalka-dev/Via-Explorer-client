@@ -172,7 +172,8 @@
             "search": "Search"
           },
           "pagination": {
-            "rowsPerPage": "Rows per page"
+            "rowsPerPage": "Rows per page",
+            "of": "of"
           }
         }
       },
