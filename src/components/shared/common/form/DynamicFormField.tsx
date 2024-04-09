@@ -12,6 +12,11 @@ import TextFieldWithInfo from "../../ui/inputs/TextFieldAndInfo";
 import ConditionalSelect from "../../ui/inputs/ConditionalSelect";
 import { RequestType } from "@/types/request.types";
 
+/**
+ * DynamicField component renders different form input fields based on the type provided in FieldConfig.
+ * @param {FieldConfig<RequestType>} props - Component props containing field configuration.
+ * @returns {JSX.Element} DynamicField component
+ */
 const DynamicField: React.FC<FieldConfig<RequestType>> = ({
   name,
   label,

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Formik, Form } from "formik";
 import { Stepper, Step, StepLabel, Button, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { resetForm, updateForm } from "@/store/slices/formSlice"; // Update this path to your actual slice file
+import { resetForm, updateForm } from "@/store/slices/formSlice";
 import { TabConfig } from "@/types/form.types";
 import {
   generateValidationSchemas,
@@ -12,8 +12,14 @@ import DynamicFormField from "@/components/shared/common/form/DynamicFormField";
 import { RequestType } from "@/types/request.types";
 import { RootState } from "@/store/store";
 
-// Ensure the types and utility functions you're importing are defined and imported correctly
-
+/**
+ * FormStepper component renders a form with a stepper to navigate through different steps.
+ * @param {object} props - Component props.
+ * @param {TabConfig<T>[]} props.tabs - Configuration of form tabs.
+ * @param {string} props.bucketName - Name of the bucket.
+ * @param {(request: T) => void} props.submit - Function to handle form submission.
+ * @returns {JSX.Element} FormStepper component.
+ */
 export const FormStepper = <T extends RequestType>({
   tabs,
   bucketName,

@@ -31,6 +31,10 @@ type ControlPanelAppBarProps = {
   open: boolean;
 };
 
+/**
+ * ControlPanelAppBar component for the Control Panel.
+ * Renders the app bar with Via logo, theme selector, and language selector.
+ */
 const ControlPanelAppBar: React.FC<ControlPanelAppBarProps> = ({ open }) => {
   const theme = useTheme();
 

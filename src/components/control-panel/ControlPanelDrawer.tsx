@@ -67,6 +67,10 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
+/**
+ * ControlPanelDrawer component for the Control Panel.
+ * Renders the navigation drawer with menu items.
+ */
 const ControlPanelDrawer: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));

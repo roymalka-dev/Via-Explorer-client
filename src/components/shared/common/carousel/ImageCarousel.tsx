@@ -16,14 +16,29 @@ const style = {
   borderRadius: 2,
 };
 
+/**
+ * Component Props
+ * @typedef {Object} ImageCarouselProps
+ * @property {string[]} images - Array of image URLs
+ */
 type ImageCarouselProps = {
   images: string[]; // Array of image URLs
 };
 
+/**
+ * Image Carousel component that displays a carousel of images using Swiper and allows
+ * users to view a selected image in a modal.
+ * @param {ImageCarouselProps} props - Component props
+ * @returns {JSX.Element} ImageCarousel component
+ */
 const ImageCarousel: React.FC<ImageCarouselProps> = ({ images }) => {
   const [open, setOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState("");
 
+  /**
+   * Opens the modal and sets the selected image.
+   * @param {string} image - Selected image URL
+   */
   const handleOpen = (image: string) => {
     setSelectedImage(image);
     setOpen(true);

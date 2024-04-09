@@ -4,10 +4,20 @@ import { appType } from "@/types/app.types";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+/**
+ * Props for the AppCarousel component.
+ * @typedef {Object} AppCarouselProps
+ * @property {appType[]} apps - Array of app objects to display in the carousel.
+ */
 type AppCarouselProps = {
   apps: appType[];
 };
 
+/**
+ * AppCarousel component displays a carousel of app cards.
+ * @param {AppCarouselProps} props - Props for the AppCarousel component.
+ * @returns {JSX.Element} - Rendered component.
+ */
 const AppCarousel: React.FC<AppCarouselProps> = ({ apps }) => {
   return (
     <Box sx={{ maxWidth: "100%", mx: "auto", height: "100%" }} dir={"ltr"}>

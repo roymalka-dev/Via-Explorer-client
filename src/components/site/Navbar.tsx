@@ -13,20 +13,31 @@ import { navigationItems } from "@/configs/navigation.config";
 import LiveSearch from "./LiveSearch";
 import SettingsBar from "./SettingsBar";
 
+/**
+ * Navbar component serves as the main navigation bar for the application,
+ * providing links to different sections along with special components like search and settings.
+ */
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t } = useTranslation();
-  const theme = useTheme();
+  const { t } = useTranslation(); // For internationalization
+  const theme = useTheme(); // Accessing theme for consistent styling
   const currentPage = location.pathname.substring(1) || "/";
-  const [selectedNav, setSelectedNav] = useState<string>(currentPage);
+  const [selectedNav, setSelectedNav] = useState<string>(currentPage); // State to track the current navigation selection
 
+  /**
+   * Handles navigation selection changes. Navigates to the selected page or
+   * toggles special components like search and settings.
+   * @param {React.SyntheticEvent} _event - The event object (unused).
+   * @param {string} newValue - The new navigation value selected.
+   */
   const handleChange = (_event: React.SyntheticEvent, newValue: string) => {
     if (newValue === selectedNav) {
-      setSelectedNav(currentPage);
+      setSelectedNav(currentPage); // Revert to the current page if the same nav item is clicked
     } else {
       setSelectedNav(newValue);
 
+      // Navigate if the new value isn't for search or settings
       if (!["search", "settings"].includes(newValue)) {
         navigate(newValue);
       }
@@ -60,6 +71,7 @@ const Navbar: React.FC = () => {
           borderRadius: 2,
         }}
       >
+        {/* Search and settings are special cases that toggle additional components */}
         <BottomNavigationAction
           label=""
           value="search"
@@ -70,6 +82,7 @@ const Navbar: React.FC = () => {
             },
           }}
         />
+        {/* Dynamically generated navigation items */}
         {navigationItems.map((item) => (
           <BottomNavigationAction
             key={item.name}
@@ -95,8 +108,8 @@ const Navbar: React.FC = () => {
         />
       </BottomNavigation>
 
+      {/* Conditional rendering of LiveSearch and SettingsBar based on the selected navigation item */}
       {selectedNav === "search" && <LiveSearch />}
-
       {selectedNav === "settings" && (
         <Box
           sx={{
