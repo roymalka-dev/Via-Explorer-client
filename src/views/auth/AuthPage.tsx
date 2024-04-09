@@ -10,6 +10,12 @@ import useApi from "@/hooks/useApi";
 import { UserDataType } from "@/types/user.types";
 import logo from "@/assets/images/Via_logo.png";
 
+/**
+ * Component for the authentication page.
+ * This page allows users to log in using Google authentication.
+ * Upon successful authentication, it fetches user details from the server and sets user credentials and authorization in the Redux store.
+ * Redirects the user to the authenticated entry path upon successful authentication.
+ */
 const AuthPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,6 +27,10 @@ const AuthPage = () => {
     true // manual
   );
 
+  /**
+   * Function to set user credentials and trigger a data refetch.
+   * @param {string} credential - User credential/token received from authentication.
+   */
   const setUserAuthorization = async (credential: string) => {
     await dispatch(
       setCredentials({
@@ -30,6 +40,10 @@ const AuthPage = () => {
     await refetch();
   };
 
+  /**
+   * Effect hook to handle user authentication status.
+   * If authentication is successful and user details are fetched, sets user authorization in the Redux store and redirects the user to the authenticated entry path.
+   */
   useEffect(() => {
     if (status === "success" && data) {
       dispatch(

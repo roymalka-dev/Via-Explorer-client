@@ -9,8 +9,11 @@ import { useTranslation } from "react-i18next";
 import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
 import { useNavigate } from "react-router-dom";
 
-const toolbar: (() => JSX.Element)[] = [];
-
+/**
+ * Component for the Control Panel Requests Page.
+ * This page displays a table of requests fetched from the server.
+ * It provides functionality to view details of individual requests.
+ */
 const ControlPanelRequestsPage = () => {
   const { t } = useTranslation();
   const [rows, setRows] = useState<TableDataType[]>([]);
@@ -21,6 +24,9 @@ const ControlPanelRequestsPage = () => {
     "GET"
   );
 
+  /**
+   * Effect hook to update table data on successful data fetch.
+   */
   useEffect(() => {
     if (status === "success" && data) {
       setRows(data);
@@ -83,6 +89,8 @@ const ControlPanelRequestsPage = () => {
       ),
     },
   ];
+
+  const toolbar: (() => JSX.Element)[] = [];
 
   const tableData = tableDataGenerator({ rows, cols });
   return (
