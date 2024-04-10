@@ -13,7 +13,10 @@ import { RootState } from "@/store/store";
 import CustomTable from "@/components/shared/common/table/CustomTable";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CSVExporter from "@/components/shared/common/csv/CSVExporter";
-
+import { tableRowsType } from "@/types/components.types";
+import { useNavigate } from "react-router-dom";
+import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
+import EditRoundedIcon from "@mui/icons-material/EditRounded";
 /**
  * Component for the Control Panel Apps Page.
  * This page displays a table of application details fetched from the server.
@@ -21,11 +24,11 @@ import CSVExporter from "@/components/shared/common/csv/CSVExporter";
  */
 const ControlPanelAppsPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const dispatch = useDispatch();
   const appsFromStore = useSelector((state: RootState) => state.apps);
   const [rows, setRows] = useState<appType[]>([]);
-  const [loading, setLoading] = useState(false);
   const { data, status, error, refetch } = useApi<appType[]>(
     `app/get-all-apps`,
     "GET",
@@ -45,14 +48,6 @@ const ControlPanelAppsPage = () => {
       );
     }
   }, [error, t]);
-
-  /**
-   * Effect hook to manage loading state.
-   */
-  useEffect(() => {
-    if (status === "loading") setLoading(true);
-    else setLoading(false);
-  }, [loading, status]);
 
   /**
    * Effect hook to initialize table data and trigger data fetch on component mount or error state.
@@ -211,12 +206,19 @@ const ControlPanelAppsPage = () => {
 
     {
       name: "options-1",
-      render: () => <Button onClick={() => console.log("edit")}>Edit</Button>,
+      render: (_value: string, row: tableRowsType) => (
+        <Button onClick={() => console.log(row.id)}>
+          <EditRoundedIcon />
+        </Button>
+      ),
     },
+
     {
       name: "options-2",
-      render: (id: string) => (
-        <Button onClick={() => console.log(id)}>Go to</Button>
+      render: (_value: string, row: tableRowsType) => (
+        <Button onClick={() => navigate(`/app/${row.id}`)}>
+          <LaunchRoundedIcon />
+        </Button>
       ),
     },
   ];
@@ -262,7 +264,11 @@ const ControlPanelAppsPage = () => {
       <Typography variant="h2" sx={{ mb: 2, ml: 3 }}>
         {t("controlPanel.pages.apps.sections.title")}
       </Typography>
-      <CustomTable data={tableData} toolbar={toolbar} loading={loading} />
+      <CustomTable
+        data={tableData}
+        toolbar={toolbar}
+        loading={status === "loading"}
+      />
     </Box>
   );
 };
