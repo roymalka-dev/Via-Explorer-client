@@ -44,6 +44,14 @@ const appsFilters: appFilterType[] = [
     name: "eu1",
     filter: (app) => app.region === "eu1",
   },
+  {
+    name: "ap1",
+    filter: (app) => app.region === "eu1",
+  },
+  {
+    name: "ap2",
+    filter: (app) => app.region === "eu1",
+  },
 ];
 
 type AppsHeaderProps = {

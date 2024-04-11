@@ -33,3 +33,17 @@ export interface AppRequestType extends RequestType {
   chooseBrandColorFromLogo: boolean;
   additionalInformation: string[];
 }
+
+export interface RequestEditAppType extends RequestType {
+  env?: string;
+  tenant?: string;
+  city?: string;
+  country?: string;
+  region?: string;
+  iosFolder?: string;
+  androidFolder?: string;
+  colorSpecs?: string;
+  figmaAppName?: string;
+  webAppFigmaLink?: string;
+  webAppLink?: string;
+}

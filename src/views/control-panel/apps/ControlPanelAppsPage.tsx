@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { toastConfig } from "@/configs/toast.config";
 import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
 import { comperators, tableDataGenerator } from "@/utils/components.utils";
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import fallbackImageUrl from "@/assets/images/no-image.png";
@@ -17,6 +18,13 @@ import { tableRowsType } from "@/types/components.types";
 import { useNavigate } from "react-router-dom";
 import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
+import { CustomModal } from "@/components/shared/common/modal/CustomModal";
+import useModal from "@/hooks/useModal";
+import * as yup from "yup";
+import { TabConfig } from "@/types/form.types";
+import ApiService from "@/services/ApiService";
+import { FormStepper } from "@/components/shared/common/form/FormStepper";
+import { RequestEditAppType, RequestType } from "@/types/request.types";
 /**
  * Component for the Control Panel Apps Page.
  * This page displays a table of application details fetched from the server.
@@ -29,6 +37,7 @@ const ControlPanelAppsPage = () => {
   const dispatch = useDispatch();
   const appsFromStore = useSelector((state: RootState) => state.apps);
   const [rows, setRows] = useState<appType[]>([]);
+  const [selectedEditApp, setSelectedEditApp] = useState<appType | null>(null);
   const { data, status, error, refetch } = useApi<appType[]>(
     `app/get-all-apps`,
     "GET",
@@ -36,6 +45,8 @@ const ControlPanelAppsPage = () => {
     [],
     true
   );
+
+  const modal = useModal();
 
   /**
    * Effect hook to handle error state and display toast messages.
@@ -69,6 +80,152 @@ const ControlPanelAppsPage = () => {
       dispatch(setApps({ apps: data }));
     }
   }, [status, data, dispatch]);
+
+  /**
+   * Define form fields for editing an item.
+   */
+  const editAppFormTabs: TabConfig<RequestEditAppType>[] = useMemo(() => {
+    return [
+      {
+        tabName: "",
+        fields: [
+          {
+            name: "name",
+            label: "Name",
+            type: "text",
+            initialValue: selectedEditApp?.name || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "env",
+            label: "Env",
+            type: "text",
+            initialValue: selectedEditApp?.env || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "tenant",
+            label: "Tenant",
+            type: "text",
+            initialValue: selectedEditApp?.tenant || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "region",
+            label: "Region",
+            type: "text",
+            initialValue: selectedEditApp?.region || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "city",
+            label: "City",
+            type: "text",
+            initialValue: selectedEditApp?.city || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "country",
+            label: "Country",
+            type: "text",
+            initialValue: selectedEditApp?.country || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "iosFolder",
+            label: "iOS Folder",
+            type: "text",
+            initialValue: selectedEditApp?.iosFolder || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "androidFolder",
+            label: "Android Folder",
+            type: "text",
+            initialValue: selectedEditApp?.androidFolder || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "colorSpecs",
+            label: "Color Specs",
+            type: "text",
+            initialValue: selectedEditApp?.colorSpecs || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "figmaAppName",
+            label: "Figma App Name",
+            type: "text",
+            initialValue: selectedEditApp?.figmaAppName || "",
+            validation: yup.string().optional(),
+          },
+          {
+            name: "webAppFigmaLink",
+            label: "Web App Figma Link",
+            type: "text",
+            initialValue: selectedEditApp?.webAppFigmaLink || "",
+            validation: yup.string().url("Must be a valid URL").optional(),
+          },
+          {
+            name: "webAppLink",
+            label: "Web App Link",
+            type: "text",
+            initialValue: selectedEditApp?.webAppLink || "",
+            validation: yup.string().url("Must be a valid URL").optional(),
+          },
+        ],
+      },
+    ];
+  }, [selectedEditApp]);
+
+  /**
+   * Function to generate the form for editing an item.
+   */
+  const generateEditAppForm = useCallback(
+    ({ id }: { id: string }) => {
+      const submitApp = async (app: RequestType) => {
+        const appToEdit = { id, ...app };
+        const response = await ApiService.put(`app/update-app`, appToEdit);
+        if (response.error) {
+          toast.error(response.error.message, toastConfig);
+          return;
+        } else {
+          toast.success(response.message, toastConfig);
+          refetch();
+        }
+
+        modal.closeModal();
+      };
+
+      return (
+        <Box>
+          <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+            Edit App {selectedEditApp?.name + " " + id}
+          </Typography>
+          <FormStepper tabs={editAppFormTabs} submit={submitApp} />
+        </Box>
+      );
+    },
+    [modal, editAppFormTabs, selectedEditApp]
+  );
+
+  /**
+   * Function to handle editing an item.
+   */
+  const editItemHandler = (id: string) => {
+    const appToEdit = appsFromStore.data.find((app) => app.id === id) || null;
+    setSelectedEditApp(appToEdit);
+  };
+
+  /**
+   * Effect hook to open the modal for editing an item.
+   */
+  useEffect(() => {
+    if (selectedEditApp) {
+      modal.setContent(() => generateEditAppForm({ id: selectedEditApp.id }));
+      modal.openModal();
+    }
+  }, [selectedEditApp]);
 
   /**
    * Define table columns and associated rendering functions.
@@ -207,7 +364,7 @@ const ControlPanelAppsPage = () => {
     {
       name: "options-1",
       render: (_value: string, row: tableRowsType) => (
-        <Button onClick={() => console.log(row.id)}>
+        <Button onClick={() => editItemHandler(row.id)}>
           <EditRoundedIcon />
         </Button>
       ),
@@ -268,6 +425,13 @@ const ControlPanelAppsPage = () => {
         data={tableData}
         toolbar={toolbar}
         loading={status === "loading"}
+      />
+
+      <CustomModal
+        open={modal.isOpen}
+        title={""}
+        handleClose={modal.closeModal}
+        children={modal.content}
       />
     </Box>
   );

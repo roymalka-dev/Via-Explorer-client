@@ -26,7 +26,7 @@ export const FormStepper = <T extends RequestType>({
   submit,
 }: {
   tabs: TabConfig<T>[];
-  bucketName: string;
+  bucketName?: string;
   submit: (request: T) => void;
 }) => {
   const dispatch = useDispatch();
