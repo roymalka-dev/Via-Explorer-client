@@ -10,7 +10,7 @@ type CheckboxMenuButtonProps = {
   options: string[];
   active: string[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  handler: any;
+  handler: (selected: boolean, option: string) => void;
 };
 
 const isChecked = (active: string[], option: string): boolean => {

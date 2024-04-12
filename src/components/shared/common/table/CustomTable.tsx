@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
-import React, { useState, useMemo, useEffect } from "react";
+/* eslint-disable react-hooks/rules-of-hooks */
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 import {
   Table,
   TableBody,
@@ -24,54 +24,35 @@ import { TableDataType } from "@/types/components.types";
 import { getConfigValue } from "@/utils/configurations.utils";
 import { useTranslation } from "react-i18next";
 
+import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
+import { CheckboxMenuButton } from "../../ui/buttons/CheckboxMenuButton";
+
 /**
  * Interface for the CustomTable component's props
  */
 interface CustomTableProps {
-  /**
-   * Data to be displayed in the table, including rows and column definitions.
-   */
-  data: TableDataType;
-
-  /**
-   * Optional array of toolbar elements to be rendered above the table.
-   * Each element is a function returning a JSX.Element.
-   */
-  toolbar?: (() => JSX.Element)[];
-
-  /**
-   * Indicates whether the table data is currently being loaded.
-   * If true, a loading indicator is displayed.
-   */
-  loading?: boolean;
-
-  /**
-   * Optional function for handling search input. It's called with the search text.
-   */
-  searchHandler?: (searchText: string) => void;
-
-  /**
-   * Optional custom pagination handler function. It should implement pagination logic.
-   */
-  paginationHandler?: typeof useTablePagination;
+  data: TableDataType; // Data to be displayed including rows and column definitions.
+  toolbar?: (() => JSX.Element)[]; // Optional array of toolbar elements rendered above the table.
+  loading?: boolean; // Indicates if the data is being loaded.
+  searchHandler?: (searchText: string) => void; // Optional function for handling search input.
+  paginationHandler?: typeof useTablePagination; // Optional custom pagination handler function.
 }
 
 /**
- * CustomTable component renders a table with features such as custom toolbar,
- * pagination, sorting, and searching. It is designed to be flexible and reusable
- * for various types of data.
+ * CustomTable component encapsulates functionality for rendering a data table with support for
+ * sorting, pagination, and filtering columns. It aims to be reusable and flexible for various
+ * data types and use cases.
  *
- * @param {CustomTableProps} props The properties for the CustomTable component.
- * @returns {JSX.Element} The rendered table component with the specified configurations.
+ * @param {CustomTableProps} props - Properties passed to the component.
+ * @returns {JSX.Element} - The fully rendered table component.
  */
 const CustomTable: React.FC<CustomTableProps> = ({
   data,
-  toolbar,
+  toolbar = [],
   loading,
   searchHandler,
   paginationHandler,
 }) => {
-  // Configuration values, potentially loaded from external sources or constants
   const ALLOWED_PAGINATION_NUMBERS = getConfigValue(
     "NUMBER_OF_ALLOWED_PAGINATION",
     [10, 25, 100, 300, 1000]
@@ -80,64 +61,110 @@ const CustomTable: React.FC<CustomTableProps> = ({
     getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 300)
   );
 
-  // Hooks and utilities
   const { t } = useTranslation();
   const theme = useTheme();
-  const defaultPagination = useTablePagination(25);
   const pagination = paginationHandler
     ? paginationHandler(25)
-    : defaultPagination;
+    : useTablePagination(25);
   const { order, orderBy, handleRequestSort } = useTableSorter();
 
-  // Component state
-  const [inputValue, setInputValue] = useState("");
+  const [activeColumns, setActiveColumns] = useState(
+    new Set(data.cols.map((col) => col.name))
+  );
+
+  /**
+   * Toggles the visibility of a column in the table.
+   * @param {string} colName - The name of the column to toggle.
+   * @returns {void}
+   */
+  const toggleColumn = useCallback((colName: string) => {
+    setActiveColumns((prevActiveColumns) => {
+      const newActiveColumns = new Set(prevActiveColumns);
+      if (newActiveColumns.has(colName)) {
+        newActiveColumns.delete(colName);
+      } else {
+        newActiveColumns.add(colName);
+      }
+      return newActiveColumns;
+    });
+  }, []);
+
+  /**
+   * Filters the columns based on the active columns set.
+   * @returns {Column[]} - The filtered columns.
+   */
+  const filteredCols = useMemo(
+    () => data.cols.filter((col) => activeColumns.has(col.name)),
+    [data.cols, activeColumns]
+  );
+
+  /**
+   * Returns a button for filtering columns.
+   * @returns {JSX.Element} - The filter columns button.
+   */
+  const filterColsButton = () => {
+    return (
+      <CheckboxMenuButton
+        name={
+          <FilterAltRoundedIcon
+            color={
+              filteredCols.length < data.cols.length ? "primary" : "secondary"
+            }
+          />
+        }
+        options={data.cols.map((col) => col.name)}
+        active={filteredCols.map((col) => col.name)}
+        handler={(_selected, option) => toggleColumn(option)}
+      />
+    );
+  };
+
+  // Add the filter columns button to the toolbar.
+  toolbar = [filterColsButton, ...toolbar];
+
+  // Search text state and debounced search handler.
   const [searchText, setSearchText] = useState("");
 
-  // Effect for debouncing search input
+  /**
+   * Debounces the search input and calls the search handler.
+   * @returns {void}
+   */
   useEffect(() => {
     const debouncedSearch = debounce(
-      () => setSearchText(inputValue),
+      () => searchHandler?.(searchText),
       DEBOUNCE_SEARCH_INPUT_TIME_IN_MS
     );
     debouncedSearch();
     return () => debouncedSearch.cancel();
-  }, [inputValue]);
+  }, [searchText, searchHandler]);
 
-  // Logic for filtering and sorting table rows
-  const filteredRows = useMemo(
-    () =>
-      searchText
-        ? data.rows.filter((row) =>
-            Object.values(row).some((value) =>
-              String(value).toLowerCase().includes(searchText.toLowerCase())
-            )
-          )
-        : data.rows,
-    [data.rows, searchText]
-  );
-
+  /**
+   * Handles sorting of the table rows.
+   * @param {string} property - The property to sort by.
+   * @returns {void}
+   */
   const sortedAndFilteredRows = useMemo(() => {
-    if (
-      !orderBy ||
-      !data.cols.find((col) => col.name === orderBy)?.comparator
-    ) {
-      return filteredRows;
-    }
-    const comparator = data.cols.find((col) => col.name === orderBy)
-      ?.comparator!;
-    return [...filteredRows].sort(
-      (a, b) => (order === "asc" ? 1 : -1) * comparator(a[orderBy], b[orderBy])
+    let rows = data.rows.filter((row) =>
+      Object.values(row).some((value) =>
+        value.toString().toLowerCase().includes(searchText.toLowerCase())
+      )
     );
-  }, [filteredRows, orderBy, order, data.cols]);
 
-  // Search change handler
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    searchHandler
-      ? searchHandler(event.target.value)
-      : setInputValue(event.target.value);
-  };
+    if (
+      orderBy &&
+      filteredCols.find((col) => col.name === orderBy)?.comparator
+    ) {
+      const comparator = filteredCols.find((col) => col.name === orderBy)!
+        .comparator!;
+      rows = rows.sort(
+        (a, b) =>
+          (order === "asc" ? 1 : -1) * comparator(a[orderBy], b[orderBy])
+      );
+    }
 
-  // Component render function
+    return rows;
+  }, [data.rows, filteredCols, orderBy, order, searchText]);
+
   return (
     <TableContainer
       component={Paper}
@@ -145,12 +172,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
       sx={{ mx: "auto", maxWidth: "100%", overflowX: "auto" }}
     >
       <CustomTableToolbar
-        onSearchChange={handleSearchChange}
         toolbar={toolbar}
+        onSearchChange={(e) => setSearchText(e.target.value)}
       />
       <Table aria-label="custom table">
         <CustomTableHead
-          cols={data.cols}
+          cols={filteredCols}
           order={order}
           orderBy={orderBy}
           onRequestSort={handleRequestSort}
@@ -159,7 +186,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
           {loading ? (
             <TableRow>
               <TableCell
-                colSpan={data.cols.length}
+                colSpan={filteredCols.length}
                 style={{ textAlign: "center" }}
               >
                 <CircularProgress />
@@ -173,7 +200,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   pagination.rowsPerPage
               )
               .map((row, index) => (
-                <CustomTableRow key={index} row={row} columns={data.cols} />
+                <CustomTableRow key={index} row={row} columns={filteredCols} />
               ))
           )}
         </TableBody>
@@ -193,9 +220,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             "shared.components.common.table.pagination.rowsPerPage"
           )}
           labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} ${t(
-              "shared.components.common.table.pagination.of"
-            )} ${count}`
+            `${from}-${to} of ${count}`
           }
         />
       </Box>

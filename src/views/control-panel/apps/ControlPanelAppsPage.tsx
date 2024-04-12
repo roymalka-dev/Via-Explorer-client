@@ -362,7 +362,7 @@ const ControlPanelAppsPage = () => {
     },
 
     {
-      name: "options-1",
+      name: "options-edit",
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => editItemHandler(row.id)}>
           <EditRoundedIcon />
@@ -371,7 +371,7 @@ const ControlPanelAppsPage = () => {
     },
 
     {
-      name: "options-2",
+      name: "options-open",
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => navigate(`/app/${row.id}`)}>
           <LaunchRoundedIcon />
