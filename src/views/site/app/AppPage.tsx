@@ -54,6 +54,10 @@ const AppPage: React.FC = () => {
       label: "build manager",
       locale: "site.pages.app.sections.buildManager.title",
       component: AppBuildManagerSection,
+      data: {
+        iosBuilds: appData.data?.iosBuilds,
+        androidBuilds: appData.data?.androidBuilds,
+      },
     },
     {
       label: "screenshots",

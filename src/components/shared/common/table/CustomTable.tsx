@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next";
 
 import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
 import { CheckboxMenuButton } from "../../ui/buttons/CheckboxMenuButton";
+import { PAGINATION_NUMBERS } from "@/constants/pagination.const";
 
 /**
  * Interface for the CustomTable component's props
@@ -53,10 +54,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
   searchHandler,
   paginationHandler,
 }) => {
-  const ALLOWED_PAGINATION_NUMBERS = getConfigValue(
-    "NUMBER_OF_ALLOWED_PAGINATION",
-    [10, 25, 100, 300, 1000]
-  ) as number[];
   const DEBOUNCE_SEARCH_INPUT_TIME_IN_MS = Number(
     getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 300)
   );
@@ -209,7 +206,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
         sx={{ width: "100%", display: "flex", justifyContent: "flex-start" }}
       >
         <TablePagination
-          rowsPerPageOptions={ALLOWED_PAGINATION_NUMBERS}
+          rowsPerPageOptions={PAGINATION_NUMBERS}
           component="div"
           count={sortedAndFilteredRows.length}
           rowsPerPage={pagination.rowsPerPage}
