@@ -30,10 +30,9 @@ export type TableDataType = {
 export type KanbanCardType = {
   id: string;
   title: string;
-  description?: string;
-  tags?: string[];
-  assignedTo?: string;
-  dueDate?: string;
+  performingUser?: string;
+  launchDate?: string;
+  link: string;
 };
 
 export type KanbanColumnType = {

@@ -5,6 +5,8 @@ import {
   CardActions,
   Button,
 } from "@mui/material";
+import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
+
 import PersonIcon from "@mui/icons-material/Person";
 import EventIcon from "@mui/icons-material/Event";
 import { KanbanCardType } from "@/types/components.types";
@@ -20,16 +22,18 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({ card }) => {
           {card.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {card.description}
+          {card.id}
         </Typography>
-        <Typography variant="body2">
-          <PersonIcon /> {card.assignedTo}
+        <Typography variant="body1">
+          <PersonIcon /> {card.performingUser}
           <br />
-          <EventIcon /> {card.dueDate}
+          <EventIcon /> {card.launchDate}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Learn More</Button>
+        <Button href={card.link} size="small">
+          <LaunchRoundedIcon />
+        </Button>
       </CardActions>
     </Card>
   );

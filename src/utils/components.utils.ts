@@ -5,16 +5,17 @@ export const getStatusChipColor = (
 ): { backgroundColor: string; opacity: number; color: string } => {
   switch (status.toLowerCase()) {
     case "failed":
-      // Dark background, light text
       return { backgroundColor: "#FF0000", opacity: 0.5, color: "#FFFFFF" };
-    case "completed":
-      // Dark background, light text
+    case "done":
       return { backgroundColor: "#008000", opacity: 0.5, color: "#FFFFFF" };
+    case "inProgress":
+      return { backgroundColor: "#0000FF", opacity: 0.5, color: "#FFFFFF" };
+    case "todo":
+      return { backgroundColor: "#FFD700", opacity: 0.5, color: "#000000" };
+
     case "pending":
-      // Lighter background, dark text
       return { backgroundColor: "#FFD700", opacity: 0.5, color: "#000000" };
     default:
-      // Default to a dark background, light text
       return { backgroundColor: "#000000", opacity: 0.5, color: "#FFFFFF" };
   }
 };

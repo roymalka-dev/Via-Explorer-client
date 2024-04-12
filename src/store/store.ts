@@ -8,6 +8,7 @@ import formReducer from "./slices/formSlice";
 import appsReducer from "./slices/appsSlice";
 import configurationsReducer from "./slices/configurationsSlice";
 import searchReducer from "./slices/searchSlice";
+import requestsReducer from "./slices/requestsSlice";
 const rootReducer = combineReducers({
   theme: themeReducer,
   filters: filtersReducer,
@@ -16,12 +17,21 @@ const rootReducer = combineReducers({
   apps: appsReducer,
   configurations: configurationsReducer,
   search: searchReducer,
+  requests: requestsReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["theme", "auth", "form", "apps", "configurations", "search"],
+  whitelist: [
+    "theme",
+    "auth",
+    "form",
+    "apps",
+    "configurations",
+    "search",
+    "requests",
+  ],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
