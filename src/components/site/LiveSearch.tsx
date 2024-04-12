@@ -10,6 +10,9 @@ import { appType } from "@/types/app.types";
 import { toast } from "react-toastify";
 import { toastConfig } from "@/configs/toast.config";
 import { getConfigValue } from "@/utils/configurations.utils";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { updateQueries } from "@/store/slices/searchSlice";
 
 /**
  * LiveSearch component integrates an asynchronous search input with debounced query handling.
@@ -22,15 +25,20 @@ const LiveSearch = () => {
     getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 300)
   );
 
+  const searchCache = useSelector((state: RootState) => state.search);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation(); // For internationalization
   const [query, setQuery] = useState(""); // Search query state
   const [displayedApps, setDisplayedApps] = useState<appType[]>([]); // State for search results
 
   // Custom hook to call the search API, parameterized by the current query.
-  const { data, status, error } = useApi<appType[]>(
+  const { data, status, error, refetch } = useApi<appType[]>(
     `app/search-apps?q=${query}`,
-    "GET"
+    "GET",
+    {},
+    [],
+    true
   );
 
   // Debounced function to set the search query, limiting the rate at which searches are performed.
@@ -40,12 +48,18 @@ const LiveSearch = () => {
   );
 
   useEffect(() => {
-    // Update search results on successful API response or reset if the query is empty.
+    if (searchCache.queries[query]) {
+      setDisplayedApps(searchCache.queries[query] || []);
+    } else {
+      refetch();
+    }
+  }, [query]);
+
+  useEffect(() => {
     if (status === "success" && data) {
       setDisplayedApps(query.length === 0 ? [] : data);
+      dispatch(updateQueries({ [query]: data }));
     }
-
-    // Display an error message using a toast notification on API call failure.
     if (error) {
       toast.error(
         error?.message || t("site.messages.error.default"),
@@ -54,7 +68,6 @@ const LiveSearch = () => {
     }
   }, [data, status, error, query, t]);
 
-  // Handler for updating the search query with debouncing.
   const handleSearch = (query: string) => {
     debouncedSetQuery(query);
   };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Box, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { debounce } from "lodash";
@@ -10,6 +11,10 @@ import { toastConfig } from "@/configs/toast.config";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { getConfigValue } from "@/utils/configurations.utils";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { updateQueries } from "@/store/slices/searchSlice";
 
 const AppsPage = () => {
   const APPS_PER_PAGE = Number(
@@ -18,20 +23,39 @@ const AppsPage = () => {
 
   const theme = useTheme();
   const { t } = useTranslation();
-
+  const searchCache = useSelector((state: RootState) => state.search);
+  const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
   const [query, setQuery] = useState("");
   const [displayedApps, setDisplayedApps] = useState<appType[]>([]);
 
-  const { data, status, error } = useApi<appType[]>(
-    `app/search-apps?q=${query}`
+  const { data, status, error, refetch } = useApi<appType[]>(
+    `app/search-apps?q=${query}`,
+    "GET",
+    {},
+    [],
+    true
   );
 
   const debouncedSetQuery = debounce(setQuery, 500);
 
+  const handleSearch = (query: string) => {
+    debouncedSetQuery(query);
+    setCurrentPage(1);
+  };
+
+  useEffect(() => {
+    if (searchCache.queries[query]) {
+      setDisplayedApps(searchCache.queries[query] || []);
+    } else {
+      refetch();
+    }
+  }, [query]);
+
   useEffect(() => {
     if (status === "success" && data) {
       setDisplayedApps(data);
+      dispatch(updateQueries({ [query]: data }));
     }
 
     if (error) {
@@ -41,11 +65,6 @@ const AppsPage = () => {
       );
     }
   }, [data, status, error, t]);
-
-  const handleSearch = (query: string) => {
-    debouncedSetQuery(query);
-    setCurrentPage(1);
-  };
 
   return (
     <Box dir={theme.direction}>

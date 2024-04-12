@@ -17,7 +17,6 @@ export default function ControlPanelLayout() {
       minHeight={"100%"}
       maxWidth={"100%"}
       maxHeight={"100%"}
-      padding={{ xs: "1rem", sm: "2rem", md: "3rem", lg: "4rem" }}
       dir={theme.direction}
     >
       <ControlPanelAppBar open={false} />
@@ -27,7 +26,6 @@ export default function ControlPanelLayout() {
         component="main"
         sx={(theme) => ({
           flexGrow: 1,
-          p: 3,
           ...(theme.direction === "rtl" && { mr: 2.5 }),
         })}
       >

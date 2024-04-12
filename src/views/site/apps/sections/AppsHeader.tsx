@@ -8,6 +8,7 @@ import {
   TextField,
   CircularProgress,
   useTheme,
+  Button,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -15,6 +16,11 @@ import { CheckboxMenuButton } from "@/components/shared/ui/buttons/CheckboxMenuB
 import { SelectMenuButton } from "@/components/shared/ui/buttons/SelectMenuButton";
 import { useTranslation } from "react-i18next";
 import { appSorterType, appType, appFilterType } from "@/types/app.types";
+import { useDispatch } from "react-redux";
+import { resetQueries } from "@/store/slices/searchSlice";
+import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
+import { toastConfig } from "@/configs/toast.config";
+import { toast } from "react-toastify";
 
 const appsSorters: appSorterType[] = [
   {
@@ -71,6 +77,7 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
   const [sorter, setSorter] = useState<appSorterType>(appsSorters[0]);
   const { t } = useTranslation();
   const theme = useTheme();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     applyFiltersAndSorters();
@@ -116,6 +123,11 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
     const newSorter =
       appsSorters.find((s) => s.name === selectedSorter) || appsSorters[0];
     setSorter(newSorter);
+  };
+
+  const handleClearCache = () => {
+    dispatch(resetQueries());
+    toast.success("Search Cache Cleared", toastConfig);
   };
 
   const memoizedBaseFilters = useMemo(() => appsFilters.map((f) => f.name), []);
@@ -179,6 +191,9 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
                 active={sorter.name}
                 handler={handleSetSorter}
               />
+              <Button onClick={() => handleClearCache()}>
+                <CachedRoundedIcon color={"secondary"} />
+              </Button>
             </Box>
           </Grid>
         </Grid>

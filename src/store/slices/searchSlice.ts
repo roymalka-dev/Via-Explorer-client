@@ -1,15 +1,18 @@
+import { appType } from "@/types/app.types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type KeyValueStore = {
-  [key: string]: string | undefined;
+  [key: string]: appType[] | undefined;
 };
 
 interface SearchState {
   queries: KeyValueStore;
+  ttl: number;
 }
 
 const initialState: SearchState = {
   queries: {},
+  ttl: Date.now(),
 };
 
 const searchSlice = createSlice({
