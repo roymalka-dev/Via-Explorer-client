@@ -47,3 +47,7 @@ export interface RequestEditAppType extends RequestType {
   webAppFigmaLink?: string;
   webAppLink?: string;
 }
+
+export interface RequestEditUserType extends RequestType {
+  authorization: string;
+}
