@@ -8,6 +8,12 @@ import { getStatusChipColor } from "@/utils/components.utils";
 import { useTranslation } from "react-i18next";
 import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
 import { useNavigate } from "react-router-dom";
+import ApiService from "@/services/ApiService";
+import { toastConfig } from "@/configs/toast.config";
+import { toast } from "react-toastify";
+import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import useModal from "@/hooks/useModal";
+import { CustomModal } from "@/components/shared/common/modal/CustomModal";
 
 /**
  * Component for the Control Panel Requests Page.
@@ -19,7 +25,7 @@ const ControlPanelRequestsPage = () => {
   const [rows, setRows] = useState<TableDataType[]>([]);
   const navigate = useNavigate();
 
-  const { data, status } = useApi<TableDataType[]>(
+  const { data, status, refetch } = useApi<TableDataType[]>(
     "requests/get-all-requests",
     "GET"
   );
@@ -32,6 +38,38 @@ const ControlPanelRequestsPage = () => {
       setRows(data);
     }
   }, [status, data]);
+
+  const modal = useModal();
+
+  const deleteRequest = async (id: string) => {
+    const confirmDelete = async (id: string) => {
+      modal.closeModal();
+      const success = await ApiService.delete("requests/delete-request/" + id);
+      if (success) {
+        toast.success("Request deleted successfully", toastConfig);
+        refetch();
+      } else {
+        toast.error("Failed to delete request", toastConfig);
+      }
+    };
+
+    modal.openModal();
+    modal.setContent(
+      <Box>
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          Are you sure you want to delete this request?
+        </Typography>
+        <Button onClick={() => modal.closeModal()}>
+          <Typography variant="body2">Cancel</Typography>
+        </Button>
+        <Button onClick={() => confirmDelete(id)}>
+          <Typography variant="body2" style={{ color: "red" }}>
+            Delete
+          </Typography>
+        </Button>
+      </Box>
+    );
+  };
 
   const cols = [
     {
@@ -81,10 +119,18 @@ const ControlPanelRequestsPage = () => {
       comparator: comperators.string,
     },
     {
-      name: "options-1",
+      name: "options-launch",
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => navigate(`/requests/view/${row.id}`)}>
           <LaunchRoundedIcon />
+        </Button>
+      ),
+    },
+    {
+      name: "options-delete",
+      render: (_value: string, row: tableRowsType) => (
+        <Button onClick={() => deleteRequest(row.id)}>
+          <DeleteRoundedIcon color={"secondary"} />
         </Button>
       ),
     },
@@ -102,6 +148,12 @@ const ControlPanelRequestsPage = () => {
         data={tableData}
         loading={status === "loading"}
         toolbar={toolbar}
+      />
+      <CustomModal
+        open={modal.isOpen}
+        title={""}
+        handleClose={modal.closeModal}
+        children={modal.content}
       />
     </Box>
   );

@@ -78,7 +78,7 @@ const KanbanSection = () => {
         link: baseLink + request.id,
       };
 
-      if (request.status === "todo") {
+      if (request.status === "todo" || request.status === "pending") {
         todo.cards.push(task);
       } else if (request.status === "inProgress") {
         inProgress.cards.push(task);

@@ -9,6 +9,7 @@ import {
   CircularProgress,
   useTheme,
   Button,
+  Tooltip,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -191,9 +192,11 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
                 active={sorter.name}
                 handler={handleSetSorter}
               />
-              <Button onClick={() => handleClearCache()}>
-                <CachedRoundedIcon color={"secondary"} />
-              </Button>
+              <Tooltip title="Clear search cache">
+                <Button onClick={() => handleClearCache()}>
+                  <CachedRoundedIcon color={"secondary"} />
+                </Button>
+              </Tooltip>
             </Box>
           </Grid>
         </Grid>
