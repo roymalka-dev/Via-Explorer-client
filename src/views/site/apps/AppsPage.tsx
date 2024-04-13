@@ -70,7 +70,7 @@ const AppsPage = () => {
     <Box dir={theme.direction}>
       <Box>
         <AppsHeader
-          apps={data || []}
+          apps={searchCache.queries[query] || []}
           searchHandler={handleSearch}
           setDisplayedApps={setDisplayedApps}
           status={status}
