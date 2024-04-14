@@ -51,3 +51,8 @@ export interface RequestEditAppType extends RequestType {
 export interface RequestEditUserType extends RequestType {
   authorization: string;
 }
+
+export interface RequestEditConfigurationType extends RequestType {
+  key: string;
+  value: string | number | boolean | string[] | Date | undefined;
+}

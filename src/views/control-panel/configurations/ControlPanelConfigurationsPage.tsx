@@ -1,11 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { FormStepper } from "@/components/shared/common/form/FormStepper";
+import { CustomModal } from "@/components/shared/common/modal/CustomModal";
 import CustomTable from "@/components/shared/common/table/CustomTable";
+import { toastConfig } from "@/configs/toast.config";
 import useApi from "@/hooks/useApi";
+import useModal from "@/hooks/useModal";
+import ApiService from "@/services/ApiService";
 import { TableDataType, tableRowsType } from "@/types/components.types";
+import { TabConfig } from "@/types/form.types";
+import {
+  RequestEditConfigurationType,
+  RequestType,
+} from "@/types/request.types";
 import { comperators, tableDataGenerator } from "@/utils/components.utils";
 import { Box, Button, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { toast } from "react-toastify";
+import * as yup from "yup";
 /**
  * Component for the Control Panel Configurations Page.
  * This page displays a table of configuration details fetched from the server.
@@ -14,8 +26,12 @@ import { useTranslation } from "react-i18next";
 const ControlPanelConfigurationsPage = () => {
   const { t } = useTranslation();
   const [rows, setRows] = useState<TableDataType[]>([]);
+  const [selectedConfiguration, setSelectedConfiguration] = useState<{
+    key: string;
+    value: string | number | boolean | string[] | Date | undefined;
+  }>();
 
-  const { data, status } = useApi<TableDataType[]>(
+  const { data, status, refetch } = useApi<TableDataType[]>(
     "configurations/get-all-configurations",
     "GET"
   );
@@ -29,10 +45,94 @@ const ControlPanelConfigurationsPage = () => {
     }
   }, [status, data]);
 
+  const modal = useModal();
+
+  /**
+   * Define form fields for editing an item.
+   */
+  const editConfigurationFormTabs: TabConfig<RequestEditConfigurationType>[] =
+    useMemo(() => {
+      return [
+        {
+          tabName: "",
+          fields: [
+            {
+              name: "name",
+              label: "Configuration",
+              type: "text",
+              initialValue: selectedConfiguration?.value || "",
+              validation: yup.string().optional(),
+            },
+          ],
+        },
+      ];
+    }, [selectedConfiguration]);
+
+  /**
+   * Function to generate the form for editing an item.
+   */
+  const generateEditConfigurationForm = useCallback(
+    ({ key }: { key: string }) => {
+      const submitConfiguration = async (value: RequestType) => {
+        const configurationToEdit = { key, value: value.name };
+        const response = await ApiService.put(
+          `configurations/edit-configuration`,
+          configurationToEdit
+        );
+        if (response.error) {
+          toast.error(response.error.message, toastConfig);
+          return;
+        } else {
+          toast.success(response.message, toastConfig);
+          refetch();
+        }
+
+        modal.closeModal();
+      };
+
+      return (
+        <Box>
+          <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+            Edit {selectedConfiguration?.key}
+          </Typography>
+          <FormStepper
+            tabs={editConfigurationFormTabs}
+            submit={submitConfiguration}
+          />
+        </Box>
+      );
+    },
+    [modal, editConfigurationFormTabs, selectedConfiguration]
+  );
+
+  /**
+   * Function to handle editing an item.
+   */
+  const editItemHandler = (row: tableRowsType) => {
+    const configuration = {
+      key: row.name,
+      value: row.value,
+    };
+    setSelectedConfiguration(configuration);
+  };
+
+  /**
+   * Effect hook to open the modal for editing an item.
+   */
+  useEffect(() => {
+    if (selectedConfiguration) {
+      modal.setContent(() =>
+        generateEditConfigurationForm({
+          key: selectedConfiguration.key,
+        })
+      );
+      modal.openModal();
+    }
+  }, [selectedConfiguration]);
+
   /**
    * Define table columns and associated rendering functions.
    */
-
   const cols = [
     {
       name: "name",
@@ -68,7 +168,7 @@ const ControlPanelConfigurationsPage = () => {
       name: "value",
       locale: "controlPanel.pages.configurations.table.cols.value",
       render: (value: string | number[] | string[], row: tableRowsType) => (
-        <Button onClick={() => console.log(row.name)} variant="outlined">
+        <Button onClick={() => editItemHandler(row)} variant="outlined">
           <Typography variant="body1">
             {Array.isArray(value) ? value.join(", ") : value}
           </Typography>
@@ -96,6 +196,12 @@ const ControlPanelConfigurationsPage = () => {
         data={tableData}
         loading={status === "loading"}
         toolbar={toolbar}
+      />
+      <CustomModal
+        open={modal.isOpen}
+        title={""}
+        handleClose={modal.closeModal}
+        children={modal.content}
       />
     </Box>
   );
