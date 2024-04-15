@@ -61,6 +61,9 @@ const AppPage: React.FC = () => {
       data: {
         pso: appData.data?.pso,
         psm: appData.data?.psm,
+        region: appData.data?.region,
+        env: appData.data?.env,
+        tenant: appData.data?.tenant,
       },
     },
     {
@@ -178,19 +181,8 @@ const AppPage: React.FC = () => {
           variant="body1"
           gutterBottom
         >{`${appData.data.city}, ${appData.data.country}`}</Typography>
-        <Typography
-          variant="body2"
-          gutterBottom
-        >{`Region: ${appData.data.region}`}</Typography>
-        <Typography
-          variant="body2"
-          gutterBottom
-        >{`Env: ${appData.data.env}`}</Typography>
-        <Typography
-          variant="body2"
-          gutterBottom
-        >{`Tenant: ${appData.data.tenant}`}</Typography>
-        <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+
+        <Stack direction="row" spacing={2} sx={{ mt: 12 }}>
           {appData.data.iosLink && (
             <Button
               variant="contained"

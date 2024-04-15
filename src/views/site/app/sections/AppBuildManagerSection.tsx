@@ -38,79 +38,88 @@ const AppBuildManagerSection: React.FC<AppBuildManagerSectionProps> = ({
 
   return (
     <Box sx={{ width: "100%", padding: 3 }}>
-      {iosBuilds?.length === 0 && androidBuilds?.length === 0 ? (
-        <Typography variant="h6" sx={{ marginBottom: 2 }}>
-          No builds available
-        </Typography>
-      ) : (
-        <Box sx={{ display: "flex", gap: 2 }}>
-          <Box sx={{ flex: 1, marginBottom: 3 }}>
-            <Typography variant="subtitle1">iOS Builds</Typography>
-            <Select
-              value={
-                iosBuilds?.find((build) => build.link === selectedIosLink)
-                  ?.version || ""
+      <Box sx={{ display: "flex", gap: 2 }}>
+        <Box sx={{ flex: 1, marginBottom: 3 }}>
+          <Typography variant="subtitle1">iOS Builds</Typography>
+          <Select
+            value={
+              iosBuilds?.find((build) => build.link === selectedIosLink)
+                ?.version || ""
+            }
+            onChange={handleIosChange}
+            displayEmpty
+            fullWidth
+            sx={{ marginBottom: 2 }}
+            renderValue={(selectedValue) => {
+              if (
+                selectedValue === "" &&
+                (!iosBuilds || iosBuilds.length === 0)
+              ) {
+                return "No builds available";
               }
-              onChange={handleIosChange}
-              displayEmpty
-              fullWidth
-              sx={{ marginBottom: 2 }}
-            >
-              {iosBuilds?.map((build: appBuildVersionType, index: number) => (
-                <MenuItem key={index} value={build.version}>
-                  {build.version}
-                </MenuItem>
-              ))}
-            </Select>
-            <Button
-              variant="outlined"
-              color="secondary"
-              startIcon={<AppleIcon />}
-              href={selectedIosLink}
-              disabled={!selectedIosLink}
-              target="_blank"
-              aria-label="App Store"
-              sx={{ width: "100%" }}
-            >
-              Test Flight
-            </Button>
-          </Box>
-          <Box sx={{ flex: 1 }}>
-            <Typography variant="subtitle1">Android Builds</Typography>
-            <Select
-              value={
-                androidBuilds?.find(
-                  (build) => build.link === selectedAndroidLink
-                )?.version || ""
-              }
-              onChange={handleAndroidChange}
-              displayEmpty
-              fullWidth
-              sx={{ marginBottom: 2 }}
-            >
-              {androidBuilds?.map(
-                (build: appBuildVersionType, index: number) => (
-                  <MenuItem key={index} value={build.version}>
-                    {build.version}
-                  </MenuItem>
-                )
-              )}
-            </Select>
-            <Button
-              variant="outlined"
-              color="secondary"
-              startIcon={<AndroidIcon />}
-              href={selectedAndroidLink}
-              disabled={!selectedAndroidLink}
-              target="_blank"
-              aria-label="App Store"
-              sx={{ width: "100%" }}
-            >
-              APK
-            </Button>
-          </Box>
+              return selectedValue || "Select a version";
+            }}
+          >
+            {iosBuilds?.map((build: appBuildVersionType, index: number) => (
+              <MenuItem key={index} value={build.version}>
+                {build.version}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button
+            variant="outlined"
+            color="secondary"
+            startIcon={<AppleIcon />}
+            href={selectedIosLink}
+            disabled={!selectedIosLink}
+            target="_blank"
+            aria-label="App Store"
+            sx={{ width: "100%" }}
+          >
+            Test Flight
+          </Button>
         </Box>
-      )}
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="subtitle1">Android Builds</Typography>
+          <Select
+            value={
+              androidBuilds?.find((build) => build.link === selectedAndroidLink)
+                ?.version || ""
+            }
+            onChange={handleAndroidChange}
+            displayEmpty
+            fullWidth
+            sx={{ marginBottom: 2 }}
+            renderValue={(selectedValue) => {
+              if (
+                selectedValue === "" &&
+                (!androidBuilds || androidBuilds.length === 0)
+              ) {
+                return "No builds available";
+              }
+              return selectedValue || "Select a version";
+            }}
+          >
+            {iosBuilds?.map((build: appBuildVersionType, index: number) => (
+              <MenuItem key={index} value={build.version}>
+                {build.version}
+              </MenuItem>
+            ))}
+          </Select>
+          <Button
+            variant="outlined"
+            color="secondary"
+            startIcon={<AndroidIcon />}
+            href={selectedAndroidLink}
+            disabled={!selectedAndroidLink}
+            target="_blank"
+            aria-label="App Store"
+            sx={{ width: "100%" }}
+          >
+            APK
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 };
