@@ -32,6 +32,9 @@
             "addFavourites": "Add to favourites",
             "removeFavourites": "Remove from favourites"
           },
+          "details": {
+            "title": "Details"
+          },
           "screenshots": {
             "title": "Screenshots",
             "ios": "iOS Screenshots",

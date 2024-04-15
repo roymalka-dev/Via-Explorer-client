@@ -32,6 +32,9 @@
             "addFavourites": "Agregar a favoritos",
             "removeFavourites": "Eliminar de favoritos"
           },
+          "details": {
+            "title": "Detalles"
+          },
           "screenshots": {
             "title": "Capturas de pantalla",
             "ios": "Capturas de pantalla de iOS",

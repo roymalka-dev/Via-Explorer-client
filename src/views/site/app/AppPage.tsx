@@ -27,6 +27,10 @@ import fallbackImageUrl from "@/assets/images/no-image.png";
 import { CustomTabPanelType } from "@/types/components.types";
 import CustomTabs from "@/components/shared/common/tabs/CustomTabs";
 
+const AppDetailsSection = lazy(
+  () => import("@/views/site/app/sections/AppDetailsSection")
+);
+
 const AppScreenshotsSection = lazy(
   () => import("@/views/site/app/sections/AppScreenshotsSection")
 );
@@ -50,6 +54,15 @@ const AppPage: React.FC = () => {
   );
 
   const appsTabs: CustomTabPanelType[] = [
+    {
+      label: "Details",
+      locale: "site.pages.app.sections.details.title",
+      component: AppDetailsSection,
+      data: {
+        pso: appData.data?.pso,
+        psm: appData.data?.psm,
+      },
+    },
     {
       label: "build manager",
       locale: "site.pages.app.sections.buildManager.title",
