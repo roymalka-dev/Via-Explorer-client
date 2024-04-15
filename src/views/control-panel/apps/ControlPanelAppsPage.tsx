@@ -298,8 +298,8 @@ const ControlPanelAppsPage = () => {
       render: (value: string | Date) => (
         <Typography>
           {value instanceof Date
-            ? value.toISOString().split("T")[0]
-            : value.split("T")[0]}
+            ? value.toISOString()?.split("T")[0]
+            : value?.split("T")[0]}
         </Typography>
       ),
       comparator: comperators.date,
@@ -335,7 +335,7 @@ const ControlPanelAppsPage = () => {
     {
       name: "languages",
       locale: "controlPanel.pages.apps.table.cols.languages",
-      render: (value: string[]) => <Typography>{value.join(", ")}</Typography>,
+      render: (value: string[]) => <Typography>{value?.join(", ")}</Typography>,
       comparator: comperators.string,
     },
     {
