@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useField, useFormikContext } from "formik";
 import {
   Box,
@@ -29,7 +29,7 @@ const DragDropFileInput: React.FC<DragDropFileInputProps> = ({
   bucketName,
 }) => {
   const theme = useTheme();
-  const { setFieldValue } = useFormikContext();
+  const { setFieldValue, values } = useFormikContext();
   const [, meta] = useField(name);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
@@ -117,6 +117,14 @@ const DragDropFileInput: React.FC<DragDropFileInputProps> = ({
     await handleRemoveFromS3();
     handleFileChange(null);
   };
+
+  useEffect(() => {
+    const fileUrl = (values as Record<string, string>)[name];
+    if (fileUrl) {
+      const fileName = fileUrl.split("/").pop();
+      setSelectedFileName(fileName || null);
+    }
+  }, [values, name]);
 
   return (
     <Box>

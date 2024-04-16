@@ -93,7 +93,7 @@ const DynamicField: React.FC<FieldConfig<RequestType>> = ({
               selectLabel={label}
               textFieldLabel="Specify Other"
               options={options || []}
-              information="More information about this field"
+              information={information}
               imageExample={imageExample}
             />
           );

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Formik, Form } from "formik";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
+import { Formik, Form, useFormikContext } from "formik";
 import { Stepper, Step, StepLabel, Button, Box } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { resetForm, updateForm } from "@/store/slices/formSlice";
@@ -11,6 +12,28 @@ import {
 import DynamicFormField from "@/components/shared/common/form/DynamicFormField";
 import { RequestType } from "@/types/request.types";
 import { RootState } from "@/store/store";
+
+const AutoSave = () => {
+  const dispatch = useDispatch();
+  const formikContext = useFormikContext();
+
+  useEffect(() => {
+    const handleSave = () => {
+      if (formikContext.dirty) {
+        dispatch(
+          updateForm(formikContext.values as Partial<Record<string, any>>)
+        );
+        formikContext.setSubmitting(false);
+      }
+    };
+
+    const interval = setInterval(handleSave, 5000); // Save every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [formikContext, dispatch]);
+
+  return null;
+};
 
 /**
  * FormStepper component renders a form with a stepper to navigate through different steps.
@@ -58,6 +81,7 @@ export const FormStepper = <T extends RequestType>({
     >
       {() => (
         <Form>
+          <AutoSave />
           <Stepper activeStep={activeStep} alternativeLabel>
             {tabs.map((tab, index) => (
               <Step key={index}>

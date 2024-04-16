@@ -49,7 +49,8 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         type: "text",
         initialValue: "",
         validation: yup.string().url("Must be a valid URL"),
-        information: "Please provide the Jira project link for the service.",
+        information:
+          "Please provide the Jira project link for the service from LAP/DEAL board.",
       },
       {
         name: "externalLinks",
@@ -57,6 +58,8 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         type: "multi-input",
         initialValue: [""],
         validation: yup.array().of(yup.string().url("Must be a valid URL")),
+        information:
+          "Provide external links such as websites and/or apps, Please make sure access is granted. if you provide a Figma file with all the material make sure all elements are vector (i.e. they don't contain images inside. Then, in the mandatory fields of this form a .png / screenshot of the relevant element can be uploaded instead because all vector files should be found in the Figma file).",
       },
       {
         name: "serviceType",
@@ -88,6 +91,10 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         initialValue: "",
         validation: yup.string().required("Message is required"),
         options: ["I agree to receive", "I dont agree to receive"],
+        information:
+          "Automatically subscribe to receive information and offers (Opt in)? Defaults: US-checked, EU-unchecked",
+        imageExample:
+          "https://lh7-us.googleusercontent.com/VXMqlly_yodh13gtidlB2V_U-soZagsw6tVEhPKJIHHugZezLxe2y384NEXUeh9-M7bOKNlHogWHTzwqHiXRJLKkQW0x2b_k3rZf1Obqq8bHq6AUMsC9UEUUv49bNt4n4ZYEDUG4J34VAueaWUSgZF06JsgU-g",
       },
       {
         name: "specialRequirements",
@@ -107,6 +114,8 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
           .string()
           .email("Must be a valid email")
           .required("Support Email is required"),
+        information:
+          "(In case you don't have the email, please make sure to provide it later on the Monday board designated field)",
       },
       {
         name: "languages",
@@ -115,7 +124,9 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         initialValue: "",
         validation: yup
           .array()
-          .of(yup.string().required("Language is required")),
+          .of(yup.string().required("Language is required"))
+          .required("language is required")
+          .min(1, "At least one language is required"),
         options: [
           "en",
           "ar",
@@ -143,7 +154,10 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Onboarding Messages",
         type: "multi-input",
         initialValue: [""],
-        information: "asd",
+        information:
+          "add onboarding messages to each lagnuage,  Default Title: Hi, we're [App name]!",
+        imageExample:
+          "https://lh7-us.googleusercontent.com/3mD0xFhnFLOa5tpLZCtrcEJA48iJiJMrVrGy_Dwf3Dy8ISPA6_uEbdvJxqO1hWiGBk3rkesL2oRD4_LsBdY2S1inzMWK1ZAp1KHb3VYrDjUlpH8VRYkvZsagJWDCs4b_fdlVYSHCo8uJrsoNxLruTkTmw_QKmQ",
         validation: yup.array().of(yup.string()),
       },
       {
@@ -151,7 +165,10 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Subtitles",
         type: "multi-input",
         initialValue: [""],
-        information: "asd",
+        information:
+          "add subtitle messages to each lagnuage, Default Sub-Title: We make getting around easy and efficient",
+        imageExample:
+          "https://lh7-us.googleusercontent.com/3mD0xFhnFLOa5tpLZCtrcEJA48iJiJMrVrGy_Dwf3Dy8ISPA6_uEbdvJxqO1hWiGBk3rkesL2oRD4_LsBdY2S1inzMWK1ZAp1KHb3VYrDjUlpH8VRYkvZsagJWDCs4b_fdlVYSHCo8uJrsoNxLruTkTmw_QKmQ",
         validation: yup.array().of(yup.string()),
       },
     ],
@@ -164,16 +181,19 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
       {
         name: "whoBranded",
         label: "Who Branded",
-        type: "text",
+        type: "conditional-select",
         initialValue: "",
+        options: ["Via Creative Studio"],
         validation: yup.string().required("Who Branded is required"),
+        information:
+          "please provide the Figma link including all relevant vector files",
       },
       {
         name: "serviceLogoImage",
         label: "Service Logo Image",
         type: "file",
         initialValue: "",
-        information: "asd",
+        information: "Vector graphics only",
         validation: yup.mixed(),
         //.fileSize(1024 * 1024 * 5, "File size must be less than 5MB")
         //.fileType(["image/jpeg", "image/png", "image/gif"],"Unsupported File Format")
@@ -184,7 +204,8 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
       {
         name: "poweredBy",
         label: "Powered By",
-        type: "text",
+        type: "conditional-select",
+        options: ["Via", "Via japan"],
         initialValue: "",
         validation: yup.string().required("Powered By is required"),
       },
@@ -193,13 +214,35 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Operated By",
         type: "conditional-select",
         initialValue: "",
-        options: ["Option 1", "Option 2"],
+        options: [
+          "Yes, we're providing an 'Operated by' logo in this form",
+          "No, show only the 'Powered by Via' logo",
+        ],
         validation: yup.string().required("Operated By is required"),
+        information:
+          "Is an 'Operated by' logo to be included next to the 'Powered by Via' logo? (in one line",
+      },
+      {
+        name: "opereatedByLogo",
+        label: "Operated By Logo",
+        type: "file",
+        initialValue: "",
+        information: "Vector graphics only",
+        validation: yup.mixed(),
+        //.fileSize(1024 * 1024 * 5, "File size must be less than 5MB")
+        //.fileType(["image/jpeg", "image/png", "image/gif"],"Unsupported File Format")
+        //.required("A file is required")
       },
       {
         name: "preferredTitle",
         label: "Preferred Title",
-        type: "text",
+        type: "conditional-select",
+        options: [
+          "Operated by",
+          "Brought to you by",
+          "In partnership with",
+          "French app: Opéré par / Une solution Via",
+        ],
         initialValue: "",
         validation: yup.string().required("Preferred Title is required"),
       },
@@ -209,6 +252,7 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         type: "checkbox",
         initialValue: false,
         validation: yup.boolean(),
+        information: "the app icon on the mobile device's desktop/homepage",
       },
       {
         name: "appLauncer",
@@ -222,6 +266,9 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Skyline Image",
         type: "file",
         initialValue: "",
+        information: "Vector graphics only",
+        imageExample:
+          "https://lh7-us.googleusercontent.com/-uNFBCAlhF3Umm1luAMV8JbQ-cGis1H3r-zvd1IykICyAHC8YJcD6OUh4gTVKepQeuW1ozh0TENo9_LfZkbxQ0lCablPF8lFS9b4Z1BrmhNsUl5ehrKyFPynvI-Hlx2G5tU4BTvoPQ_qpN67CK3CHSx2ZYr3Rg",
         validation: yup.mixed(),
         //.fileSize(1024 * 1024 * 5, "File size must be less than 5MB")
         //.fileType(["image/jpeg", "image/png", "image/gif"],"Unsupported File Format")
@@ -230,10 +277,19 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
       {
         name: "skylineOption",
         label: "Skyline Option",
-        type: "select",
+        type: "conditional-select",
         initialValue: "",
         validation: yup.string(),
-        options: ["Option 1", "Option 2"],
+        options: [
+          "Generic",
+          "City",
+          "Suburban/Industrial",
+          "European Generic",
+          "Rural",
+          "European City",
+          "Seashore",
+          "No skyline",
+        ],
       },
       {
         name: "VheicleOption",
@@ -241,13 +297,35 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         type: "select",
         initialValue: "",
         validation: yup.string(),
-        options: ["Option 1", "Option 2"],
+        information: "Please select the vehicle option",
+        imageExample:
+          "https://lh7-us.googleusercontent.com/2QpaP_eJsIyZYHd4Yl3NBnQA5qahCIInB7wPraXuhXYhlkQn6Y6R0CnfWUXXH3RbcbMt_DI0_6cf2zA8TxvrZSPHwHNzylOa8VW5H4CfXxDzV59SXEcFwW-zv8VVYDcWcqSGXLX9-bAaOqbvZshDSdXx8uJQ9Q",
+        options: [
+          "Rounded Metris",
+          "Metris",
+          "Metris with riders",
+          "WAV",
+          "Van 1",
+          "Sprinter",
+          "AV",
+          "Caravan (TAAS)",
+          "Van 2",
+          "Mini bus",
+          "School Bus",
+          "Bus",
+          "Van 3",
+          "Waste Management",
+          "No vehicle",
+          "We're providing a custom vehicle",
+        ],
       },
       {
         name: "VheicleOptionImage",
         label: "Vehicle Option Image",
         type: "file",
         initialValue: "",
+        information:
+          "Send your own vehicle or choose from Via's default options, the Via team can add branding to the vehicle. Vector graphics only. If your app will be in any LTR language as Hebrew and Arabic the vehicle should be facing left. ",
         validation: yup.mixed(),
         //.fileSize(1024 * 1024 * 5, "File size must be less than 5MB")
         //.fileType(["image/jpeg", "image/png", "image/gif"],"Unsupported File Format")
@@ -258,20 +336,25 @@ export const requestAppTabs: TabConfig<AppRequestType>[] = [
         label: "Preferred Brand Color",
         type: "text",
         initialValue: "",
+        information:
+          "From now on, the 'brand color' (formerly called 'primary color'), in combination with black, will be used throughout the app in different elements and, in addition, to distinguish between Pick-up and Drop-off elements. If there are more than one brand colors and there's a preferred color please mention it. Please note: in case the chosen color is not suitable we'll choose a darker variant of the same hue.",
         validation: yup.string(),
       },
       {
         name: "chooseBrandColorFromLogo",
         label: "Choose Brand Color From Logo",
-        type: "checkbox",
-        initialValue: false,
-        validation: yup.boolean(),
+        type: "conditional-select",
+        options: ["I agree"],
+        initialValue: "",
+        validation: yup.string(),
       },
       {
         name: "additionalInformation",
         label: "Additional Information",
         type: "multi-input",
         initialValue: [""],
+        information:
+          "(special requirements and in-depth explanation). If you are sending over several options for one asset, please specify your preferences here.",
         validation: yup.array().of(yup.string()),
       },
     ],

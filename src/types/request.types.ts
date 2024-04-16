@@ -30,7 +30,7 @@ export interface AppRequestType extends RequestType {
   VehicleOption?: string;
   VehicleOptionImage?: string;
   preferredBrandColor?: string;
-  chooseBrandColorFromLogo: boolean;
+  chooseBrandColorFromLogo: string;
   additionalInformation: string[];
 }
 
