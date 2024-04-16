@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { lazy, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -26,17 +26,9 @@ import { toastConfig } from "@/configs/toast.config";
 import fallbackImageUrl from "@/assets/images/no-image.png";
 import { CustomTabPanelType } from "@/types/components.types";
 import CustomTabs from "@/components/shared/common/tabs/CustomTabs";
-
-const AppDetailsSection = lazy(
-  () => import("@/views/site/app/sections/AppDetailsSection")
-);
-
-const AppScreenshotsSection = lazy(
-  () => import("@/views/site/app/sections/AppScreenshotsSection")
-);
-const AppBuildManagerSection = lazy(
-  () => import("@/views/site/app/sections/AppBuildManagerSection")
-);
+import AppDetailsSection from "./sections/AppDetailsSection";
+import AppBuildManagerSection from "./sections/AppBuildManagerSection";
+import AppScreenshotsSection from "./sections/AppScreenshotsSection";
 
 const AppPage: React.FC = () => {
   const { t } = useTranslation();
@@ -64,6 +56,7 @@ const AppPage: React.FC = () => {
         region: appData.data?.region,
         env: appData.data?.env,
         tenant: appData.data?.tenant,
+        languages: appData.data?.languages,
       },
     },
     {

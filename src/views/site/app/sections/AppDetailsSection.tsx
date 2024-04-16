@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Chip, Typography } from "@mui/material";
 
 interface AppDetailsSectionProps {
   pso: string;
@@ -6,6 +6,7 @@ interface AppDetailsSectionProps {
   region: string;
   env: string;
   tenant: string;
+  languages: string[];
 }
 
 const AppDetailsSection: React.FC<AppDetailsSectionProps> = ({
@@ -14,6 +15,7 @@ const AppDetailsSection: React.FC<AppDetailsSectionProps> = ({
   region,
   env,
   tenant,
+  languages,
 }) => {
   return (
     <Box>
@@ -28,6 +30,23 @@ const AppDetailsSection: React.FC<AppDetailsSectionProps> = ({
       >{`Tenant: ${tenant}`}</Typography>
       <Typography variant="body2" gutterBottom>{`PSO: ${pso}`}</Typography>
       <Typography variant="body2" gutterBottom>{`PSM: ${psm}`}</Typography>
+      <Box display={"flex"}>
+        <Typography variant="h6">Languages:</Typography>
+        {languages?.map((language: string, index: number) => (
+          <Chip
+            key={index}
+            label={language}
+            variant="outlined"
+            color="primary"
+            sx={{
+              ml: 1,
+              height: "20px",
+              fontSize: "0.7.5rem",
+              padding: "0 5px",
+            }}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };
