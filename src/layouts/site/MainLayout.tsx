@@ -14,10 +14,6 @@ const MainLayout = () => {
     <Box
       width="100%"
       height="100%"
-      minWidth={"100%"}
-      minHeight={"100%"}
-      maxWidth={"100%"}
-      maxHeight={"100%"}
       padding={{ xs: "1rem", sm: "2rem", md: "3rem", lg: "4rem" }}
     >
       <Navbar />

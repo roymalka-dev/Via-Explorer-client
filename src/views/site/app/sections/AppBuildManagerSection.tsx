@@ -37,9 +37,32 @@ const AppBuildManagerSection: React.FC<AppBuildManagerSectionProps> = ({
   };
 
   return (
-    <Box sx={{ width: "100%", padding: 3 }}>
-      <Box sx={{ display: "flex", gap: 2 }}>
-        <Box sx={{ flex: 1, marginBottom: 3 }}>
+    <Box
+      sx={{
+        width: "100%",
+        padding: {
+          xs: 1,
+          sm: 2,
+          md: 3,
+        },
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: {
+            xs: "column",
+            md: "row",
+          },
+          gap: 2,
+        }}
+      >
+        <Box
+          sx={{
+            flex: 1,
+            marginBottom: 3,
+          }}
+        >
           <Typography variant="subtitle1">iOS Builds</Typography>
           <Select
             value={
@@ -74,7 +97,9 @@ const AppBuildManagerSection: React.FC<AppBuildManagerSectionProps> = ({
             disabled={!selectedIosLink}
             target="_blank"
             aria-label="App Store"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%",
+            }}
           >
             Test Flight
           </Button>
@@ -100,7 +125,7 @@ const AppBuildManagerSection: React.FC<AppBuildManagerSectionProps> = ({
               return selectedValue || "Select a version";
             }}
           >
-            {iosBuilds?.map((build: appBuildVersionType, index: number) => (
+            {androidBuilds?.map((build: appBuildVersionType, index: number) => (
               <MenuItem key={index} value={build.version}>
                 {build.version}
               </MenuItem>
@@ -114,7 +139,9 @@ const AppBuildManagerSection: React.FC<AppBuildManagerSectionProps> = ({
             disabled={!selectedAndroidLink}
             target="_blank"
             aria-label="App Store"
-            sx={{ width: "100%" }}
+            sx={{
+              width: "100%", // Ensures button is full width
+            }}
           >
             APK
           </Button>
