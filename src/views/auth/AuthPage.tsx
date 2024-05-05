@@ -9,6 +9,8 @@ import appConfig from "@/configs/app.config";
 import useApi from "@/hooks/useApi";
 import { UserDataType } from "@/types/user.types";
 import logo from "@/assets/images/Via_logo.png";
+import { toast } from "react-toastify";
+import { toastConfig } from "@/configs/toast.config";
 
 /**
  * Component for the authentication page.
@@ -52,6 +54,11 @@ const AuthPage = () => {
         })
       );
       navigate(appConfig.authenticatedEntryPath);
+    }
+
+    if (status === "error") {
+      setUserAuthorization("not valid");
+      toast.error("Authentication failed. Please try again.", toastConfig);
     }
   }, [data, dispatch, navigate]);
 

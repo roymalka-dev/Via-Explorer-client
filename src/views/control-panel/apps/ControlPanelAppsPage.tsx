@@ -336,7 +336,7 @@ const ControlPanelAppsPage = () => {
       name: "languages",
       locale: "controlPanel.pages.apps.table.cols.languages",
       render: (value: string[]) => <Typography>{value?.join(", ")}</Typography>,
-      comparator: comperators.string,
+      comparator: (a: string[], b: string[]) => a[0]?.localeCompare(b[0]),
     },
     {
       name: "colorSpecs",
