@@ -25,12 +25,16 @@ import { TabConfig } from "@/types/form.types";
 import ApiService from "@/services/ApiService";
 import { FormStepper } from "@/components/shared/common/form/FormStepper";
 import { RequestEditAppType, RequestType } from "@/types/request.types";
+import { getConfigValue } from "@/utils/configurations.utils";
 /**
  * Component for the Control Panel Apps Page.
  * This page displays a table of application details fetched from the server.
  * It provides functionality to fetch, display, and manage application data.
  */
 const ControlPanelAppsPage = () => {
+  const TIME_TO_UPDATE_APPS_TABLE_IN_HR =
+    1000 * 60 * 60 * Number(getConfigValue("TIME_TO_UPDATE_APPS_TABLE", 12));
+
   const { t } = useTranslation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -64,7 +68,10 @@ const ControlPanelAppsPage = () => {
    * Effect hook to initialize table data and trigger data fetch on component mount or error state.
    */
   useEffect(() => {
-    if (appsFromStore.data?.length > 0) {
+    if (
+      appsFromStore.data?.length > 0 &&
+      Date.now() < TIME_TO_UPDATE_APPS_TABLE_IN_HR + appsFromStore.ttl
+    ) {
       setRows(appsFromStore.data);
     } else if (status === "idle" || status === "error") {
       refetch();

@@ -16,7 +16,7 @@ import { getConfigValue } from "@/utils/configurations.utils";
 const useFetchConfigurations = () => {
   // Constants
   const TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN = Number(
-    getConfigValue("TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN", 5)
+    getConfigValue("TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN", 60)
   );
   // Redux hooks
   const dispatch = useDispatch();

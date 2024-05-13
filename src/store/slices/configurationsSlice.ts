@@ -20,6 +20,7 @@ const appsSlice = createSlice({
       action: PayloadAction<{ data: ConfigurationItem[] }>
     ) => {
       state.data = action.payload.data;
+      state.ttl = Date.now();
     },
     resetConfigurations: (state) => {
       state.data = initialState.data;
