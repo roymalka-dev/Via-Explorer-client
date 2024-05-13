@@ -2,6 +2,7 @@ import { Box, useTheme } from "@mui/material";
 
 import Favorites from "./sections/Favorites";
 import RecentlyViewd from "./sections/RecentlyViewd";
+import Announcements from "./sections/Announcements";
 const HomePage = () => {
   const theme = useTheme();
 
@@ -25,7 +26,11 @@ const HomePage = () => {
         },
       }}
     >
-      <Favorites />
+      <Announcements />
+      <Box sx={{ mt: 4 }}>
+        <Favorites />
+      </Box>
+
       <Box sx={{ mt: 4 }}>
         <RecentlyViewd />
       </Box>
