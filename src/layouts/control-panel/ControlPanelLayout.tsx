@@ -13,7 +13,7 @@ export default function ControlPanelLayout() {
     <Box
       width="100%"
       height="100%"
-      padding={{ xs: "1rem", sm: "2rem", md: "3rem", lg: "4rem" }}
+      padding={{ xs: "1rem", sm: "2rem", md: "2rem", lg: "2rem" }}
       dir={theme.direction}
     >
       <ControlPanelAppBar open={false} />
@@ -24,7 +24,7 @@ export default function ControlPanelLayout() {
         sx={(theme) => ({
           flexGrow: 1,
           p: 3,
-          ...(theme.direction === "rtl" && { mr: 2.5 }),
+          ...(theme.direction === "rtl" ? { mr: 2.5 } : { ml: 1 }),
         })}
       >
         <Outlet />

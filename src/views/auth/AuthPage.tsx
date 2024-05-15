@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { Container, Box } from "@mui/material";
+import { Container, Box, Paper } from "@mui/material";
 import { setCredentials, setAuthorization } from "@/store/slices/authSlice";
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
@@ -64,28 +64,46 @@ const AuthPage = () => {
 
   return (
     <Container component="main" maxWidth="xs">
-      <Box
+      <Paper
+        elevation={6}
         sx={{
-          marginTop: 8,
+          mt: 10,
+          mb: 4,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          borderRadius: 2,
+          padding: (theme) => theme.spacing(3),
         }}
       >
-        <Box sx={{ mb: 10, width: { xs: 300, md: 500 } }}>
-          <img src={logo} alt="logo" width={"100%"} height={"auto"} />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Box sx={{ mb: 16, width: 250, maxWidth: "100%" }}>
+            <img
+              src={logo}
+              alt="logo"
+              style={{ width: "100%", height: "auto" }}
+            />
+          </Box>
+          <Box sx={{ mb: 10 }}>
+            <GoogleLogin
+              onSuccess={(credentialResponse) => {
+                setUserAuthorization(
+                  credentialResponse.credential || "not-valid-token"
+                );
+              }}
+              onError={() => {
+                console.log("Login Failed");
+              }}
+            />
+          </Box>
         </Box>
-        <GoogleLogin
-          onSuccess={(credentialResponse) => {
-            setUserAuthorization(
-              credentialResponse.credential || "not-valid-token"
-            );
-          }}
-          onError={() => {
-            console.log("Login Failed");
-          }}
-        />
-      </Box>
+      </Paper>
     </Container>
   );
 };
