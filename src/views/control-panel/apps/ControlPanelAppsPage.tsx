@@ -393,7 +393,9 @@ const ControlPanelAppsPage = () => {
       locale: "controlPanel.pages.apps.table.cols.androidCurrentRelease",
       render: (value: string | Date) => (
         <Typography>
-          {value instanceof Date ? value.toISOString().split("T")[0] : value}
+          {value instanceof Date
+            ? value.toISOString()?.split("T")[0]
+            : value?.split("T")[0]}
         </Typography>
       ),
       comparator: comperators.date,
