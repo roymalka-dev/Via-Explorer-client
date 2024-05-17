@@ -90,6 +90,7 @@ const AuthPage = () => {
               style={{ width: "100%", height: "auto" }}
             />
           </Box>
+
           <Box sx={{ mb: 10 }}>
             <GoogleLogin
               onSuccess={(credentialResponse) => {

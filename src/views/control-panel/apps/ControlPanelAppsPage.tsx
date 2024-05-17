@@ -16,7 +16,6 @@ import RefreshIcon from "@mui/icons-material/Refresh";
 import CSVExporter from "@/components/shared/common/csv/CSVExporter";
 import { tableRowsType } from "@/types/components.types";
 import { useNavigate } from "react-router-dom";
-import LaunchRoundedIcon from "@mui/icons-material/LaunchRounded";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { CustomModal } from "@/components/shared/common/modal/CustomModal";
 import useModal from "@/hooks/useModal";
@@ -26,6 +25,45 @@ import ApiService from "@/services/ApiService";
 import { FormStepper } from "@/components/shared/common/form/FormStepper";
 import { RequestEditAppType, RequestType } from "@/types/request.types";
 import { getConfigValue } from "@/utils/configurations.utils";
+import ComplexFilterButton, {
+  ComplexFilterFunctionOption,
+  ComplexFilterOption,
+} from "@/components/shared/ui/buttons/ComplexFiltersButton";
+
+const filterTypes: ComplexFilterOption[] = [
+  { value: "iosVersion", label: "ios Version" },
+  { value: "androidVersion", label: "android Version" },
+  { value: "region", label: "Region" },
+  { value: "date", label: "Date" },
+];
+
+const filterFunctions: ComplexFilterFunctionOption[] = [
+  {
+    value: "contains",
+    label: "Contains",
+    function: (itemValue: string, filterValue: string) =>
+      itemValue.includes(filterValue),
+  },
+  {
+    value: "notContains",
+    label: "Does Not Contain",
+    function: (itemValue: string, filterValue: string) =>
+      !itemValue.includes(filterValue),
+  },
+  {
+    value: "equals",
+    label: "Equals",
+    function: (itemValue: string, filterValue: string) =>
+      itemValue === filterValue,
+  },
+  {
+    value: "notEquals",
+    label: "Does Not Equal",
+    function: (itemValue: string, filterValue: string) =>
+      itemValue !== filterValue,
+  },
+];
+
 /**
  * Component for the Control Panel Apps Page.
  * This page displays a table of application details fetched from the server.
@@ -241,13 +279,18 @@ const ControlPanelAppsPage = () => {
     {
       name: "imageUrl",
       locale: "controlPanel.pages.apps.table.cols.image",
-      render: (value: string) => (
-        <img
-          src={value || fallbackImageUrl}
-          alt={value}
-          width={50}
-          height={"auto"}
-        />
+      render: (value: string, row: tableRowsType) => (
+        <Button
+          onClick={() => navigate(`/app/${row.id}`)}
+          sx={{ cursor: "pointer" }}
+        >
+          <img
+            src={value || fallbackImageUrl}
+            alt={value}
+            width={50}
+            height={"auto"}
+          />
+        </Button>
       ),
       comparator: comperators.string,
     },
@@ -376,15 +419,6 @@ const ControlPanelAppsPage = () => {
         </Button>
       ),
     },
-
-    {
-      name: "options-open",
-      render: (_value: string, row: tableRowsType) => (
-        <Button onClick={() => navigate(`/app/${row.id}`)}>
-          <LaunchRoundedIcon />
-        </Button>
-      ),
-    },
   ];
 
   /**
@@ -400,12 +434,30 @@ const ControlPanelAppsPage = () => {
     dispatch(setApps({ apps: [] }));
   };
 
+  const handleComplexFilters = (
+    filterType: string,
+    filterFunction: ComplexFilterFunctionOption | undefined,
+    filterValue: string
+  ) => {
+    if (!filterFunction) return; // Ensure that a filter function is selected
+
+    // Filter the rows based on the selected filter function's logic
+    const filteredRows = appsFromStore.data.filter((app) => {
+      const valueToFilter = app[filterType as keyof appType] ?? ""; // Provide a default value of an empty string if valueToFilter is undefined
+      // Ensure the value to filter and filter value are in appropriate formats or types before applying the filter function
+      // Convert to string or appropriate type if necessary
+      return filterFunction.function(valueToFilter.toString(), filterValue);
+    });
+
+    setRows(filteredRows); // Update the state with the filtered rows
+  };
+
   /**
    * Rendered button component for triggering data refetch.
    */
   const refetchButton: () => JSX.Element = () => {
     return (
-      <Button onClick={refecthData} variant="outlined">
+      <Button onClick={refecthData}>
         <RefreshIcon />
       </Button>
     );
@@ -419,9 +471,22 @@ const ControlPanelAppsPage = () => {
   };
 
   /**
+   * Rendered button component for triggering data refetch.
+   */
+  const filtersButton: () => JSX.Element = () => {
+    return (
+      <ComplexFilterButton
+        filterTypes={filterTypes}
+        filterFunctions={filterFunctions}
+        handler={handleComplexFilters}
+      />
+    );
+  };
+
+  /**
    * Toolbar components to be displayed above the table.
    */
-  const toolbar = [ExportCSV, refetchButton];
+  const toolbar = [filtersButton, ExportCSV, refetchButton];
 
   return (
     <Box sx={{ mt: 8 }} dir={theme.direction}>

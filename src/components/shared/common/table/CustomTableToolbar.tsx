@@ -40,7 +40,7 @@ const CustomTableToolbar: React.FC<CustomTableToolbarProps> = ({
         width="100%"
         sx={{ mt: 1 }}
       >
-        <Box flexGrow={1} maxWidth="100%" display={"flex"}>
+        <Box flexGrow={1} minWidth={"100px"} maxWidth="100%" display={"flex"}>
           <TextField
             fullWidth
             label={t("shared.components.common.table.toolbar.search")}

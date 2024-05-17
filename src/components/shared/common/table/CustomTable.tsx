@@ -12,7 +12,6 @@ import {
   CircularProgress,
   TableCell,
   TableRow,
-  useTheme,
 } from "@mui/material";
 import { debounce } from "lodash";
 import CustomTableHead from "./CustomTableHead";
@@ -23,8 +22,7 @@ import useTableSorter from "@/hooks/useTableSorter";
 import { TableDataType } from "@/types/components.types";
 import { getConfigValue } from "@/utils/configurations.utils";
 import { useTranslation } from "react-i18next";
-
-import FilterAltRoundedIcon from "@mui/icons-material/FilterAltRounded";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { CheckboxMenuButton } from "../../ui/buttons/CheckboxMenuButton";
 import { PAGINATION_NUMBERS } from "@/constants/pagination.const";
 
@@ -59,7 +57,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
   );
 
   const { t } = useTranslation();
-  const theme = useTheme();
   const pagination = paginationHandler
     ? paginationHandler(25)
     : useTablePagination(25);
@@ -68,6 +65,11 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const [activeColumns, setActiveColumns] = useState(
     new Set(data.cols.map((col) => col.name))
   );
+
+  //reset pagination when data changes
+  useEffect(() => {
+    pagination.handleChangePage(null, 0);
+  }, [data]);
 
   /**
    * Toggles the visibility of a column in the table.
@@ -103,7 +105,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
     return (
       <CheckboxMenuButton
         name={
-          <FilterAltRoundedIcon
+          <VisibilityIcon
             color={
               filteredCols.length < data.cols.length ? "primary" : "secondary"
             }
@@ -165,61 +167,72 @@ const CustomTable: React.FC<CustomTableProps> = ({
   return (
     <TableContainer
       component={Paper}
-      dir={theme.direction}
-      sx={{ mx: "auto", maxWidth: "100%", overflowX: "auto" }}
+      sx={{ maxHeight: "calc(100vh - 200px)", overflow: "auto" }}
     >
-      <CustomTableToolbar
-        toolbar={toolbar}
-        onSearchChange={(e) => setSearchText(e.target.value)}
-      />
-      <Table aria-label="custom table">
-        <CustomTableHead
-          cols={filteredCols}
-          order={order}
-          orderBy={orderBy}
-          onRequestSort={handleRequestSort}
-        />
-        <TableBody>
-          {loading ? (
-            <TableRow>
-              <TableCell
-                colSpan={filteredCols.length}
-                style={{ textAlign: "center" }}
-              >
-                <CircularProgress />
-              </TableCell>
-            </TableRow>
-          ) : (
-            sortedAndFilteredRows
-              .slice(
-                pagination.page * pagination.rowsPerPage,
-                pagination.page * pagination.rowsPerPage +
-                  pagination.rowsPerPage
-              )
-              .map((row, index) => (
-                <CustomTableRow key={index} row={row} columns={filteredCols} />
-              ))
-          )}
-        </TableBody>
-      </Table>
-      <Box
-        sx={{ width: "100%", display: "flex", justifyContent: "flex-start" }}
-      >
-        <TablePagination
-          rowsPerPageOptions={PAGINATION_NUMBERS}
-          component="div"
-          count={sortedAndFilteredRows.length}
-          rowsPerPage={pagination.rowsPerPage}
-          page={pagination.page}
-          onPageChange={pagination.handleChangePage}
-          onRowsPerPageChange={pagination.handleChangeRowsPerPage}
-          labelRowsPerPage={t(
-            "shared.components.common.table.pagination.rowsPerPage"
-          )}
-          labelDisplayedRows={({ from, to, count }) =>
-            `${from}-${to} of ${count}`
-          }
-        />
+      <Box sx={{ position: "relative", width: "100%" }}>
+        <Box sx={{ position: "sticky", overflowX: "auto" }}>
+          <CustomTableToolbar
+            toolbar={toolbar}
+            onSearchChange={(e) => setSearchText(e.target.value)}
+          />
+        </Box>
+        <Table stickyHeader aria-label="custom table">
+          <CustomTableHead
+            cols={filteredCols}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+          />
+          <TableBody>
+            {loading ? (
+              <TableRow>
+                <TableCell
+                  colSpan={filteredCols.length}
+                  style={{ textAlign: "center" }}
+                >
+                  <CircularProgress />
+                </TableCell>
+              </TableRow>
+            ) : (
+              sortedAndFilteredRows
+                .slice(
+                  pagination.page * pagination.rowsPerPage,
+                  pagination.page * pagination.rowsPerPage +
+                    pagination.rowsPerPage
+                )
+                .map((row, index) => (
+                  <CustomTableRow
+                    key={index}
+                    row={row}
+                    columns={filteredCols}
+                  />
+                ))
+            )}
+          </TableBody>
+        </Table>
+        <Box
+          position={"sticky"}
+          bottom={0}
+          zIndex={2}
+          bgcolor={"background.paper"}
+          sx={{ width: "100%", display: "flex", justifyContent: "flex-start" }}
+        >
+          <TablePagination
+            rowsPerPageOptions={PAGINATION_NUMBERS}
+            component="div"
+            count={sortedAndFilteredRows.length}
+            rowsPerPage={pagination.rowsPerPage}
+            page={pagination.page}
+            onPageChange={pagination.handleChangePage}
+            onRowsPerPageChange={pagination.handleChangeRowsPerPage}
+            labelRowsPerPage={t(
+              "shared.components.common.table.pagination.rowsPerPage"
+            )}
+            labelDisplayedRows={({ from, to, count }) =>
+              `${from}-${to} of ${count}`
+            }
+          />
+        </Box>
       </Box>
     </TableContainer>
   );

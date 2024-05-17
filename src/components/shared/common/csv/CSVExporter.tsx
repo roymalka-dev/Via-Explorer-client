@@ -62,7 +62,7 @@ const CSVExporter: React.FC<CSVExportProps> = ({ jsonData }) => {
   };
 
   return (
-    <Button variant="outlined" onClick={downloadCSV}>
+    <Button onClick={downloadCSV}>
       <FileDownloadIcon />
     </Button>
   );
