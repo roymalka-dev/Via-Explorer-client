@@ -108,6 +108,8 @@
             "country": "Land",
             "iosVersion": "iOS-Version",
             "iosRelease": "iOS-Veröffentlichung",
+            "iosCurrentRelease": "Ios Current Release",
+            "androidCurrentRelease": "Android Current Release",
             "iosFolder": "iOS-Ordner",
             "androidVersion": "Android-Version",
             "androidRelease": "Android-Veröffentlichung",

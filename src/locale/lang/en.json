@@ -109,6 +109,8 @@
             "country": "Country",
             "iosVersion": "IOS Version",
             "iosRelease": "Ios Release",
+            "iosCurrentRelease": "Ios Current Release",
+            "androidCurrentRelease": "Android Current Release",
             "iosFolder": "Ios Folder",
             "androidVersion": "Android Version",
             "androidRelease": "Android Release",

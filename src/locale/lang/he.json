@@ -108,6 +108,8 @@
             "country": "מדינה",
             "iosVersion": "גרסת iOS",
             "iosRelease": "גרסת IOS",
+            "iosCurrentRelease": "Ios Current Release",
+            "androidCurrentRelease": "Android Current Release",
             "iosFolder": "תיקיית IOS",
             "androidVersion": "גרסת אנדרואיד",
             "androidRelease": "גרסת אנדרואיד",

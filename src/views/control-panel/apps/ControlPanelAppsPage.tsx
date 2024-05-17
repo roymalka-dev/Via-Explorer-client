@@ -355,6 +355,18 @@ const ControlPanelAppsPage = () => {
       comparator: comperators.date,
     },
     {
+      name: "iosCurrentVersionReleaseDate",
+      locale: "controlPanel.pages.apps.table.cols.iosCurrentRelease",
+      render: (value: string | Date) => (
+        <Typography>
+          {value instanceof Date
+            ? value.toISOString()?.split("T")[0]
+            : value?.split("T")[0]}
+        </Typography>
+      ),
+      comparator: comperators.date,
+    },
+    {
       name: "iosFolder",
       locale: "controlPanel.pages.apps.table.cols.iosFolder",
       render: (value: string) => <Typography>{value}</Typography>,
@@ -369,6 +381,16 @@ const ControlPanelAppsPage = () => {
     {
       name: "androidRelease",
       locale: "controlPanel.pages.apps.table.cols.androidRelease",
+      render: (value: string | Date) => (
+        <Typography>
+          {value instanceof Date ? value.toISOString().split("T")[0] : value}
+        </Typography>
+      ),
+      comparator: comperators.date,
+    },
+    {
+      name: "androidCurrentVersionReleaseDate",
+      locale: "controlPanel.pages.apps.table.cols.androidCurrentRelease",
       render: (value: string | Date) => (
         <Typography>
           {value instanceof Date ? value.toISOString().split("T")[0] : value}

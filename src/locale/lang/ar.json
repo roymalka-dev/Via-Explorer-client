@@ -108,6 +108,8 @@
             "country": "البلد",
             "iosVersion": "إصدار iOS",
             "iosRelease": "إصدار iOS",
+            "iosCurrentRelease": "Ios Current Release",
+            "androidCurrentRelease": "Android Current Release",
             "iosFolder": "مجلد iOS",
             "androidVersion": "إصدار Android",
             "androidRelease": "إصدار Android",
