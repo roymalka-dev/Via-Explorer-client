@@ -2,7 +2,7 @@ import CustomTabs from "@/components/shared/common/tabs/CustomTabs";
 import { CustomTabPanelType } from "@/types/components.types";
 import { Box, useTheme } from "@mui/material";
 import GeneralSection from "./sections/GeneralSection";
-import RequestsSection from "./sections/RequestsSection";
+//import RequestsSection from "./sections/RequestsSection";
 
 const profileTabs: CustomTabPanelType[] = [
   {
@@ -10,11 +10,13 @@ const profileTabs: CustomTabPanelType[] = [
     locale: "site.pages.profile.tabs.general.title",
     component: GeneralSection,
   },
+  /*
   {
     label: "Requests",
     locale: "site.pages.profile.tabs.requests.title",
     component: RequestsSection,
   },
+  */
 ];
 
 const ProfilePage = () => {

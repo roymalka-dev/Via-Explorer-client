@@ -23,15 +23,11 @@ const viewAppRequest = lazy(
 const AuthPage = lazy(() => import("@/views/auth/AuthPage"));
 const NotFound = lazy(() => import("@/views/auth/NotFound"));
 
-const Dashboard = lazy(
-  () => import("@/views/control-panel/dashboard/Dashboard")
-);
+//const Dashboard = lazy(() => import("@/views/control-panel/dashboard/Dashboard"));
 const ControlPanelAppsPage = lazy(
   () => import("@/views/control-panel/apps/ControlPanelAppsPage")
 );
-const ControlPanelRequestsPage = lazy(
-  () => import("@/views/control-panel/requests/ControlPanelRequestsPage")
-);
+// const ControlPanelRequestsPage = lazy(() => import("@/views/control-panel/requests/ControlPanelRequestsPage"));
 const ControlPanelUsersPage = lazy(
   () => import("@/views/control-panel/users/ControlPanelUsersPage")
 );
@@ -100,10 +96,11 @@ export const routes: RouteObject[] = [
     loader: CircularProgress,
     redirect: RedirectRoute({
       from: "/control-panel",
-      to: "/control-panel/dashboard",
+      to: "/control-panel/apps",
     }),
     protect: ProtectedRoute,
     children: [
+      /*
       {
         key: "dashboard",
         path: "/control-panel/dashboard",
@@ -111,6 +108,7 @@ export const routes: RouteObject[] = [
         element: Dashboard,
         loader: CircularProgress,
       },
+      */
       {
         key: "control-panel-apps",
         path: "/control-panel/apps",
@@ -118,6 +116,7 @@ export const routes: RouteObject[] = [
         element: ControlPanelAppsPage,
         loader: CircularProgress,
       },
+      /*
       {
         key: "control-panel-requests",
         path: "/control-panel/requests",
@@ -125,6 +124,7 @@ export const routes: RouteObject[] = [
         element: ControlPanelRequestsPage,
         loader: CircularProgress,
       },
+      */
       {
         key: "control-panel-users",
         path: "/control-panel/users",

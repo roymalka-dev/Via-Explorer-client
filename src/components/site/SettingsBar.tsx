@@ -46,7 +46,7 @@ const SettingsBar = () => {
 
         {/* Conditional rendering for administrators: Control panel access button */}
         {authority === "ADMIN" && (
-          <Button onClick={() => navigate("/control-panel/dashboard")}>
+          <Button onClick={() => navigate("/control-panel/apps")}>
             <DesktopWindowsOutlinedIcon
               sx={{
                 color: theme.palette.primary.main, // Icon color matching the primary color of the theme
