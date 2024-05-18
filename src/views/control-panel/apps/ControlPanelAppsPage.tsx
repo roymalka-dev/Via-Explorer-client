@@ -319,6 +319,16 @@ const ControlPanelAppsPage = () => {
       comparator: (a: string[], b: string[]) => a[0]?.localeCompare(b[0]),
     },
     {
+      name: "webAppLink",
+      locale: "Web App",
+      render: (value: string) => (
+        <a href={value} target="_blank" rel="noopener noreferrer">
+          {value}
+        </a>
+      ),
+      comparator: comperators.string,
+    },
+    {
       name: "pso",
       locale: "pso",
       render: (value: string) => <Typography>{value}</Typography>,

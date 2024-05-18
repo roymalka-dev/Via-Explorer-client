@@ -22,7 +22,7 @@ import useApi from "@/hooks/useApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { toastConfig } from "@/configs/toast.config";
-
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
 import fallbackImageUrl from "@/assets/images/no-image.png";
 import { CustomTabPanelType } from "@/types/components.types";
 import CustomTabs from "@/components/shared/common/tabs/CustomTabs";
@@ -200,6 +200,19 @@ const AppPage: React.FC = () => {
               sx={{ width: "100%" }}
             >
               Android {appData.data.androidVersion}
+            </Button>
+          )}
+          {appData.data.webAppLink && (
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<DesktopMacIcon />}
+              href={appData.data.webAppLink}
+              target="_blank"
+              aria-label="Web App Link"
+              sx={{ width: "100%" }}
+            >
+              WebApp
             </Button>
           )}
         </Stack>
