@@ -4,7 +4,7 @@ import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
 import { comperators, tableDataGenerator } from "@/utils/components.utils";
 import { Box, Button, Typography, useTheme } from "@mui/material";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import fallbackImageUrl from "@/assets/images/no-image.png";
@@ -19,50 +19,17 @@ import { useNavigate } from "react-router-dom";
 import EditRoundedIcon from "@mui/icons-material/EditRounded";
 import { CustomModal } from "@/components/shared/common/modal/CustomModal";
 import useModal from "@/hooks/useModal";
-import * as yup from "yup";
-import { TabConfig } from "@/types/form.types";
 import ApiService from "@/services/ApiService";
 import { FormStepper } from "@/components/shared/common/form/FormStepper";
-import { RequestEditAppType, RequestType } from "@/types/request.types";
+import { RequestType } from "@/types/request.types";
 import { getConfigValue } from "@/utils/configurations.utils";
 import ComplexFilterButton, {
   ComplexFilterFunctionOption,
-  ComplexFilterOption,
 } from "@/components/shared/ui/buttons/ComplexFiltersButton";
-
-const filterTypes: ComplexFilterOption[] = [
-  { value: "iosVersion", label: "ios Version" },
-  { value: "androidVersion", label: "android Version" },
-  { value: "region", label: "Region" },
-  { value: "date", label: "Date" },
-];
-
-const filterFunctions: ComplexFilterFunctionOption[] = [
-  {
-    value: "contains",
-    label: "Contains",
-    function: (itemValue: string, filterValue: string) =>
-      itemValue.includes(filterValue),
-  },
-  {
-    value: "notContains",
-    label: "Does Not Contain",
-    function: (itemValue: string, filterValue: string) =>
-      !itemValue.includes(filterValue),
-  },
-  {
-    value: "equals",
-    label: "Equals",
-    function: (itemValue: string, filterValue: string) =>
-      itemValue === filterValue,
-  },
-  {
-    value: "notEquals",
-    label: "Does Not Equal",
-    function: (itemValue: string, filterValue: string) =>
-      itemValue !== filterValue,
-  },
-];
+import { filterFunctions, filterTypes } from "./forms/filters";
+import useEditAppFormTabs from "./forms/useEditAppFormTabs";
+import useAddNewAppFormTabs from "./forms/useAddNewAppFormTabs";
+import AddIcon from "@mui/icons-material/Add";
 
 /**
  * Component for the Control Panel Apps Page.
@@ -126,102 +93,8 @@ const ControlPanelAppsPage = () => {
     }
   }, [status, data, dispatch]);
 
-  /**
-   * Define form fields for editing an item.
-   */
-  const editAppFormTabs: TabConfig<RequestEditAppType>[] = useMemo(() => {
-    return [
-      {
-        tabName: "",
-        fields: [
-          {
-            name: "name",
-            label: "Name",
-            type: "text",
-            initialValue: selectedEditApp?.name || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "env",
-            label: "Env",
-            type: "text",
-            initialValue: selectedEditApp?.env || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "tenant",
-            label: "Tenant",
-            type: "text",
-            initialValue: selectedEditApp?.tenant || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "region",
-            label: "Region",
-            type: "text",
-            initialValue: selectedEditApp?.region || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "city",
-            label: "City",
-            type: "text",
-            initialValue: selectedEditApp?.city || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "country",
-            label: "Country",
-            type: "text",
-            initialValue: selectedEditApp?.country || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "iosFolder",
-            label: "iOS Folder",
-            type: "text",
-            initialValue: selectedEditApp?.iosFolder || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "androidFolder",
-            label: "Android Folder",
-            type: "text",
-            initialValue: selectedEditApp?.androidFolder || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "colorSpecs",
-            label: "Color Specs",
-            type: "text",
-            initialValue: selectedEditApp?.colorSpecs || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "figmaAppName",
-            label: "Figma App Name",
-            type: "text",
-            initialValue: selectedEditApp?.figmaAppName || "",
-            validation: yup.string().optional(),
-          },
-          {
-            name: "webAppFigmaLink",
-            label: "Web App Figma Link",
-            type: "text",
-            initialValue: selectedEditApp?.webAppFigmaLink || "",
-            validation: yup.string().url("Must be a valid URL").optional(),
-          },
-          {
-            name: "webAppLink",
-            label: "Web App Link",
-            type: "text",
-            initialValue: selectedEditApp?.webAppLink || "",
-            validation: yup.string().url("Must be a valid URL").optional(),
-          },
-        ],
-      },
-    ];
-  }, [selectedEditApp]);
+  const editAppFormTabs = useEditAppFormTabs(selectedEditApp);
+  const addAppFormTabs = useAddNewAppFormTabs();
 
   /**
    * Function to generate the form for editing an item.
@@ -255,11 +128,44 @@ const ControlPanelAppsPage = () => {
   );
 
   /**
+   * Function to generate the form for Add App.
+   */
+  const generateAddAppForm = useCallback(() => {
+    const submitApp = async (app: RequestType) => {
+      const appToAdd = { ...app };
+      const response = await ApiService.post(`app/add-app`, appToAdd);
+      if (response.error) {
+        toast.error(response.error.message, toastConfig);
+        return;
+      } else {
+        toast.success(response.message, toastConfig);
+        navigate(`/app/${app.id}`);
+      }
+
+      modal.closeModal();
+    };
+
+    return (
+      <Box>
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 2 }}>
+          Add App
+        </Typography>
+        <FormStepper tabs={addAppFormTabs} submit={submitApp} />
+      </Box>
+    );
+  }, [modal, addAppFormTabs]);
+
+  /**
    * Function to handle editing an item.
    */
   const editItemHandler = (id: string) => {
     const appToEdit = appsFromStore.data.find((app) => app.id === id) || null;
     setSelectedEditApp(appToEdit);
+  };
+
+  const addItemHandler = () => {
+    modal.setContent(() => generateAddAppForm());
+    modal.openModal();
   };
 
   /**
@@ -413,6 +319,18 @@ const ControlPanelAppsPage = () => {
       comparator: (a: string[], b: string[]) => a[0]?.localeCompare(b[0]),
     },
     {
+      name: "pso",
+      locale: "pso",
+      render: (value: string) => <Typography>{value}</Typography>,
+      comparator: comperators.string,
+    },
+    {
+      name: "psm",
+      locale: "psm",
+      render: (value: string) => <Typography>{value}</Typography>,
+      comparator: comperators.string,
+    },
+    {
       name: "colorSpecs",
       locale: "controlPanel.pages.apps.table.cols.colorSpecs",
       render: (value: string) => <Typography>{value}</Typography>,
@@ -507,10 +425,18 @@ const ControlPanelAppsPage = () => {
     );
   };
 
+  const addAppButton: () => JSX.Element = () => {
+    return (
+      <Button onClick={addItemHandler}>
+        <AddIcon />
+      </Button>
+    );
+  };
+
   /**
    * Toolbar components to be displayed above the table.
    */
-  const toolbar = [filtersButton, ExportCSV, refetchButton];
+  const toolbar = [filtersButton, addAppButton, ExportCSV, refetchButton];
 
   return (
     <Box sx={{ mt: 8 }} dir={theme.direction}>
