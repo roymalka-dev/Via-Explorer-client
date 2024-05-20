@@ -16,6 +16,7 @@ export type TableColsType = {
   name: string;
   locale?: string;
   isLocked?: boolean;
+  autoSelect?: boolean;
   width?: number;
   render: (value: any, id?: any) => JSX.Element;
   comparator?: (a: any, b: any) => number;

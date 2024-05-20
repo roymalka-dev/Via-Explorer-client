@@ -64,7 +64,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const { order, orderBy, handleRequestSort } = useTableSorter();
 
   const [activeColumns, setActiveColumns] = useState(
-    new Set(data.cols.map((col) => col.name))
+    new Set(
+      data.cols.filter((col) => col.autoSelect !== false).map((col) => col.name)
+    )
   );
 
   //reset pagination when data changes

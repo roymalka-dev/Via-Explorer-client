@@ -65,7 +65,7 @@ const CustomTableRow: React.FC<TableRowComponentProps> = ({
                     position: "sticky",
                     left: leftPosition,
                     zIndex: 2,
-                    backgroundColor: theme.palette.background.paper,
+                    backgroundColor: theme.palette.background.default,
                   }
                 : {}
             }

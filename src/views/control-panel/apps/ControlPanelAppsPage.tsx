@@ -24,6 +24,7 @@ import { FormStepper } from "@/components/shared/common/form/FormStepper";
 import { RequestType } from "@/types/request.types";
 import { getConfigValue } from "@/utils/configurations.utils";
 import UpdateIcon from "@mui/icons-material/Update";
+import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import ComplexFilterButton, {
   ComplexFilterFunctionOption,
 } from "@/components/shared/ui/buttons/ComplexFiltersButton";
@@ -217,14 +218,15 @@ const ControlPanelAppsPage = () => {
       comparator: comperators.string,
       isLocked: true,
     },
-    /*
+
     {
       name: "env",
       locale: "controlPanel.pages.apps.table.cols.env",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
+      autoSelect: false,
     },
-    */
+
     {
       name: "tenant",
       locale: "controlPanel.pages.apps.table.cols.tenant",
@@ -261,7 +263,7 @@ const ControlPanelAppsPage = () => {
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
     },
-    /*
+
     {
       name: "iosRelease",
       locale: "controlPanel.pages.apps.table.cols.iosRelease",
@@ -273,8 +275,9 @@ const ControlPanelAppsPage = () => {
         </Typography>
       ),
       comparator: comperators.date,
+      autoSelect: false,
     },
-    */
+
     {
       name: "iosCurrentVersionReleaseDate",
       locale: "controlPanel.pages.apps.table.cols.iosCurrentRelease",
@@ -292,6 +295,7 @@ const ControlPanelAppsPage = () => {
       locale: "controlPanel.pages.apps.table.cols.iosFolder",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
+      autoSelect: false,
     },
     {
       name: "androidAppId",
@@ -305,7 +309,7 @@ const ControlPanelAppsPage = () => {
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
     },
-    /*
+
     {
       name: "androidRelease",
       locale: "controlPanel.pages.apps.table.cols.androidRelease",
@@ -315,8 +319,9 @@ const ControlPanelAppsPage = () => {
         </Typography>
       ),
       comparator: comperators.date,
+      autoSelect: false,
     },
-    */
+
     {
       name: "androidCurrentVersionReleaseDate",
       locale: "controlPanel.pages.apps.table.cols.androidCurrentRelease",
@@ -334,6 +339,7 @@ const ControlPanelAppsPage = () => {
       locale: "controlPanel.pages.apps.table.cols.androidFolder",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
+      autoSelect: false,
     },
     {
       name: "languages",
@@ -346,7 +352,7 @@ const ControlPanelAppsPage = () => {
       locale: "Web App",
       render: (value: string) => (
         <a href={value} target="_blank" rel="noopener noreferrer">
-          {value}
+          {value && <OpenInNewIcon />}
         </a>
       ),
       comparator: comperators.string,
@@ -369,29 +375,32 @@ const ControlPanelAppsPage = () => {
       render: (value: string) => {
         return value.startsWith("http") ? (
           <a href={value} target="_blank" rel="noopener noreferrer">
-            {value}
+            <OpenInNewIcon />
           </a>
         ) : (
           <Typography>{value}</Typography>
         );
       },
       comparator: comperators.string,
+      autoSelect: false,
     },
     {
       name: "figmaAppName",
       locale: "controlPanel.pages.apps.table.cols.figmaAppName",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
+      autoSelect: false,
     },
     {
       name: "webAppFigmaLink",
       locale: "controlPanel.pages.apps.table.cols.webAppFigmaLink",
       render: (value: string) => (
         <a href={value} target="_blank" rel="noopener noreferrer">
-          {value}
+          {value && <OpenInNewIcon />}
         </a>
       ),
       comparator: comperators.string,
+      autoSelect: false,
     },
 
     {
@@ -401,6 +410,7 @@ const ControlPanelAppsPage = () => {
           <EditRoundedIcon />
         </Button>
       ),
+      autoSelect: false,
     },
   ];
 
