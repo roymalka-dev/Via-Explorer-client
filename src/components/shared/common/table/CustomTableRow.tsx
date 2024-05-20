@@ -48,7 +48,7 @@ const CustomTableRow: React.FC<TableRowComponentProps> = ({
         return (
           <TableCell
             sx={{
-              maxWidth: "200px",
+              maxWidth: "350px",
               minWidth: "150px",
               overflow: "hidden",
               textOverflow: "ellipsis",

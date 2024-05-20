@@ -294,6 +294,12 @@ const ControlPanelAppsPage = () => {
       comparator: comperators.string,
     },
     {
+      name: "androidAppId",
+      locale: "Android App ID",
+      render: (value: string) => <Typography>{value}</Typography>,
+      comparator: comperators.string,
+    },
+    {
       name: "androidVersion",
       locale: "controlPanel.pages.apps.table.cols.androidVersion",
       render: (value: string) => <Typography>{value}</Typography>,
@@ -444,7 +450,6 @@ const ControlPanelAppsPage = () => {
     let password = "";
     const confirmDelete = async () => {
       if (password !== "ridewithvia") {
-        console.log(password);
         toast.error("Invalid password", toastConfig);
         return;
       }

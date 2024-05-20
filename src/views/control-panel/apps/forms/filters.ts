@@ -42,4 +42,16 @@ export const filterFunctions: ComplexFilterFunctionOption[] = [
     function: (itemValue: string, filterValue: string) =>
       itemValue.toLowerCase() !== filterValue.toLowerCase(),
   },
+  {
+    value: "isBefore",
+    label: "is Before",
+    function: (itemValue: string, filterValue: string) =>
+      itemValue.toLowerCase() < filterValue.toLowerCase(),
+  },
+  {
+    value: "isAfter",
+    label: "is After",
+    function: (itemValue: string, filterValue: string) =>
+      itemValue.toLowerCase() > filterValue.toLowerCase(),
+  },
 ];
