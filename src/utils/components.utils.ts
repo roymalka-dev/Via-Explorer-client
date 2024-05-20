@@ -1,4 +1,4 @@
-import { TableDataType } from "@/types/components.types";
+import { TableColsType, TableDataType } from "@/types/components.types";
 
 export const getStatusChipColor = (
   status: string
@@ -37,4 +37,18 @@ export const comperators = {
   number: (a: number, b: number) => a - b,
   date: (a: string, b: string) =>
     new Date(a)?.getTime() - new Date(b)?.getTime(),
+};
+
+export const calculateStickyLeftPositions = (cols: TableColsType[]) => {
+  const leftPositions: number[] = [];
+  let cumulativeWidth = 0;
+
+  cols.forEach((col, index) => {
+    leftPositions[index] = cumulativeWidth;
+    if (col.isLocked) {
+      cumulativeWidth += col.width || 100; // Default width if not specified
+    }
+  });
+
+  return leftPositions;
 };

@@ -25,6 +25,11 @@ type CustomTableHeadProps = {
    * The name of the currently sorted column.
    */
   orderBy: string;
+
+  /**
+   * The position of the left edge of the sticky column.
+   */
+  leftPositions?: number[];
 };
 
 /**
@@ -40,6 +45,7 @@ const CustomTableHead: React.FC<CustomTableHeadProps> = ({
   onRequestSort,
   order,
   orderBy,
+  leftPositions = [],
 }) => {
   /**
    * Creates a handler function for sort requests for a specific column.
@@ -56,23 +62,43 @@ const CustomTableHead: React.FC<CustomTableHeadProps> = ({
   return (
     <TableHead>
       <TableRow>
-        {cols.map((col, index) => (
-          <TableCell
-            key={col.name}
-            align={index > 0 ? "right" : "left"}
-            sortDirection={orderBy === col.name ? order : false}
-          >
-            {!col.name.includes("options") && (
-              <TableSortLabel
-                active={orderBy === col.name}
-                direction={orderBy === col.name ? order : "asc"}
-                onClick={createSortHandler(col.name)}
-              >
-                {col.locale ? t(col.locale) : col.name}
-              </TableSortLabel>
-            )}
-          </TableCell>
-        ))}
+        {cols.map((col, index) => {
+          const isLocked = col.isLocked || false;
+          const leftPosition = leftPositions[index];
+
+          return (
+            <TableCell
+              key={col.name}
+              align={index > 0 && !isLocked ? "center" : "center"}
+              sortDirection={orderBy === col.name ? order : false}
+              sx={{
+                padding: 0,
+                borderSpacing: 0,
+                border: "1px solid #ccc",
+                alignItems: "center",
+              }}
+              style={
+                isLocked
+                  ? {
+                      position: "sticky",
+                      left: leftPosition,
+                      zIndex: 3,
+                    }
+                  : {}
+              }
+            >
+              {!col.name.includes("options") && (
+                <TableSortLabel
+                  active={orderBy === col.name}
+                  direction={orderBy === col.name ? order : "asc"}
+                  onClick={createSortHandler(col.name)}
+                >
+                  {col.locale ? t(col.locale) : col.name}
+                </TableSortLabel>
+              )}
+            </TableCell>
+          );
+        })}
       </TableRow>
     </TableHead>
   );

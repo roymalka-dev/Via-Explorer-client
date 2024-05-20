@@ -15,6 +15,11 @@ interface TableRowComponentProps {
    * An array of column definitions for the table. This includes information on how to render the data for each column.
    */
   columns: TableColsType[];
+
+  /**
+   * The position of the left edge of the sticky column.
+   */
+  leftPositions: number[];
 }
 
 /**
@@ -26,31 +31,50 @@ interface TableRowComponentProps {
  * @param {TableRowComponentProps} props The properties for the CustomTableRow component.
  * @returns {JSX.Element} A table row element with cells corresponding to each column in the table.
  */
-const CustomTableRow: React.FC<TableRowComponentProps> = ({ row, columns }) => {
+const CustomTableRow: React.FC<TableRowComponentProps> = ({
+  row,
+  columns,
+  leftPositions = [],
+}) => {
   const theme = useTheme();
+
   return (
-    <TableRow
-      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-      dir={theme.direction}
-    >
+    <TableRow dir={theme.direction}>
       {columns.map((column, index) => {
         const cellValue = row[column.name];
+        const isLocked = column.isLocked || false;
+        const leftPosition = leftPositions[index];
 
         return (
           <TableCell
             sx={{
-              maxWidth: "200px",
+              maxWidth: "300px",
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
+              padding: 5,
+              borderSpacing: 0,
+              border: "1px solid #ccc",
+              alignItems: "center",
+              justifyContent: "center",
             }}
+            style={
+              isLocked
+                ? {
+                    position: "sticky",
+                    left: leftPosition,
+                    zIndex: 2,
+                    backgroundColor: theme.palette.background.paper,
+                  }
+                : {}
+            }
             key={`${column.name}-${index}`}
             align={
-              index === 0
+              index === 0 || isLocked
                 ? "inherit"
                 : theme.direction === "ltr"
-                ? "right"
-                : "left"
+                ? "center"
+                : "center"
             }
           >
             {column.render ? column.render(cellValue, row) : cellValue}

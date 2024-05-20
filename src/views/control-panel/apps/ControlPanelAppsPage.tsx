@@ -199,25 +199,30 @@ const ControlPanelAppsPage = () => {
         </Button>
       ),
       comparator: comperators.string,
+      isLocked: true,
     },
     {
       name: "id",
       locale: "controlPanel.pages.apps.table.cols.id",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.number,
+      isLocked: true,
     },
     {
       name: "name",
       locale: "controlPanel.pages.apps.table.cols.name",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
+      isLocked: true,
     },
+    /*
     {
       name: "env",
       locale: "controlPanel.pages.apps.table.cols.env",
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
     },
+    */
     {
       name: "tenant",
       locale: "controlPanel.pages.apps.table.cols.tenant",
@@ -248,6 +253,7 @@ const ControlPanelAppsPage = () => {
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
     },
+    /*
     {
       name: "iosRelease",
       locale: "controlPanel.pages.apps.table.cols.iosRelease",
@@ -260,6 +266,7 @@ const ControlPanelAppsPage = () => {
       ),
       comparator: comperators.date,
     },
+    */
     {
       name: "iosCurrentVersionReleaseDate",
       locale: "controlPanel.pages.apps.table.cols.iosCurrentRelease",
@@ -284,6 +291,7 @@ const ControlPanelAppsPage = () => {
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
     },
+    /*
     {
       name: "androidRelease",
       locale: "controlPanel.pages.apps.table.cols.androidRelease",
@@ -294,6 +302,7 @@ const ControlPanelAppsPage = () => {
       ),
       comparator: comperators.date,
     },
+    */
     {
       name: "androidCurrentVersionReleaseDate",
       locale: "controlPanel.pages.apps.table.cols.androidCurrentRelease",

@@ -25,6 +25,7 @@ import { useTranslation } from "react-i18next";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { CheckboxMenuButton } from "../../ui/buttons/CheckboxMenuButton";
 import { PAGINATION_NUMBERS } from "@/constants/pagination.const";
+import { calculateStickyLeftPositions } from "@/utils/components.utils";
 
 /**
  * Interface for the CustomTable component's props
@@ -97,6 +98,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
     [data.cols, activeColumns]
   );
 
+  const leftPositions = calculateStickyLeftPositions(filteredCols);
+
   /**
    * Returns a button for filtering columns.
    * @returns {JSX.Element} - The filter columns button.
@@ -167,55 +170,70 @@ const CustomTable: React.FC<CustomTableProps> = ({
   return (
     <TableContainer
       component={Paper}
-      sx={{ maxHeight: "calc(100vh - 200px)", overflow: "auto" }}
+      sx={{ maxHeight: "calc(100vh - 200px)", overflow: "hidden" }}
     >
-      <Box sx={{ position: "relative", width: "100%" }}>
-        <Box sx={{ position: "sticky", overflowX: "auto" }}>
+      <Box sx={{ position: "relative", width: "100%", height: "100%" }}>
+        <Box
+          sx={{
+            position: "sticky",
+            top: 0,
+            zIndex: 10,
+            backgroundColor: "background.paper",
+          }}
+        >
           <CustomTableToolbar
             toolbar={toolbar}
             onSearchChange={(e) => setSearchText(e.target.value)}
           />
         </Box>
-        <Table stickyHeader aria-label="custom table">
-          <CustomTableHead
-            cols={filteredCols}
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-          />
-          <TableBody>
-            {loading ? (
-              <TableRow>
-                <TableCell
-                  colSpan={filteredCols.length}
-                  style={{ textAlign: "center" }}
-                >
-                  <CircularProgress />
-                </TableCell>
-              </TableRow>
-            ) : (
-              sortedAndFilteredRows
-                .slice(
-                  pagination.page * pagination.rowsPerPage,
-                  pagination.page * pagination.rowsPerPage +
-                    pagination.rowsPerPage
-                )
-                .map((row, index) => (
-                  <CustomTableRow
-                    key={index}
-                    row={row}
-                    columns={filteredCols}
-                  />
-                ))
-            )}
-          </TableBody>
-        </Table>
+        <Box sx={{ height: "calc(100vh - 300px)", overflow: "auto" }}>
+          <Table stickyHeader aria-label="custom table">
+            <CustomTableHead
+              cols={filteredCols}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              leftPositions={leftPositions}
+            />
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell
+                    colSpan={filteredCols.length}
+                    style={{ textAlign: "center" }}
+                  >
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : (
+                sortedAndFilteredRows
+                  .slice(
+                    pagination.page * pagination.rowsPerPage,
+                    pagination.page * pagination.rowsPerPage +
+                      pagination.rowsPerPage
+                  )
+                  .map((row, index) => (
+                    <CustomTableRow
+                      key={index}
+                      row={row}
+                      columns={filteredCols}
+                      leftPositions={leftPositions}
+                    />
+                  ))
+              )}
+            </TableBody>
+          </Table>
+        </Box>
         <Box
-          position={"sticky"}
-          bottom={0}
-          zIndex={2}
-          bgcolor={"background.paper"}
-          sx={{ width: "100%", display: "flex", justifyContent: "flex-start" }}
+          sx={{
+            position: "sticky",
+            bottom: 0,
+            zIndex: 10,
+            backgroundColor: "background.paper",
+            width: "100%",
+            display: "flex",
+            justifyContent: "flex-start",
+          }}
         >
           <TablePagination
             rowsPerPageOptions={PAGINATION_NUMBERS}
@@ -231,6 +249,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             labelDisplayedRows={({ from, to, count }) =>
               `${from}-${to} of ${count}`
             }
+            sx={{ zIndex: 5 }}
           />
         </Box>
       </Box>

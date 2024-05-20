@@ -32,7 +32,7 @@ const CustomTableToolbar: React.FC<CustomTableToolbarProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <Toolbar sx={{ position: "sticky", top: 0, zIndex: 1 }}>
+    <Toolbar sx={{ position: "sticky", zIndex: 1 }}>
       <Box
         display="flex"
         justifyContent="space-between"
