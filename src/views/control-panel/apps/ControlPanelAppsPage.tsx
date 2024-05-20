@@ -450,7 +450,7 @@ const ControlPanelAppsPage = () => {
       }
 
       modal.closeModal();
-      const success = await ApiService.post("app/update-apps-from-store");
+      const success = await ApiService.post("app/update-apps-from-stores");
       if (success) {
         toast.success("All apps are updating...", toastConfig);
         refetch();
