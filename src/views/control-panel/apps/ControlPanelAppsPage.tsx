@@ -3,7 +3,7 @@ import { toastConfig } from "@/configs/toast.config";
 import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
 import { comperators, tableDataGenerator } from "@/utils/components.utils";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -23,6 +23,7 @@ import ApiService from "@/services/ApiService";
 import { FormStepper } from "@/components/shared/common/form/FormStepper";
 import { RequestType } from "@/types/request.types";
 import { getConfigValue } from "@/utils/configurations.utils";
+import UpdateIcon from "@mui/icons-material/Update";
 import ComplexFilterButton, {
   ComplexFilterFunctionOption,
 } from "@/components/shared/ui/buttons/ComplexFiltersButton";
@@ -46,6 +47,7 @@ const ControlPanelAppsPage = () => {
   const dispatch = useDispatch();
   const appsFromStore = useSelector((state: RootState) => state.apps);
   const [rows, setRows] = useState<appType[]>([]);
+
   const [selectedEditApp, setSelectedEditApp] = useState<appType | null>(null);
   const { data, status, error, refetch } = useApi<appType[]>(
     `app/get-all-apps`,
@@ -253,6 +255,12 @@ const ControlPanelAppsPage = () => {
       render: (value: string) => <Typography>{value}</Typography>,
       comparator: comperators.string,
     },
+    {
+      name: "iosBundleId",
+      locale: "Ios Bundle ID",
+      render: (value: string) => <Typography>{value}</Typography>,
+      comparator: comperators.string,
+    },
     /*
     {
       name: "iosRelease",
@@ -352,7 +360,15 @@ const ControlPanelAppsPage = () => {
     {
       name: "colorSpecs",
       locale: "controlPanel.pages.apps.table.cols.colorSpecs",
-      render: (value: string) => <Typography>{value}</Typography>,
+      render: (value: string) => {
+        return value.startsWith("http") ? (
+          <a href={value} target="_blank" rel="noopener noreferrer">
+            {value}
+          </a>
+        ) : (
+          <Typography>{value}</Typography>
+        );
+      },
       comparator: comperators.string,
     },
     {
@@ -424,6 +440,54 @@ const ControlPanelAppsPage = () => {
     );
   };
 
+  const updateAllAppsFromStores = async () => {
+    let password = "";
+    const confirmDelete = async () => {
+      if (password !== "ridewithvia") {
+        console.log(password);
+        toast.error("Invalid password", toastConfig);
+        return;
+      }
+
+      modal.closeModal();
+      const success = await ApiService.post("app/update-apps-from-store");
+      if (success) {
+        toast.success("All apps are updating...", toastConfig);
+        refetch();
+      } else {
+        toast.error("Failed to update apps", toastConfig);
+      }
+    };
+
+    modal.openModal();
+    modal.setContent(
+      <Box>
+        <Typography variant="h4" sx={{ mb: 2 }}>
+          This is an expensive operation. Are you sure you want to update all
+          apps from store? It might take {((rows.length / 100) * 15).toFixed(0)}{" "}
+          minutes.
+        </Typography>
+        <TextField
+          label="Password"
+          type="password"
+          onChange={(e) => (password = e.target.value)}
+          sx={{ mb: 2 }}
+          fullWidth
+        />
+        <Box display="flex" justifyContent="space-between">
+          <Button onClick={() => modal.closeModal()}>
+            <Typography variant="body2">Cancel</Typography>
+          </Button>
+          <Button onClick={confirmDelete}>
+            <Typography variant="body2" style={{ color: "red" }}>
+              Update
+            </Typography>
+          </Button>
+        </Box>
+      </Box>
+    );
+  };
+
   /**
    * Rendered component for exporting table data to CSV.
    */
@@ -452,10 +516,24 @@ const ControlPanelAppsPage = () => {
     );
   };
 
+  const updateAllAppsFromStoreButton: () => JSX.Element = () => {
+    return (
+      <Button onClick={updateAllAppsFromStores}>
+        <UpdateIcon />
+      </Button>
+    );
+  };
+
   /**
    * Toolbar components to be displayed above the table.
    */
-  const toolbar = [filtersButton, addAppButton, ExportCSV, refetchButton];
+  const toolbar = [
+    filtersButton,
+    addAppButton,
+    ExportCSV,
+    refetchButton,
+    updateAllAppsFromStoreButton,
+  ];
 
   return (
     <Box sx={{ mt: 8 }} dir={theme.direction}>
