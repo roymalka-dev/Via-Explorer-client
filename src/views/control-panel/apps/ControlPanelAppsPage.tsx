@@ -551,7 +551,7 @@ const ControlPanelAppsPage = () => {
   ];
 
   return (
-    <Box sx={{ mt: 8 }} dir={theme.direction}>
+    <Box sx={{ mt: 4, ml: 3 }} dir={theme.direction}>
       <Typography variant="h2" sx={{ mb: 2, ml: 3 }}>
         {t("controlPanel.pages.apps.sections.title")}
       </Typography>

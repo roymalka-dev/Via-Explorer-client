@@ -140,7 +140,7 @@ const ControlPanelRequestsPage = () => {
 
   const tableData = tableDataGenerator({ rows, cols });
   return (
-    <Box sx={{ mt: 8 }}>
+    <Box sx={{ mt: 4 }}>
       <Typography variant="h2" sx={{ mb: 2, ml: 3 }}>
         {t("controlPanel.pages.requests.sections.title")}
       </Typography>
