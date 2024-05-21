@@ -4,6 +4,8 @@ import {
 } from "@/components/shared/ui/buttons/ComplexFiltersButton";
 
 export const filterTypes: ComplexFilterOption[] = [
+  { value: "id", label: "ID" },
+  { value: "name", label: "Name" },
   { value: "iosVersion", label: "ios Version" },
   { value: "androidVersion", label: "android Version" },
   { value: "region", label: "Region" },

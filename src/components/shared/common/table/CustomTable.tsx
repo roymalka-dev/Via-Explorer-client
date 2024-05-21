@@ -186,6 +186,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
             position: "sticky",
             top: 0,
             zIndex: 10,
+            mt: 1,
+            mb: 2,
             backgroundColor: "background.paper",
           }}
         >
@@ -194,7 +196,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
             onSearchChange={(e) => setSearchText(e.target.value)}
           />
         </Box>
-        <Box sx={{ height: "calc(100vh - 300px)", overflow: "auto" }}>
+        <Box sx={{ height: "calc(100vh - 300px)", overflow: "auto", ml: 3 }}>
           <Table stickyHeader aria-label="custom table">
             <CustomTableHead
               cols={filteredCols}
