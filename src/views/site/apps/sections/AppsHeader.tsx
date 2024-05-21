@@ -18,7 +18,7 @@ import { SelectMenuButton } from "@/components/shared/ui/buttons/SelectMenuButto
 import { useTranslation } from "react-i18next";
 import { appSorterType, appType, appFilterType } from "@/types/app.types";
 import { useDispatch } from "react-redux";
-import { resetQueries } from "@/store/slices/searchSlice";
+import { resetQueries, setTTL } from "@/store/slices/searchSlice";
 import CachedRoundedIcon from "@mui/icons-material/CachedRounded";
 import { toastConfig } from "@/configs/toast.config";
 import { toast } from "react-toastify";
@@ -128,6 +128,7 @@ export const AppsHeader: React.FC<AppsHeaderProps> = ({
 
   const handleClearCache = () => {
     dispatch(resetQueries());
+    dispatch(setTTL(0));
     toast.success("Search Cache Cleared", toastConfig);
   };
 
