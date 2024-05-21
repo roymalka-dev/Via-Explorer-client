@@ -61,7 +61,7 @@ const AppsPage = () => {
       //check for regex
       const regex = /^[a-zA-Z0-9 \-_'"]*$/;
 
-      if (query && regex.test(query)) {
+      if (query === "" || (query && regex.test(query))) {
         refetch();
       } else {
         toast.error(t("Invalid search query"), toastConfig);

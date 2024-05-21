@@ -20,42 +20,40 @@ const SettingsBar = () => {
 
   return (
     <Box>
-      {/* Decorative element: A colored line to visually separate the settings bar */}
       <Box
         sx={{
           height: "1px",
           width: "100%",
           bgcolor: "primary.main",
-          my: 1, // Margin for vertical spacing
+          my: 1,
         }}
       />
-      {/* Container for the settings options */}
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          gap: 5,
           width: "90%",
-          m: 1, // Margin for external spacing
-          bgcolor: theme.palette.background.paper, // Background color matching the theme
+          m: 1,
+          bgcolor: theme.palette.background.paper,
+          p: 1,
+          borderRadius: 1,
         }}
       >
-        {/* Theme and language selection components */}
         <ThemeSelector />
         <LangSelector />
 
-        {/* Conditional rendering for administrators: Control panel access button */}
         {authority === "ADMIN" && (
           <Button onClick={() => navigate("/control-panel/apps")}>
             <DesktopWindowsOutlinedIcon
               sx={{
-                color: theme.palette.primary.main, // Icon color matching the primary color of the theme
-                fontSize: "2rem", // Icon size
+                color: theme.palette.primary.main,
+                fontSize: "2rem",
               }}
             />
           </Button>
         )}
-        {/* Logout button for Google accounts */}
         <GoogleLogout />
       </Box>
     </Box>

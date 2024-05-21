@@ -76,6 +76,8 @@ const CustomTableHead: React.FC<CustomTableHeadProps> = ({
                 borderSpacing: 0,
                 border: "1px solid #ccc",
                 alignItems: "center",
+                maxWidth: "350px",
+                minWidth: "150px",
               }}
               style={
                 isLocked
