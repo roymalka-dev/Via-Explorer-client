@@ -1,13 +1,8 @@
+import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
 import useApi from "@/hooks/useApi";
 import { AnnouncementType } from "@/types/announcements.types";
 import { formatDateWithHour } from "@/utils/time.utils";
-import {
-  Box,
-  CircularProgress,
-  List,
-  ListItem,
-  Typography,
-} from "@mui/material";
+import { Box, List, ListItem, Typography } from "@mui/material";
 
 const Announcements = () => {
   const { data, status, error } = useApi<AnnouncementType[]>(
@@ -17,7 +12,7 @@ const Announcements = () => {
   if (status === "loading") {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <CircularProgress />
+        <ViaSpinnerLoader />
       </Box>
     );
   }

@@ -9,7 +9,8 @@ import { toastConfig } from "@/configs/toast.config";
 import { UserDataType } from "@/types/user.types";
 import { setAuthorization } from "@/store/slices/authSlice";
 import { useDispatch } from "react-redux";
-import { CircularProgress, useTheme } from "@mui/material";
+import { useTheme } from "@mui/material";
+import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
 
 const GeneralSection: React.FC = () => {
   const { t } = useTranslation();
@@ -44,7 +45,7 @@ const GeneralSection: React.FC = () => {
 
   return (
     <Box dir={theme.direction}>
-      {status === "loading" && <CircularProgress />}
+      {status === "loading" && <ViaSpinnerLoader />}
       {status === "success" && data ? (
         <Box>
           <Typography variant="h4">

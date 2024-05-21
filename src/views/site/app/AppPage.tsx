@@ -7,7 +7,6 @@ import {
   IconButton,
   CardMedia,
   Stack,
-  CircularProgress,
   Grid,
   Button,
 } from "@mui/material";
@@ -29,6 +28,7 @@ import CustomTabs from "@/components/shared/common/tabs/CustomTabs";
 import AppDetailsSection from "./sections/AppDetailsSection";
 import AppBuildManagerSection from "./sections/AppBuildManagerSection";
 import AppScreenshotsSection from "./sections/AppScreenshotsSection";
+import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
 
 const AppPage: React.FC = () => {
   const { t } = useTranslation();
@@ -114,7 +114,7 @@ const AppPage: React.FC = () => {
   if (appData.status === "loading") {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <CircularProgress />
+        <ViaSpinnerLoader />
       </Box>
     );
   }

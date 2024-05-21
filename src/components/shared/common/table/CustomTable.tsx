@@ -9,7 +9,6 @@ import {
   Paper,
   TablePagination,
   Box,
-  CircularProgress,
   TableCell,
   TableRow,
 } from "@mui/material";
@@ -26,6 +25,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import { CheckboxMenuButton } from "../../ui/buttons/CheckboxMenuButton";
 import { PAGINATION_NUMBERS } from "@/constants/pagination.const";
 import { calculateStickyLeftPositions } from "@/utils/components.utils";
+import ViaSpinnerLoader from "../loaders/ViaSpinnerLoader";
 
 /**
  * Interface for the CustomTable component's props
@@ -58,6 +58,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
   );
 
   const { t } = useTranslation();
+  const [processing, setProcessing] = useState(false);
   const pagination = paginationHandler
     ? paginationHandler(25)
     : useTablePagination(25);
@@ -80,6 +81,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
    * @returns {void}
    */
   const toggleColumn = useCallback((colName: string) => {
+    setProcessing(true);
     setActiveColumns((prevActiveColumns) => {
       const newActiveColumns = new Set(prevActiveColumns);
       if (newActiveColumns.has(colName)) {
@@ -89,6 +91,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
       }
       return newActiveColumns;
     });
+    setProcessing(false);
   }, []);
 
   /**
@@ -198,13 +201,13 @@ const CustomTable: React.FC<CustomTableProps> = ({
               leftPositions={leftPositions}
             />
             <TableBody>
-              {loading ? (
+              {loading || processing ? (
                 <TableRow>
                   <TableCell
                     colSpan={filteredCols.length}
                     style={{ textAlign: "center" }}
                   >
-                    <CircularProgress />
+                    <ViaSpinnerLoader />
                   </TableCell>
                 </TableRow>
               ) : (

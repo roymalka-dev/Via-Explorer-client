@@ -53,7 +53,6 @@ const CustomTableRow: React.FC<TableRowComponentProps> = ({
               overflow: "hidden",
               textOverflow: "ellipsis",
               whiteSpace: "nowrap",
-              padding: 5,
               borderSpacing: 0,
               border: "1px solid #ccc",
               alignItems: "center",
@@ -72,7 +71,7 @@ const CustomTableRow: React.FC<TableRowComponentProps> = ({
             key={`${column.name}-${index}`}
             align={
               index === 0 || isLocked
-                ? "inherit"
+                ? "left"
                 : theme.direction === "ltr"
                 ? "center"
                 : "center"

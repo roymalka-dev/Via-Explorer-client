@@ -1,6 +1,5 @@
 import { RouteObject } from "@/types/routes.types";
 import { lazy } from "react";
-import { CircularProgress } from "@mui/material";
 
 import ProtectedRoute from "@/routes/ProtectedRoute";
 import PublicRoute from "@/routes/PublicRoute";
@@ -9,6 +8,7 @@ import AuthRedirect from "@/views/auth/AuthRedirect";
 import RedirectRoute from "@/routes/RedirectRoute";
 import ControlPanelLayout from "@/layouts/control-panel/ControlPanelLayout";
 import MainLayout from "@/layouts/site/MainLayout";
+import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
 
 const HomePage = lazy(() => import("@/views/site/home/HomePage"));
 const AppsPage = lazy(() => import("@/views/site/apps/AppsPage"));
@@ -42,7 +42,7 @@ export const routes: RouteObject[] = [
     key: "main layout",
     path: "/",
     element: MainLayout,
-    loader: CircularProgress,
+    loader: ViaSpinnerLoader,
     protect: ProtectedRoute,
     children: [
       {
@@ -50,42 +50,42 @@ export const routes: RouteObject[] = [
         path: "/",
         authority: "USER",
         element: HomePage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "apps",
         path: "/apps",
         authority: "USER",
         element: AppsPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "app",
         path: "/app/:id",
         authority: "USER",
         element: AppPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "profile",
         path: "/profile",
         authority: "USER",
         element: ProfilePage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "request-app",
         path: "/requests/request-app",
         authority: "USER",
         element: RequestApp,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "view-app-request",
         path: "/requests/view/:id",
         authority: "USER",
         element: viewAppRequest,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
     ],
   },
@@ -93,7 +93,7 @@ export const routes: RouteObject[] = [
     key: "control-panel-layout",
     path: "/control-panel",
     element: ControlPanelLayout,
-    loader: CircularProgress,
+    loader: ViaSpinnerLoader,
     redirect: RedirectRoute({
       from: "/control-panel",
       to: "/control-panel/apps",
@@ -106,7 +106,7 @@ export const routes: RouteObject[] = [
         path: "/control-panel/dashboard",
         authority: "ADMIN",
         element: Dashboard,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       */
       {
@@ -114,7 +114,7 @@ export const routes: RouteObject[] = [
         path: "/control-panel/apps",
         authority: "ADMIN",
         element: ControlPanelAppsPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       /*
       {
@@ -122,7 +122,7 @@ export const routes: RouteObject[] = [
         path: "/control-panel/requests",
         authority: "ADMIN",
         element: ControlPanelRequestsPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       */
       {
@@ -130,14 +130,14 @@ export const routes: RouteObject[] = [
         path: "/control-panel/users",
         authority: "ADMIN",
         element: ControlPanelUsersPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "control-panel-configurations",
         path: "/control-panel/configurations",
         authority: "ADMIN",
         element: ControlPanelConfigurationsPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
     ],
   },
@@ -145,7 +145,7 @@ export const routes: RouteObject[] = [
     key: "auth",
     path: "/auth",
     element: BlankLayout,
-    loader: CircularProgress,
+    loader: ViaSpinnerLoader,
     redirect: RedirectRoute({ from: "/auth", to: "/auth/login" }),
     protect: PublicRoute,
     children: [
@@ -154,14 +154,14 @@ export const routes: RouteObject[] = [
         path: "/auth/login",
         authority: "PUBLIC",
         element: AuthPage,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
       {
         key: "google-auth-callback",
         path: "/auth/google/callback",
         authority: "PUBLIC",
         element: AuthRedirect,
-        loader: CircularProgress,
+        loader: ViaSpinnerLoader,
       },
     ],
   },
@@ -169,7 +169,7 @@ export const routes: RouteObject[] = [
     key: "not-found",
     path: "*",
     element: NotFound,
-    loader: CircularProgress,
+    loader: ViaSpinnerLoader,
     protect: PublicRoute,
     children: [],
   },

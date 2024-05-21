@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import AppsDisplay from "./AppsDisplay";
 import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
-import { CircularProgress } from "@mui/material";
+import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
 
 const Favorites = () => {
   const { t } = useTranslation();
@@ -12,7 +12,7 @@ const Favorites = () => {
   if (status === "loading") {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <CircularProgress />
+        <ViaSpinnerLoader />
       </Box>
     );
   }

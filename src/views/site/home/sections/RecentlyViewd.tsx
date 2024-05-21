@@ -1,8 +1,9 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box } from "@mui/material";
 import AppsDisplay from "./AppsDisplay";
 import { useTranslation } from "react-i18next";
 import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
+import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
 
 const RecentlyViewd = () => {
   const { t } = useTranslation();
@@ -13,7 +14,7 @@ const RecentlyViewd = () => {
   if (status === "loading") {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", mt: 8 }}>
-        <CircularProgress />
+        <ViaSpinnerLoader />
       </Box>
     );
   }

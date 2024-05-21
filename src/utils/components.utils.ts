@@ -20,6 +20,19 @@ export const getStatusChipColor = (
   }
 };
 
+export const getChipColorByIndex = (index: number) => {
+  const opacity = 0.2;
+  const colors = [
+    `rgba(54, 162, 235, ${opacity})`, // Blue
+    `rgba(255, 206, 86, ${opacity})`, // Yellow
+    `rgba(255, 99, 132, ${opacity})`, // Red
+    `rgba(75, 192, 192, ${opacity})`, // Green
+    `rgba(153, 102, 255, ${opacity})`, // Purple
+    `rgba(255, 159, 64, ${opacity})`, // Orange
+  ];
+  return colors[index % colors.length];
+};
+
 export const tableDataGenerator = ({
   rows,
   cols,

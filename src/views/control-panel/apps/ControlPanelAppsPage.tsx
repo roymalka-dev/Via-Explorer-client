@@ -2,8 +2,19 @@
 import { toastConfig } from "@/configs/toast.config";
 import useApi from "@/hooks/useApi";
 import { appType } from "@/types/app.types";
-import { comperators, tableDataGenerator } from "@/utils/components.utils";
-import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import {
+  comperators,
+  getChipColorByIndex,
+  tableDataGenerator,
+} from "@/utils/components.utils";
+import {
+  Box,
+  Button,
+  Chip,
+  TextField,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -344,7 +355,20 @@ const ControlPanelAppsPage = () => {
     {
       name: "languages",
       locale: "controlPanel.pages.apps.table.cols.languages",
-      render: (value: string[]) => <Typography>{value?.join(", ")}</Typography>,
+      render: (value: string[]) => (
+        <>
+          {value.map((item, index) => (
+            <Chip
+              key={index}
+              label={<Typography>{item}</Typography>}
+              sx={{
+                backgroundColor: getChipColorByIndex(index),
+                margin: "2px",
+              }}
+            />
+          ))}
+        </>
+      ),
       comparator: (a: string[], b: string[]) => a[0]?.localeCompare(b[0]),
     },
     {
