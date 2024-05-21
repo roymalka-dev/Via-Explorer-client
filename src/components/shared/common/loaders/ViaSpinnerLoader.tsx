@@ -1,11 +1,12 @@
 import React from "react";
 import { Box } from "@mui/material";
+import spinner from "@/assets/images/Via_logo_spinner.png";
 
 const ViaSpinnerLoader: React.FC = () => {
   return (
     <Box
       component="img"
-      src="/src/assets/images/Via_logo_spinner.png"
+      src={spinner}
       alt="Loading"
       sx={{
         width: "75px",
