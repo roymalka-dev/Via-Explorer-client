@@ -9,6 +9,7 @@ const ViaSpinnerLoader: React.FC = () => {
       alt="Loading"
       sx={{
         width: "75px",
+        opacity: 0.7,
         height: "auto",
         animation: "spin 1.5s linear infinite",
         "@keyframes spin": {
