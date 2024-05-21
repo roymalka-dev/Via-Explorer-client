@@ -25,9 +25,12 @@ const searchSlice = createSlice({
     resetQueries: (state) => {
       state.queries = initialState.queries;
     },
+    setTTL: (state, action: PayloadAction<number>) => {
+      state.ttl = action.payload;
+    },
   },
 });
 
-export const { updateQueries, resetQueries } = searchSlice.actions;
+export const { updateQueries, resetQueries, setTTL } = searchSlice.actions;
 
 export default searchSlice.reducer;

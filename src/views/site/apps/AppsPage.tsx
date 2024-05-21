@@ -14,11 +14,15 @@ import { getConfigValue } from "@/utils/configurations.utils";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { updateQueries } from "@/store/slices/searchSlice";
+import { setTTL, updateQueries } from "@/store/slices/searchSlice";
 
 const AppsPage = () => {
   const APPS_PER_PAGE = Number(
     getConfigValue("NUMBER_OF_APPS_PER_PAGE_TO_DISPLAY", 12)
+  );
+
+  const TIME_TO_RESET_CLIENT_SEARCH_CACHE_IN_MIN = Number(
+    getConfigValue("TIME_TO_RESET_SEARCH_CACHE_IN_MIN", 30)
   );
 
   const theme = useTheme();
@@ -45,10 +49,23 @@ const AppsPage = () => {
   };
 
   useEffect(() => {
-    if (searchCache.queries[query]) {
+    if (
+      searchCache.queries[query] &&
+      Date.now() - searchCache.ttl <
+        TIME_TO_RESET_CLIENT_SEARCH_CACHE_IN_MIN * 60 * 1000
+    ) {
       setDisplayedApps(searchCache.queries[query] || []);
     } else {
-      refetch();
+      dispatch(setTTL(Date.now()));
+
+      //check for regex
+      const regex = /^[a-zA-Z0-9 \-_'"]*$/;
+
+      if (query && regex.test(query)) {
+        refetch();
+      } else {
+        toast.error(t("Invalid search query"), toastConfig);
+      }
     }
   }, [query]);
 
