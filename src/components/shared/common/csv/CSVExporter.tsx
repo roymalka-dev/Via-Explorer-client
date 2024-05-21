@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 
 /**
@@ -62,9 +62,11 @@ const CSVExporter: React.FC<CSVExportProps> = ({ jsonData }) => {
   };
 
   return (
-    <Button onClick={downloadCSV}>
-      <FileDownloadIcon />
-    </Button>
+    <Tooltip title={"Export to CSV"}>
+      <Button onClick={downloadCSV}>
+        <FileDownloadIcon />
+      </Button>
+    </Tooltip>
   );
 };
 

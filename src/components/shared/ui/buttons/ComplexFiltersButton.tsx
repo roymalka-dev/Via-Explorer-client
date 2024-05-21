@@ -8,6 +8,7 @@ import {
   InputLabel,
   Select,
   Box,
+  Tooltip,
 } from "@mui/material";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 
@@ -75,9 +76,12 @@ const ComplexFilterButton: React.FC<ComplexFilterButtonProps> = ({
 
   return (
     <Box>
-      <Button onClick={handleOpenMenu}>
-        <FilterAltIcon color={filterValue === "" ? "secondary" : "primary"} />
-      </Button>
+      <Tooltip title={"Apply filters"}>
+        <Button onClick={handleOpenMenu}>
+          <FilterAltIcon color={filterValue === "" ? "secondary" : "primary"} />
+        </Button>
+      </Tooltip>
+
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

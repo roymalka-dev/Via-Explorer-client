@@ -12,6 +12,7 @@ import {
   Button,
   Chip,
   TextField,
+  Tooltip,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -449,6 +450,7 @@ const ControlPanelAppsPage = () => {
   const refecthData = () => {
     setRows([]);
     dispatch(setApps({ apps: [] }));
+    refetch();
   };
 
   const handleComplexFilters = (
@@ -474,9 +476,11 @@ const ControlPanelAppsPage = () => {
    */
   const refetchButton: () => JSX.Element = () => {
     return (
-      <Button onClick={refecthData}>
-        <RefreshIcon />
-      </Button>
+      <Tooltip title={"Refetch apps from DB"}>
+        <Button onClick={refecthData}>
+          <RefreshIcon />
+        </Button>
+      </Tooltip>
     );
   };
 
@@ -549,17 +553,21 @@ const ControlPanelAppsPage = () => {
 
   const addAppButton: () => JSX.Element = () => {
     return (
-      <Button onClick={addItemHandler}>
-        <AddIcon />
-      </Button>
+      <Tooltip title={"Add app"}>
+        <Button onClick={addItemHandler}>
+          <AddIcon />
+        </Button>
+      </Tooltip>
     );
   };
 
   const updateAllAppsFromStoreButton: () => JSX.Element = () => {
     return (
-      <Button onClick={updateAllAppsFromStores}>
-        <UpdateIcon />
-      </Button>
+      <Tooltip title={"Update all apps from stores"}>
+        <Button onClick={updateAllAppsFromStores}>
+          <UpdateIcon />
+        </Button>
+      </Tooltip>
     );
   };
 

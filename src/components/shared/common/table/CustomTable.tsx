@@ -11,6 +11,7 @@ import {
   Box,
   TableCell,
   TableRow,
+  Tooltip,
 } from "@mui/material";
 import { debounce } from "lodash";
 import CustomTableHead from "./CustomTableHead";
@@ -113,11 +114,13 @@ const CustomTable: React.FC<CustomTableProps> = ({
     return (
       <CheckboxMenuButton
         name={
-          <VisibilityIcon
-            color={
-              filteredCols.length < data.cols.length ? "primary" : "secondary"
-            }
-          />
+          <Tooltip title={"Show/Hide Columns"}>
+            <VisibilityIcon
+              color={
+                filteredCols.length < data.cols.length ? "primary" : "secondary"
+              }
+            />
+          </Tooltip>
         }
         options={data.cols.map((col) => col.name)}
         active={filteredCols.map((col) => col.name)}
