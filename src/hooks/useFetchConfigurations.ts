@@ -38,7 +38,7 @@ const useFetchConfigurations = () => {
   useEffect(() => {
     if (
       data.length === 0 ||
-      Date.now() - ttl > TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN * 60 * 1000
+      Date.now() - ttl < TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN * 60 * 1000
     ) {
       fetch.refetch();
       if (fetch.status === "success" && fetch.data) {
