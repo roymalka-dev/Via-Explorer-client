@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import appConfig from "@/configs/app.config";
 import { store } from "@/store/store";
-import axios, { AxiosRequestConfig } from "axios"; // Ensure AxiosRequestConfig is imported
+import axios, { AxiosRequestConfig } from "axios";
 
 const API_BASE_URL = appConfig.apiBaseUrl + appConfig.apiPrefix;
 const ApiService = axios.create({
