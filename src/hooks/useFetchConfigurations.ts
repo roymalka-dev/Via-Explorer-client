@@ -36,18 +36,27 @@ const useFetchConfigurations = () => {
    * It triggers a fetch if no data is available or if the cached data is expired based on the time to live (TTL).
    */
   useEffect(() => {
-    if (
+    const shouldRefetch =
       data.length === 0 ||
-      Date.now() - ttl < TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN * 60 * 1000
-    ) {
-      fetch.refetch();
-      if (fetch.status === "success" && fetch.data) {
-        dispatch(setConfigurations({ data: fetch.data }));
-      } else if (fetch.status === "error") {
-        console.error("Error fetching configurations:", fetch.error);
+      Date.now() - ttl > TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN * 60 * 1000;
+
+    const fetchData = async () => {
+      if (shouldRefetch) {
+        try {
+          await fetch.refetch();
+          if (fetch.status === "success" && fetch.data) {
+            dispatch(setConfigurations({ data: fetch.data }));
+          } else if (fetch.status === "error") {
+            console.error("Error fetching configurations:", fetch.error);
+          }
+        } catch (error) {
+          console.error("Error fetching configurations:", error);
+        }
       }
-    }
-  }, [ttl, data, TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN, dispatch]);
+    };
+
+    fetchData();
+  }, [data, ttl]);
 };
 
 export default useFetchConfigurations;
