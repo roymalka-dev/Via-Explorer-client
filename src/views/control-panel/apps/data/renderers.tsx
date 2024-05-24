@@ -32,8 +32,8 @@ export const appsTableRenderers = {
   date: (value: string | Date) => (
     <Typography>
       {value instanceof Date
-        ? value.toISOString().split("T")[0]
-        : value.split("T")[0]}
+        ? value?.toISOString().split("T")[0]
+        : value?.split("T")[0]}
     </Typography>
   ),
 
