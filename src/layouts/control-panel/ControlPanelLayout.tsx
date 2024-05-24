@@ -5,9 +5,13 @@ import { Outlet } from "react-router-dom";
 import ControlPanelAppBar from "@/components/control-panel/ControlPanelAppBar";
 import ControlPanelDrawer from "@/components/control-panel/ControlPanelDrawer";
 import { Paper } from "@mui/material";
+import useFetchConfigurations from "@/hooks/useFetchConfigurations";
+import useVerifyAuth from "@/hooks/useVerifyAuth";
 
 export default function ControlPanelLayout() {
   const theme = useTheme();
+  useFetchConfigurations();
+  useVerifyAuth("admin");
 
   return (
     <Box
