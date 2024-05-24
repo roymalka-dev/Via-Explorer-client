@@ -1,6 +1,4 @@
 import Navbar from "@/components/site/Navbar";
-import useFetchConfigurations from "@/hooks/useFetchConfigurations";
-import { useScrollToTop } from "@/hooks/useScrollToTop";
 import useVerifyAuth from "@/hooks/useVerifyAuth";
 import { useTheme } from "@mui/material";
 import { Box } from "@mui/material";
@@ -8,8 +6,6 @@ import { Outlet } from "react-router-dom";
 
 const MainLayout = () => {
   const theme = useTheme();
-  useScrollToTop();
-  useFetchConfigurations();
   useVerifyAuth("user");
 
   return (

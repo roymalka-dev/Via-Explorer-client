@@ -21,6 +21,9 @@ const useFetchConfigurations = () => {
   // Redux hooks
   const dispatch = useDispatch();
   const { data, ttl } = useSelector((state: RootState) => state.configurations);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
 
   // Fetch configurations from the server
   const fetch = useApi<ConfigurationItem[]>(
@@ -36,6 +39,9 @@ const useFetchConfigurations = () => {
    * It triggers a fetch if no data is available or if the cached data is expired based on the time to live (TTL).
    */
   useEffect(() => {
+    if (!isAuthenticated) {
+      return;
+    }
     const shouldRefetch =
       data.length === 0 ||
       Date.now() - ttl > TIME_TO_UPDATE_CONFIGURATIONS_IN_MIN * 60 * 1000;
