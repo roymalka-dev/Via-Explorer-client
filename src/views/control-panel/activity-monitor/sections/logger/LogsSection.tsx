@@ -1,7 +1,7 @@
 import { toastConfig } from "@/configs/toast.config";
 import useApi from "@/hooks/useApi";
 import { logType } from "@/types/logs.type";
-import { Box } from "@mui/material";
+import { Box, Button, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -9,6 +9,7 @@ import CustomTable from "@/components/shared/common/table/CustomTable";
 import { tableDataGenerator } from "@/utils/components.utils";
 import { getControlPanelLogCols } from "./data/cols";
 import LogDatePicker from "./table/LogDatePicker";
+import RefreshIcon from "@mui/icons-material/Refresh";
 const LogsSection = () => {
   const { t } = useTranslation();
 
@@ -17,7 +18,7 @@ const LogsSection = () => {
   );
   const [rows, setRows] = useState<logType[]>([]);
 
-  const { data, status, error } = useApi<logType[]>(
+  const { data, status, error, refetch } = useApi<logType[]>(
     `logs/get-logs?date=${logsDate}`,
     "GET",
     undefined,
@@ -51,7 +52,17 @@ const LogsSection = () => {
     <LogDatePicker logsDate={logsDate} handleDateChange={handleDateChange} />
   );
 
-  const toolbar = [datePicker];
+  const refetchLogsButton = () => {
+    return (
+      <Tooltip title={"Refetch Logs"}>
+        <Button onClick={refetch}>
+          <RefreshIcon />
+        </Button>
+      </Tooltip>
+    );
+  };
+
+  const toolbar = [refetchLogsButton, datePicker];
 
   return (
     <Box>
