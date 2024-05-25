@@ -141,6 +141,7 @@ const ControlPanelUsersPage = () => {
     },
     {
       name: "options-1",
+      locale: "Edit",
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => editItemHandler(row)}>
           <EditRoundedIcon />

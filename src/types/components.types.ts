@@ -14,7 +14,7 @@ export type tableRowsType = {
 
 export type TableColsType = {
   name: string;
-  locale?: string;
+  locale: string;
   isLocked?: boolean;
   autoSelect?: boolean;
   width?: number;

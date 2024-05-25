@@ -6,7 +6,7 @@ import KeyboardReturnIcon from "@mui/icons-material/KeyboardReturn";
 //import AssignmentIcon from "@mui/icons-material/Assignment";
 import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import { PngIcon } from "@/components/shared/ui/icons/LogoIcon";
-
+import MonitorHeartIcon from "@mui/icons-material/MonitorHeart";
 export const navigationItems: navItemObject[] = [
   {
     name: "Apps",
@@ -62,6 +62,12 @@ export const controlPanelNavigationItems: navItemObject[] = [
     locale: "controlPanel.components.navbar.configurations",
     path: "/control-panel/configurations",
     icon: SettingsRoundedIcon,
+  },
+  {
+    name: "Activiy Monitor",
+    locale: "Activity Monitor", //"controlPanel.components.navbar.activityMonitor",
+    path: "/control-panel/activity-monitor",
+    icon: MonitorHeartIcon,
   },
   {
     name: "Return to Site",

@@ -68,7 +68,7 @@ const CustomTableHead: React.FC<CustomTableHeadProps> = ({
 
           return (
             <TableCell
-              key={col.name}
+              key={col.name + index}
               align={index > 0 && !isLocked ? "center" : "center"}
               sortDirection={orderBy === col.name ? order : false}
               sx={{

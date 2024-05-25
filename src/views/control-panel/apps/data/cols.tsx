@@ -189,6 +189,7 @@ export const getControlPanelAppsCols = ({
 
   {
     name: "options-edit",
+    locale: "Edit",
     render: (_value: string, row: tableRowsType) =>
       appsTableRenderers.editButton(
         row,

@@ -37,6 +37,14 @@ const ControlPanelConfigurationsPage = lazy(
       "@/views/control-panel/configurations/ControlPanelConfigurationsPage"
     )
 );
+
+const ControlPanelActivityMonitorPage = lazy(
+  () =>
+    import(
+      "@/views/control-panel/activity-monitor/ControlPanelActivityMonitorPage"
+    )
+);
+
 export const routes: RouteObject[] = [
   {
     key: "main layout",
@@ -137,6 +145,13 @@ export const routes: RouteObject[] = [
         path: "/control-panel/configurations",
         authority: "ADMIN",
         element: ControlPanelConfigurationsPage,
+        loader: ViaSpinnerLoader,
+      },
+      {
+        key: "control-panel-activity-monitor",
+        path: "/control-panel/activity-monitor",
+        authority: "ADMIN",
+        element: ControlPanelActivityMonitorPage,
         loader: ViaSpinnerLoader,
       },
     ],

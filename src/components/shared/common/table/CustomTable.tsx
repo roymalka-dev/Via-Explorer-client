@@ -67,7 +67,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
   const [activeColumns, setActiveColumns] = useState(
     new Set(
-      data.cols.filter((col) => col.autoSelect !== false).map((col) => col.name)
+      data.cols
+        .filter((col) => col.autoSelect !== false)
+        .map((col) => col.locale)
     )
   );
 
@@ -100,7 +102,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
    * @returns {Column[]} - The filtered columns.
    */
   const filteredCols = useMemo(
-    () => data.cols.filter((col) => activeColumns.has(col.name)),
+    () => data.cols.filter((col) => activeColumns.has(col.locale)),
     [data.cols, activeColumns]
   );
 
@@ -122,9 +124,10 @@ const CustomTable: React.FC<CustomTableProps> = ({
             />
           </Tooltip>
         }
-        options={data.cols.map((col) => col.name)}
-        active={filteredCols.map((col) => col.name)}
+        options={data.cols.map((col) => String(col.locale))}
+        active={filteredCols.map((col) => String(col.locale))}
         handler={(_selected, option) => toggleColumn(option)}
+        useT={true}
       />
     );
   };

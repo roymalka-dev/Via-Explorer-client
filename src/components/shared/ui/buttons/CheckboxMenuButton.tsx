@@ -4,15 +4,17 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Checkbox from "@mui/material/Checkbox";
 import FormControlLabel from "@mui/material/FormControlLabel";
+import { Box } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 type CheckboxMenuButtonProps = {
   name: React.ReactNode;
   options: string[];
   active: string[];
+  useT?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handler: (selected: boolean, option: string) => void;
 };
-
 const isChecked = (active: string[], option: string): boolean => {
   return active.includes(option);
 };
@@ -28,9 +30,10 @@ export const CheckboxMenuButton = (props: CheckboxMenuButtonProps) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const { t } = useTranslation();
 
   return (
-    <div>
+    <Box>
       <Button
         id="filter-button"
         aria-controls={open ? "filter-menu" : undefined}
@@ -49,21 +52,21 @@ export const CheckboxMenuButton = (props: CheckboxMenuButtonProps) => {
           "aria-labelledby": "filter-button",
         }}
       >
-        {props.options.map((option: string) => (
+        {props.options.map((option: string, index: number) => (
           <MenuItem key={option} onClick={(e) => e.stopPropagation()}>
             <FormControlLabel
-              name={option}
+              name={option + index}
               control={
                 <Checkbox
                   checked={isChecked(props.active, option)}
                   onChange={(e) => props.handler?.(e.target.checked, option)}
                 />
               }
-              label={option}
+              label={props.useT ? t(option) : option}
             />
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </Box>
   );
 };

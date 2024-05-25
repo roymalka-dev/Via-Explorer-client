@@ -120,6 +120,7 @@ const ControlPanelRequestsPage = () => {
     },
     {
       name: "options-launch",
+      locale: "Launch",
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => navigate(`/requests/view/${row.id}`)}>
           <LaunchRoundedIcon />
@@ -128,6 +129,8 @@ const ControlPanelRequestsPage = () => {
     },
     {
       name: "options-delete",
+      locale: "Delete",
+
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => deleteRequest(row.id)}>
           <DeleteRoundedIcon color={"secondary"} />
