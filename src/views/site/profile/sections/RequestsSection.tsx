@@ -63,6 +63,7 @@ const RequestsSection = () => {
     },
     {
       name: "options-1",
+      locale: "Launch",
       render: (_value: string, row: tableRowsType) => (
         <Button onClick={() => navigate(`/requests/view/${row.id}`)}>
           <LaunchRoundedIcon />
