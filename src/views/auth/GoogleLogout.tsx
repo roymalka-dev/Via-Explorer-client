@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Button, useTheme } from "@mui/material";
+import ApiService from "@/services/ApiService";
 
 /**
  * Component for Google logout functionality.
@@ -22,6 +23,7 @@ const GoogleLogout = () => {
    */
   const handleSignOut = async () => {
     await googleLogout();
+    await ApiService.post("auth/logout");
     dispatch(logout());
     await persistor.purge();
     navigate("/auth/login");
