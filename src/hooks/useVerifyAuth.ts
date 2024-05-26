@@ -31,7 +31,7 @@ const useVerifyAuth = (type: string) => {
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
-  }, [type, TIME_TO_VERIFY_AUTH_IN_MIN]);
+  }, [type, TIME_TO_VERIFY_AUTH_IN_MIN, navigate]);
 
   return {};
 };
