@@ -11,6 +11,8 @@ import { UserDataType } from "@/types/user.types";
 import logo from "@/assets/images/Via_logo.png";
 import { toast } from "react-toastify";
 import { toastConfig } from "@/configs/toast.config";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 /**
  * Component for the authentication page.
@@ -20,6 +22,9 @@ import { toastConfig } from "@/configs/toast.config";
  */
 const AuthPage = () => {
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
   const navigate = useNavigate();
   const { data, status, refetch } = useApi<UserDataType>(
     "user/get-user-details",
@@ -29,12 +34,18 @@ const AuthPage = () => {
     true // manual
   );
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(appConfig.authenticatedEntryPath);
+    }
+  }, [isAuthenticated]);
+
   /**
    * Function to set user credentials and trigger a data refetch.
    * @param {string} credential - User credential/token received from authentication.
    */
   const setUserAuthorization = async (credential: string) => {
-    await dispatch(
+    dispatch(
       setCredentials({
         token: credential,
       })

@@ -25,7 +25,7 @@ export const getControlPanelLogCols = () => [
   {
     name: "message",
     locale: "Message",
-    render: (value: string) => logsTableRenderers.string(value),
+    render: (value: string) => logsTableRenderers.expandString(value),
     comparator: comperators.string,
     isLocked: false,
   },
@@ -40,14 +40,14 @@ export const getControlPanelLogCols = () => [
   {
     name: "metadata",
     locale: "Tag",
-    render: (value: metadataType) => logsTableRenderers.string(value.tag),
+    render: (value: metadataType) => logsTableRenderers.string(value?.tag),
     comparator: comperators.string,
     isLocked: false,
   },
   {
     name: "metadata",
     locale: "Location",
-    render: (value: metadataType) => logsTableRenderers.string(value.location),
+    render: (value: metadataType) => logsTableRenderers.string(value?.location),
     comparator: comperators.string,
     isLocked: false,
   },

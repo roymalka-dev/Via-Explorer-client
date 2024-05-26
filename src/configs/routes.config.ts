@@ -22,6 +22,7 @@ const viewAppRequest = lazy(
 );
 const AuthPage = lazy(() => import("@/views/auth/AuthPage"));
 const NotFound = lazy(() => import("@/views/auth/NotFound"));
+const AccessDenied = lazy(() => import("@/views/auth/AccessDenied"));
 
 //const Dashboard = lazy(() => import("@/views/control-panel/dashboard/Dashboard"));
 const ControlPanelAppsPage = lazy(
@@ -184,6 +185,14 @@ export const routes: RouteObject[] = [
     key: "not-found",
     path: "*",
     element: NotFound,
+    loader: ViaSpinnerLoader,
+    protect: PublicRoute,
+    children: [],
+  },
+  {
+    key: "access-denied",
+    path: "/access-denied",
+    element: AccessDenied,
     loader: ViaSpinnerLoader,
     protect: PublicRoute,
     children: [],

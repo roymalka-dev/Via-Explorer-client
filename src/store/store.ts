@@ -9,6 +9,7 @@ import appsReducer from "./slices/appsSlice";
 import configurationsReducer from "./slices/configurationsSlice";
 import searchReducer from "./slices/searchSlice";
 import requestsReducer from "./slices/requestsSlice";
+
 const rootReducer = combineReducers({
   theme: themeReducer,
   filters: filtersReducer,

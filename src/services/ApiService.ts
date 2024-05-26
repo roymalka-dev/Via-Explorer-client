@@ -31,6 +31,11 @@ const makeRequest = async <T = any>(config: AxiosRequestConfig): Promise<T> => {
   // eslint-disable-next-line no-useless-catch
   try {
     const response = await ApiService(config);
+
+    if (response.status === 403 || response.status === 401) {
+      window.location.replace("/access-denied");
+    }
+
     return response.data;
   } catch (error) {
     throw error;

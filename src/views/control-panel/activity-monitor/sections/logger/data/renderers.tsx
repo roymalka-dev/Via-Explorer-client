@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 export const logsTableRenderers = {
   string: (value: string) => <Typography>{value}</Typography>,
   message: (value: string) => <Typography>{value}</Typography>,
-  expandString: (value: string) => <ExpandString value={value} minLen={25} />,
+  expandString: (value: string) => <ExpandString value={value} minLen={50} />,
 
   date: (value: string | Date) => (
     <Typography>
