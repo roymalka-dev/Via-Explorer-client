@@ -1,23 +1,29 @@
 import ApiService from "@/services/ApiService";
+import { RootState } from "@/store/store";
 import { getConfigValue } from "@/utils/configurations.utils";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const useVerifyAuth = (type: string) => {
   const TIME_TO_VERIFY_AUTH_IN_MIN = Number(
     getConfigValue("TIME_TO_VERIFY_AUTH_IN_MIN", 5)
   );
+
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated
+  );
+
   const navigate = useNavigate();
   useEffect(() => {
     const verifyUser = async () => {
       const authType = type === "user" ? "user" : "admin";
       try {
-        const response = await ApiService.get(`/auth/verify-${authType}`);
-
-        if (response.status === 403 || response.status === 401) {
-          navigate("/access-denied");
+        if (isAuthenticated) {
+          await ApiService.get(`/auth/verify-${authType}`);
         }
       } catch (err) {
+        console.error("Error verifying user: ", err);
         navigate("/access-denied");
       }
     };
@@ -31,7 +37,7 @@ const useVerifyAuth = (type: string) => {
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
-  }, [type, TIME_TO_VERIFY_AUTH_IN_MIN, navigate]);
+  }, [type, TIME_TO_VERIFY_AUTH_IN_MIN, navigate, isAuthenticated]);
 
   return {};
 };

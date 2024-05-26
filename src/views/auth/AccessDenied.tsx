@@ -1,23 +1,14 @@
 // NotFoundPage.tsx
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { logout } from "@/store/slices/authSlice";
-import { useDispatch } from "react-redux";
-import { persistor } from "@/store/store";
 
 const AccessDenied: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleGoBack = () => {
-    navigate("/auth/login");
+    navigate("/");
   };
-
-  useEffect(() => {
-    dispatch(logout());
-    persistor.purge();
-  }, [dispatch]);
 
   return (
     <Box

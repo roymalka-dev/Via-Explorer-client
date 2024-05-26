@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { Container, Box, Paper } from "@mui/material";
-import { setCredentials, setAuthorization } from "@/store/slices/authSlice";
+import {
+  setCredentials,
+  setAuthorization,
+  setAuthenticated,
+} from "@/store/slices/authSlice";
 import { GoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -64,6 +68,7 @@ const AuthPage = () => {
           authorization: data.authorization || "USER",
         })
       );
+      dispatch(setAuthenticated(true));
       navigate(appConfig.authenticatedEntryPath);
     }
 
