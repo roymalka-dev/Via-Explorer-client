@@ -2,11 +2,6 @@ import { comperators } from "@/utils/components.utils";
 
 import { logsTableRenderers } from "./renderers";
 
-export interface metadataType {
-  tag: string;
-  location: string;
-  error: string;
-}
 export const getControlPanelLogCols = () => [
   {
     name: "timestamp",
@@ -30,24 +25,23 @@ export const getControlPanelLogCols = () => [
     isLocked: false,
   },
   {
-    name: "metadata",
+    name: "error",
     locale: "Error",
-    render: (value: metadataType) =>
-      logsTableRenderers.expandString(value?.error),
+    render: (value: string) => logsTableRenderers.expandString(value),
     comparator: comperators.string,
     isLocked: false,
   },
   {
-    name: "metadata",
+    name: "tag",
     locale: "Tag",
-    render: (value: metadataType) => logsTableRenderers.string(value?.tag),
+    render: (value: string) => logsTableRenderers.string(value),
     comparator: comperators.string,
     isLocked: false,
   },
   {
-    name: "metadata",
+    name: "location",
     locale: "Location",
-    render: (value: metadataType) => logsTableRenderers.string(value?.location),
+    render: (value: string) => logsTableRenderers.string(value),
     comparator: comperators.string,
     isLocked: false,
   },
