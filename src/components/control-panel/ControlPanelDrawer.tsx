@@ -13,7 +13,6 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-// Import your navigation items and other necessary hooks
 import { controlPanelNavigationItems } from "@/configs/navigation.config";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -67,10 +66,6 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-/**
- * ControlPanelDrawer component for the Control Panel.
- * Renders the navigation drawer with menu items.
- */
 const ControlPanelDrawer: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
@@ -122,8 +117,7 @@ const ControlPanelDrawer: React.FC = () => {
                   justifyContent: open ? "initial" : "center",
                   px: 2.5,
                   ".MuiListItemIcon-root": {
-                    marginRight: theme.direction === "ltr" ? 2 : "auto",
-                    marginLeft: theme.direction === "rtl" ? 2 : "auto",
+                    marginLeft: theme.direction === "rtl" ? 0 : "auto",
                     justifyContent: "center",
                   },
                   ".MuiListItemText-root": {
