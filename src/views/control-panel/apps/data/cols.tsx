@@ -40,6 +40,13 @@ export const getControlPanelAppsCols = ({
     comparator: comperators.string,
     isLocked: true,
   },
+  {
+    name: "service_status",
+    locale: "Status",
+    render: (value: string) => appsTableRenderers.string(value),
+    comparator: comperators.string,
+    isLocked: true,
+  },
 
   {
     name: "env",
