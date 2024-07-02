@@ -22,7 +22,12 @@ import { updateQueries } from "@/store/slices/searchSlice";
 const LiveSearch = () => {
   // Delay for debouncing the search input, configurable via external configuration.
   const DEBOUNCE_SEARCH_INPUT_TIME_IN_MS = Number(
-    getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 300)
+    getConfigValue("DEBOUNCE_SEARCH_INPUT_TIME_IN_MS", 500)
+  );
+
+  const CLIENT_SEARCH_CACHE_ENABLED = getConfigValue(
+    "CLIENT_SEARCH_CACHE_ENABLED",
+    false
   );
 
   const searchCache = useSelector((state: RootState) => state.search);
@@ -48,10 +53,16 @@ const LiveSearch = () => {
   );
 
   useEffect(() => {
-    if (searchCache.queries[query]) {
+    if (CLIENT_SEARCH_CACHE_ENABLED && searchCache.queries[query]) {
       setDisplayedApps(searchCache.queries[query] || []);
     } else {
-      refetch();
+      const regex = /^[a-zA-Z0-9 \-_'"]*$/;
+
+      if (query === "" || (query && regex.test(query))) {
+        refetch();
+      } else {
+        toast.error(t("Invalid search query"), toastConfig);
+      }
     }
   }, [query]);
 

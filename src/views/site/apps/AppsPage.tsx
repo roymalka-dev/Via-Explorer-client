@@ -24,6 +24,10 @@ const AppsPage = () => {
   const TIME_TO_RESET_CLIENT_SEARCH_CACHE_IN_MIN = Number(
     getConfigValue("TIME_TO_RESET_SEARCH_CACHE_IN_MIN", 30)
   );
+  const CLIENT_SEARCH_CACHE_ENABLED = getConfigValue(
+    "CLIENT_SEARCH_CACHE_ENABLED",
+    false
+  );
 
   const theme = useTheme();
   const { t } = useTranslation();
@@ -50,6 +54,7 @@ const AppsPage = () => {
 
   useEffect(() => {
     if (
+      CLIENT_SEARCH_CACHE_ENABLED &&
       searchCache.queries[query] &&
       Date.now() - searchCache.ttl <
         TIME_TO_RESET_CLIENT_SEARCH_CACHE_IN_MIN * 60 * 1000
