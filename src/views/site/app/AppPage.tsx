@@ -171,28 +171,17 @@ const AppPage: React.FC = () => {
           <Typography variant="body2" color="text.secondary">
             {appData.data.id}
           </Typography>
-          {appData.data.serviceStatus && (
+          {appData.data.service_status && (
             <Chip
-              label={appData.data.serviceStatus}
+              label={appData.data.service_status}
               style={{
                 backgroundColor: getCityStatusChipColor(
-                  appData.data.serviceStatus
+                  appData.data.service_status
                 ),
                 opacity: 0.5,
               }}
             />
           )}
-          <Chip
-            label={"live"}
-            style={{
-              backgroundColor: getCityStatusChipColor("live"),
-              color: "white",
-              opacity: 0.5,
-              borderRadius: "8px",
-              fontWeight: "bold",
-              padding: "5px 10px",
-            }}
-          />
         </Typography>
         <Typography
           variant="body1"
