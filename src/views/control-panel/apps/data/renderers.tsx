@@ -39,7 +39,7 @@ export const appsTableRenderers = {
 
   chipArray: (value: string[]) => (
     <>
-      {value.map((item, index) => (
+      {value?.map((item, index) => (
         <Chip
           key={index}
           label={<Typography>{item}</Typography>}

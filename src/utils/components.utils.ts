@@ -1,4 +1,5 @@
 import { TableColsType, TableDataType } from "@/types/components.types";
+import { green, yellow, red, grey } from "@mui/material/colors";
 
 export const getStatusChipColor = (
   status: string
@@ -64,4 +65,18 @@ export const calculateStickyLeftPositions = (cols: TableColsType[]) => {
   });
 
   return leftPositions;
+};
+
+export const getCityStatusChipColor = (status: string): string => {
+  switch (status) {
+    case "live":
+      return green[500];
+    case "pre_launch":
+      return yellow[700];
+    case "suspended":
+      return red[500];
+    case "internal":
+    default:
+      return grey[500];
+  }
 };

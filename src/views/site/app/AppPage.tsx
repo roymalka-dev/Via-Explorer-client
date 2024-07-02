@@ -9,6 +9,7 @@ import {
   Stack,
   Grid,
   Button,
+  Chip,
 } from "@mui/material";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -29,6 +30,7 @@ import AppDetailsSection from "./sections/AppDetailsSection";
 import AppBuildManagerSection from "./sections/AppBuildManagerSection";
 import AppScreenshotsSection from "./sections/AppScreenshotsSection";
 import ViaSpinnerLoader from "@/components/shared/common/loaders/ViaSpinnerLoader";
+import { getCityStatusChipColor } from "@/utils/components.utils";
 
 const AppPage: React.FC = () => {
   const { t } = useTranslation();
@@ -169,6 +171,28 @@ const AppPage: React.FC = () => {
           <Typography variant="body2" color="text.secondary">
             {appData.data.id}
           </Typography>
+          {appData.data.serviceStatus && (
+            <Chip
+              label={appData.data.serviceStatus}
+              style={{
+                backgroundColor: getCityStatusChipColor(
+                  appData.data.serviceStatus
+                ),
+                opacity: 0.5,
+              }}
+            />
+          )}
+          <Chip
+            label={"live"}
+            style={{
+              backgroundColor: getCityStatusChipColor("live"),
+              color: "white",
+              opacity: 0.5,
+              borderRadius: "8px",
+              fontWeight: "bold",
+              padding: "5px 10px",
+            }}
+          />
         </Typography>
         <Typography
           variant="body1"
