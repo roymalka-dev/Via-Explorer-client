@@ -5,6 +5,8 @@ import {
 
 export const filterTypes: ComplexFilterOption[] = [
   { value: "id", label: "ID" },
+  { value: "service_status", label: "Status" },
+
   { value: "name", label: "Name" },
   { value: "iosVersion", label: "ios Version" },
   { value: "androidVersion", label: "android Version" },
