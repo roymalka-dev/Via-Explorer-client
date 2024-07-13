@@ -159,7 +159,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const sortedAndFilteredRows = useMemo(() => {
     let rows = data.rows.filter((row) =>
       Object.values(row).some((value) =>
-        value.toString().toLowerCase().includes(searchText.toLowerCase())
+        value?.toString().toLowerCase().includes(searchText.toLowerCase())
       )
     );
 
